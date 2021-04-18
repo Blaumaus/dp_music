@@ -1,0 +1,17 @@
+{
+    "plugins": ["react"],
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "settings": {
+        "react": {
+            "createClass": "createReactClass",
+
+            "pragma": "React",
+            "version": "16.4.1"
+        }
+    },
+    "parser": "babel-eslint",
+    "rules": {
+        "strict": 0
+    },
+    "env": { "es6": true, "browser": true }
+}
