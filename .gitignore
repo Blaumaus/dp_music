@@ -419,3 +419,5 @@ DerivedData
 
 # CocoaPods
 /ios/Pods/
+
+appsettings.json
