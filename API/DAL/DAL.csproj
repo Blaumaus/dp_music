@@ -15,8 +15,4 @@
     <PackageReference Include="node-uuid" Version="1.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BLL\BLL.csproj" />
-  </ItemGroup>
-
 </Project>

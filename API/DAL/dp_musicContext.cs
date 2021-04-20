@@ -60,6 +60,8 @@ namespace DAL
 
                 entity.Property(e => e.Description).HasMaxLength(1000);
 
+                entity.Property(e => e.Image).HasMaxLength(255);
+
                 entity.Property(e => e.FoundationDate).HasColumnType("date");
 
                 entity.Property(e => e.Name)
@@ -139,6 +141,8 @@ namespace DAL
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(700);
+
+                entity.Property(e => e.Image).HasMaxLength(255);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
