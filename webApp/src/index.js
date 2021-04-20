@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './containers/App';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router'
-import { store, history } from './redux/store'
+import { store } from './redux/store'
 
 
 ReactDOM.render(

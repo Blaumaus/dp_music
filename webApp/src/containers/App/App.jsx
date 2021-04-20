@@ -11,6 +11,7 @@ import SignIn from 'components/SignIn';
 import SignUp from 'components/SignUp';
 import ProtectedRoute from 'components/ProtectedRoute';
 import ProfileContainer from 'containers/ProfileContainer';
+import GenreContainer from 'containers/GenreContainer';
 import NavBar from 'components/NavBar';
 
 
@@ -39,7 +40,8 @@ function App() {
             <Switch>
                 <Route exact path='/SignIn' component={SignIn} />
                 <Route exact path='/SignUp' component={SignUp} />      
-                <ProtectedRoute exact path='/Profile' component={ProfileContainer} />                        
+                <ProtectedRoute exact path='/Profile' component={ProfileContainer} />     
+                <ProtectedRoute exact path='/Genres' component={GenreContainer} />                      
             </Switch>
         </div>
     );
