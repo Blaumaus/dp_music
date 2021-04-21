@@ -29,10 +29,12 @@
         "redux": "4.0.0",
         "redux-logger": "3.0.6",
         "redux-observable": "1.1.0",
-        "redux-thunk": "2.3.0",
+        "redux-thunk": "^2.3.0",
         "rxjs": "^6.4.0",
         "styled-components": "^4.2.0",
         "typeface-roboto": "0.0.54",
+        "uuid": "^8.3.2",
+        "uuidv4": "^6.2.7",
         "yup": "^0.26.10",
         "yup-phone": "^1.2.19"
     },

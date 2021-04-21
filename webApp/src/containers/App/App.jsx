@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 import { Switch, withRouter } from 'react-router';
 import Timeline from '@material-ui/icons/Timeline';
 import { isNil } from 'lodash';
-import { Route } from 'react-router';
+import { Route } from 'react-router-dom';
 import SignIn from 'components/SignIn';
 import SignUp from 'components/SignUp';
 import ProtectedRoute from 'components/ProtectedRoute';
@@ -38,16 +38,13 @@ function App() {
         <div className="App">
             <NavBar />
             <Switch>
-                <Route exact path='/SignIn' component={SignIn} />
+                {/* <Route exact path='/SignIn' component={SignIn} />
                 <Route exact path='/SignUp' component={SignUp} />      
-                <ProtectedRoute exact path='/Profile' component={ProfileContainer} />     
+                <ProtectedRoute exact path='/Profile' component={ProfileContainer} />      */}
                 <ProtectedRoute exact path='/Genres' component={GenreContainer} />                      
             </Switch>
         </div>
     );
 }
 
-export default withRouter(
-    withStyles(styles)
-        (App)
-);
+export default App;
