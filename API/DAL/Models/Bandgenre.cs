@@ -9,8 +9,8 @@ namespace DAL
 {
     public partial class Bandgenre
     {
-        public int BandId { get; set; }
-        public int GenreId { get; set; }
+        public string BandId { get; set; }
+        public string GenreId { get; set; }
 
         public virtual Band Band { get; set; }
         public virtual Genre Genre { get; set; }

@@ -16,10 +16,10 @@ namespace DAL
         }
 
         public string Id { get; set; }
-        public int AlbumId { get; set; }
+        public string AlbumId { get; set; }
         public string Name { get; set; }
-        public int BandId { get; set; }
-        public int GenreId { get; set; }
+        public string BandId { get; set; }
+        public string GenreId { get; set; }
         public int Year { get; set; }
         public string Lyrics { get; set; }
         public string Description { get; set; }

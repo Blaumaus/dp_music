@@ -33,7 +33,7 @@ namespace DAL
             modelBuilder.Entity<Album>(entity =>
             {
                 entity.ToTable("album");
-
+                entity.Property(e => e.Id).HasMaxLength(36);
                 entity.HasIndex(e => e.BandId)
                     .HasName("Album_fk0");
 
@@ -53,7 +53,7 @@ namespace DAL
             modelBuilder.Entity<Band>(entity =>
             {
                 entity.ToTable("band");
-
+                entity.Property(e => e.Id).HasMaxLength(36);
                 entity.Property(e => e.CountryCode)
                     .IsRequired()
                     .HasMaxLength(2);
@@ -137,7 +137,7 @@ namespace DAL
             modelBuilder.Entity<Genre>(entity =>
             {
                 entity.ToTable("genre");
-
+                entity.Property(e => e.Id).HasMaxLength(36);
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(700);
