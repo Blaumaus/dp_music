@@ -1,30 +1,31 @@
 import React from "react";
 import { withRouter } from 'react-router';
-import Genre from 'components/Genre'
+import Band from 'components/Band'
 import { connect } from "react-redux";
-import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer'
+import { Create, Update, Delete, getBands } from 'redux/reducers/band-reducer'
 import { compose } from 'redux'
 import { v4 as uuidv4 } from 'uuid';
 
-class GenreContainer extends React.Component {
-
+class BandContainer extends React.Component {
+   
     state = {
         //isLoading: true,
-        selectedGenre: null,
+        selectedBand: null,
         action: null,
         disableField: false,
         file: null,
         isAdmin: false
     };
-    newGenre = {
+    newBand = {
         //TODO: without id
         id: uuidv4(),
         name: '',
         image: '',
         description: '',
+        foundationDate:''
     };
     componentDidMount() {
-        this.props.getGenres();
+        this.props.getBands();
     };
 
     handleUpload = event => {
@@ -34,54 +35,56 @@ class GenreContainer extends React.Component {
     };
     onChange = (field, value) => {
         this.setState({
-            selectedGenre: { ...this.state.selectedGenre, [field]: value }
+            selectedBand: { ...this.state.selectedBand, [field]: value }
         })
     };
     handleButtonBackClick = () => {
         this.setState({
-            selectedGenre: null,
+            selectedBand: null,
             disableField: false,
             file: null
         })
     }
-    handleGenreItemClick = (genre) => {
+    handleBandItemClick = (band) => {
         const { history } = this.props
-        history.push(`/Bands/${genre.id}`)
+        debugger;
+        //Push to all songs or albums choice page
+        history.push(`/Select/${band.id}`)
         
     }
     handleClickCreate = () => {
         this.setState({
-            selectedGenre: this.newGenre,
+            selectedBand: this.newBand,
             action: 'create'
         })
     }
-    handleClickEdit = (genre) => {
+    handleClickEdit = (band) => {
         this.setState({
-            selectedGenre: genre,
+            selectedBand: band,
             action: 'update',
-            file: genre.image
+            file: band.image
         })
     }
-    handleClickDelete = (genre) => {
+    handleClickDelete = (band) => {
         this.setState({
-            selectedGenre: genre,
+            selectedBand: band,
             action: 'delete',
             disableField: true,
-            file: genre.image
+            file: band.image
         })
     }
     handleSubmit = () => {
-        const GenreToSubmit = {
-            ...this.state.selectedGenre, image: this.state.file
+        const BandToSubmit = {
+            ...this.state.selectedBand, image: this.state.file
         }
         switch (this.state.action) {
 
-            case 'create': this.props.Create(GenreToSubmit); break;
-            case 'update': this.props.Update(GenreToSubmit); break;
-            case 'delete': this.props.Delete(this.state.selectedGenre); break;
+            case 'create': this.props.Create(BandToSubmit); break;
+            case 'update': this.props.Update(BandToSubmit); break;
+            case 'delete': this.props.Delete(this.state.selectedBand); break;
         }
         this.setState({
-            selectedGenre: null,
+            selectedBand: null,
             action: null,
             disableField: false,
             file: null
@@ -90,7 +93,7 @@ class GenreContainer extends React.Component {
     }
 
     render() {
-        return <Genre
+        return <Band
             handleUpload={this.handleUpload}
             onChange={this.onChange}
             handleClickCreate={this.handleClickCreate}
@@ -98,24 +101,22 @@ class GenreContainer extends React.Component {
             handleClickDelete={this.handleClickDelete}
             handleSubmit={this.handleSubmit}
             handleButtonBackClick={this.handleButtonBackClick}
-            handleGenreItemClick={this.handleGenreItemClick}
+            handleBandItemClick={this.handleBandItemClick}
             disableField={this.state.disableField}
             file={this.state.file}
             isAdmin={this.state.isAdmin}
-            selectedGenre={this.state.selectedGenre}
-            genres={this.props.genres}
+            selectedBand={this.state.selectedBand}
+            bands={this.props.bands}
         />
     }
 }
-
 const mapStateToProps = state => {
     return {
-        genres: state.genrePage.genres
+        bands: state.bandPage.bands
 
     };
 };
-
 export default compose(
-    connect(mapStateToProps, { Create, Update, Delete, getGenres }),
+    connect(mapStateToProps, { Create, Update, Delete, getBands }),
     withRouter,
-)(GenreContainer);
+)(BandContainer);

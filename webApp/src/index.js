@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './containers/App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom'
-import store from 'redux/store'
-
+import { store, history } from './redux/store'
+import { ConnectedRouter } from 'connected-react-router'
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
             <App />
-        </Provider>
-    </BrowserRouter>,  
+        </ConnectedRouter>
+    </Provider>,
     document.getElementById('root')
 );

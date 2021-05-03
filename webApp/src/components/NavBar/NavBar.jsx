@@ -46,7 +46,7 @@ const NavBar = props => {
             <Toolbar>
                 <Avatar className={classes.avatar} src={logo} />
                 <Typography variant="h6" className={classes.title}>
-                    DP_Music
+                    Dp_Music
                     </Typography>
                 {isMobile ? (
                     <div>

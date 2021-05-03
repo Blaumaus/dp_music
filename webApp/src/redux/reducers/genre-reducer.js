@@ -1,16 +1,15 @@
 
 import { v4 as uuidv4 } from 'uuid';
-
-const CREATE = 'CREATE';
-const UPDATE = 'UPDATE';
-const DELETE = 'DELETE';
+import { LOCATION_CHANGE } from 'react-router-redux';
+const CREATE_GENRE = 'CREATE_GENRE';
+const UPDATE_GENRE = 'UPDATE_GENRE';
+const DELETE_GENRE = 'DELETE_GENRE';
 const SET_GENRES = 'SET_GENRES';
 
 
 let initialState = {
     genres: [
-        { id: uuidv4(), name: 'Rock', image: 'https://image.freepik.com/free-vector/rock-and-music-logo-template_1895-5.jpg', description: 'This is Rock' },
-        { id: uuidv4(), name: 'Rap', image: 'https://besthqwallpapers.com/Uploads/24-5-2020/134447/thumb2-gunna-4k-american-rapper-blue-neon-lights-music-stars.jpg', description: 'This is Rap' }
+
     ]
 };
 const GenreReducer = (state = initialState, action) => {
@@ -18,54 +17,61 @@ const GenreReducer = (state = initialState, action) => {
         case SET_GENRES: {
             return {
                 ...state,
-                genres: [...state.genres, ...action.genres]
+                genres: [...action.genres]
             }
         }
-        case CREATE: {
+        case CREATE_GENRE: {
+
             let newGenre = {
-                id: action.id,
-                name: action.name,
-                image: action.image,
-                description: action.description,
+                ...action.genre
             };
             return {
                 ...state,
                 genres: [...state.genres, newGenre]
             }
         }
-        case UPDATE: {
+        case UPDATE_GENRE: {
+
             return {
                 ...state,
                 genres: state.genres.map(g => {
-                    if (g.id === action.id) {
-                        return { action }
+                    if (g.id === action.genre.id) {
+                        return action.genre
                     }
                     return g;
                 })
             }
         }
-        case DELETE:
+        case DELETE_GENRE: {
+            return {
+                ...state,
+                genres: state.genres.filter(item => item !== action.genre),
+            }
+        }
         default:
             return state;
     }
 }
-export const SetGenresAC = (genres) => ({
+export const SetGenresSuccess = (genres) => ({
     type: SET_GENRES, genres
 })
 export const CreateSuccess = (genre) => ({
-    type: CREATE, genre
+    type: CREATE_GENRE, genre
 })
-export const UpdateSuccess = (genreId) => ({
-    type: UPDATE, genreId
+export const UpdateSuccess = (genre) => ({
+    type: UPDATE_GENRE, genre
 })
-export const DeleteSuccess = (genreId) => ({
-    type: DELETE, genreId
+export const DeleteSuccess = (genre) => ({
+    type: DELETE_GENRE, genre
 })
 
 export const getGenres = () => {
     return (dispatch) => {
         //TODO: Get FROM API
-        dispatch(SetGenresAC())
+        dispatch(SetGenresSuccess([
+            { id: 1, name: 'Rock', image: 'https://image.freepik.com/free-vector/rock-neon-signboard_118419-1285.jpg', description: 'This is Rock' },
+            { id: 2, name: 'Rap', image: 'https://image.freepik.com/free-vector/rap-neon-word-and-microphone-in-flame-outline_1262-11901.jpg', description: 'This is Rap' }
+        ]));
     }
 }
 export const Create = (genre) => {
@@ -74,10 +80,16 @@ export const Create = (genre) => {
         dispatch(CreateSuccess(genre))
     }
 }
-export const Update = (genreId) => {
+export const Update = (genre) => {
     return (dispatch) => {
         //TODO: PUT REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(UpdateSuccess(genreId))
+        dispatch(UpdateSuccess(genre))
+    }
+}
+export const Delete = (genre) => {
+    return (dispatch) => {
+        //TODO: DELETE REQUEST TO SERVER IF OK THEN dispatch
+        dispatch(DeleteSuccess(genre))
     }
 }
 export default GenreReducer;
