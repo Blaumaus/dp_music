@@ -29,7 +29,7 @@ export default function MediaCard(props) {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <ShowDetails name={props.name} description={props.description} />
+        <ShowDetails name={props.name} description={props.description} foundationDate={props.foundationDate}/>
       </Card>
     </div>
 

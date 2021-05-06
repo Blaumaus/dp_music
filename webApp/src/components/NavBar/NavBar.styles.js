@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     title: {
         [theme.breakpoints.down("xs")]: {
             flexGrow: 1
-        }
+        },
+        color:'white'
     },
     headerOptions: {
         display: "flex",

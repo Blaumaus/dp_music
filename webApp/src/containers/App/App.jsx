@@ -14,6 +14,7 @@ import ProfileContainer from 'containers/ProfileContainer';
 import GenreContainer from 'containers/GenreContainer';
 import BandContainer from 'containers/BandContainer';
 import SelectContainer from 'containers/SelectContainer';
+import AlbumContainer from 'containers/AlbumContainer';
 import NavBar from 'components/NavBar';
 
 
@@ -45,7 +46,9 @@ function App() {
                 <ProtectedRoute exact path='/Profile' component={ProfileContainer} />      */}
                 <Route exact path='/Genres' component={GenreContainer} />     
                 <Route exact path='/Bands/:genreId' component={BandContainer} />
-                <Route exact path='/Select/:bandId' component={SelectContainer} />                     
+                <Route exact path='/Select/:bandId' component={SelectContainer} /> 
+                <Route exact path='/Albums/:bandId' component={AlbumContainer} />    
+                {/* <Route exact path='/Compositions/:bandId(/:albumId)' component={SelectContainer} />                 */}
             </Switch>
         </div>
     );

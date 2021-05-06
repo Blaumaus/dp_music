@@ -46,12 +46,6 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
 
     },
-    snuckBarstyle: {
-        position: 'relative',
-        marginTop: theme.spacing(7),
-        height: 'auto',
-        fontSize: '1em',
-    },
     submit: {
         margin: theme.spacing(3, 0, 2),
         width: '40%',

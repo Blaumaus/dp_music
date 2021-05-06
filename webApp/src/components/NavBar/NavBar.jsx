@@ -36,18 +36,17 @@ const NavBar = props => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClick = (pageURL) => {
-        history.push(pageURL);
-        setAnchorEl(null);
+    const handleLogoLabelClick = () => {
+        history.push('/Genres');
     };
 
     return (
         <AppBar position="static" className={classes.root}>
             <Toolbar>
                 <Avatar className={classes.avatar} src={logo} />
-                <Typography variant="h6" className={classes.title}>
+                <Button component={Link} variant="h4" className={classes.title} onClick={handleLogoLabelClick}>
                     Dp_Music
-                    </Typography>
+                    </Button>
                 {isMobile ? (
                     <div>
                         <IconButton

@@ -21,8 +21,8 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   },
   showMoreButton: {
-    width:'100%'
- },
+    width: '100%'
+  },
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -58,17 +58,20 @@ export default function CustomizedDialogs(props) {
 
   return (
     <div>
-      <Button variant="text"  onClick={handleClickOpen} style={{width:'100%'}}>
-      Детальніше
+      <Button variant="text" onClick={handleClickOpen} style={{ width: '100%' }}>
+        Детальніше
       </Button>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {props.name}
         </DialogTitle>
         <DialogContent dividers>
+          {props.foundationDate ? (<Typography gutterBottom>
+            Дата створення: {props.foundationDate.toLocaleDateString('en-GB')}
+          </Typography>) : ('')}
           <Typography gutterBottom>
-          {props.description}
-          </Typography>        
+            {props.description}
+          </Typography>
         </DialogContent>
       </Dialog>
     </div>
