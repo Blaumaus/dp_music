@@ -421,3 +421,7 @@ DerivedData
 /ios/Pods/
 
 appsettings.json
+
+# Expo
+.expo/
+web-build/
