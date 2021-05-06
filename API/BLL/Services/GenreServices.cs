@@ -1,12 +1,16 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using BLL.DTO;
 using BLL.Interfaces;
 using DAL;
 using DAL.Repositories;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace BLL.Services
 {
@@ -14,11 +18,14 @@ namespace BLL.Services
     {
         private readonly IMapper _mapper;
         readonly UnitOfWork unitOfWork;
-
+        public IConfiguration Configuration { get; }
+        readonly string _contentFolder;
         public GenreServices(dp_musicContext context, IMapper mapper)
         {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             unitOfWork = new UnitOfWork(context);
             _mapper = mapper;
+            _contentFolder = config["Images"];
         }
 
         public async Task Delete(GenreDTO genreDTO)
@@ -30,6 +37,7 @@ namespace BLL.Services
         public async Task<GenreDTO> GetGenre(string id)
         {
             var genre = await Task.Run(() => _mapper.Map<Genre, GenreDTO>(unitOfWork.Genre.Get(id)));
+            genre.Image = _contentFolder + genre.Image;
             return genre;
         }
 
@@ -37,7 +45,9 @@ namespace BLL.Services
         {
             var genre = unitOfWork.Genre.Get(genreDTO.Id);
             genre.Name = genreDTO.Name;
-            genre.Image = genreDTO.Image;
+            ///
+            ////
+            //genre.Image = genreDTO.Image;
             genre.Description = genreDTO.Description;
 
             unitOfWork.Genre.Update(genre);
@@ -46,11 +56,19 @@ namespace BLL.Services
 
         public async Task Create(GenreDTO genreDTO)
         {
-            if (unitOfWork.Genre.Find(u => u.Name == genreDTO.Name).Any())
-                throw new Exception("the genre has already been created");
 
-            var genre = _mapper.Map<Genre>(genreDTO);
+            var genre = _mapper.Map<GenreDTO, Genre>(genreDTO);
+            genre.Id = Guid.NewGuid().ToString();
+            genre.Image = genre.Id + ".png";
             unitOfWork.Genre.Create(genre);
+            if (genreDTO.File.Length > 0)
+            {
+                using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
+                {
+                    genreDTO.File.CopyTo(fileStream);
+                    fileStream.Flush();
+                }
+            }
             await unitOfWork.SaveAsync();
         }
 

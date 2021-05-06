@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BLL.DTO;
 using BLL.Interfaces;
-using DAL;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -16,12 +15,10 @@ namespace API.Controllers
     public class GenreController : ControllerBase
     {
         private readonly IGenreService _genreService;
-        private readonly IMapper _mapper;
 
-        public GenreController(IGenreService genreService, IMapper mapper)
+        public GenreController(IGenreService genreService)
         {
             _genreService = genreService;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -41,7 +38,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GenreDTO>> Get(string id)
+        public async Task<ActionResult<GenreDTO>> Get([FromRoute]string id)
         {
             try
             {
@@ -57,10 +54,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GenreDTO>> Post(GenreDTO genreDTO)
+        public async Task<ActionResult<GenreDTO>> Post([FromForm] GenreDTO genreDTO)
         {
             try 
-            { 
+            {
                 await _genreService.Create(genreDTO);
                 return Ok();
             }

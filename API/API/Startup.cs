@@ -1,3 +1,4 @@
+
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Services;
@@ -7,7 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace API
 {
@@ -29,9 +32,14 @@ namespace API
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(o => o.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Title = "MyApi",
+                Version = "v1",
+                Description = "Des1"
+            }));
             services.AddDbContext<dp_musicContext>(
-            options => options.UseMySQL(Configuration.GetConnectionString("Dp_Database")));          
+            options => options.UseMySQL(Configuration.GetConnectionString("Dp_Database")));
             services.AddScoped<dp_musicContext>();
             services.AddControllers();
             services.AddTransient<IGenreService, GenreServices>();
@@ -58,7 +66,12 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+            Path.Combine(env.ContentRootPath, "wwwroot")),
+                RequestPath = "/wwwroot"
+            });
 
             app.UseDeveloperExceptionPage();
             app.UseDefaultFiles();
