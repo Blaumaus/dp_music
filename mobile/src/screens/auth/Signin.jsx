@@ -3,13 +3,15 @@ import { StatusBar } from 'expo-status-bar'
 import {
   ScrollView,
   TouchableOpacity,
-  View,
   KeyboardAvoidingView,
   Image,
-  Text,
-  TextInput,
-  Button,
 } from 'react-native'
+import {
+  Text,
+  TextField,
+  View,
+  Button,
+} from 'react-native-ui-lib'
 import styles from './styles'
 
 export default function ({ navigation }) {
@@ -34,12 +36,12 @@ export default function ({ navigation }) {
             />
           </View>
           <View style={styles.form}>
-            <Text fontWeight="bold" style={styles.formHeader} size="h3">
+            <Text style={styles.formHeader} uppercase>
               Sign in
 						</Text>
-            <Text>Email</Text>
-            <TextInput
-              containerStyle={styles.mt15}
+            <TextField
+              title="Email"
+              containerStyle={styles.mt10}
               placeholder="you@example.com"
               value={email}
               autoCapitalize="none"
@@ -49,10 +51,10 @@ export default function ({ navigation }) {
               onChangeText={setEmail}
             />
 
-            <Text style={styles.mt15}>Password</Text>
-            <TextInput
-              containerStyle={styles.mt15}
-              placeholder="password"
+            <TextField
+              title="Password"
+              containerStyle={styles.mt10}
+              placeholder="your secure password"
               value={password}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -61,23 +63,25 @@ export default function ({ navigation }) {
               onChangeText={setPassword}
             />
             <Button
-              title={loading ? 'Loading...' : 'Continue'}
-              onPress={login}
-              style={styles.actionButton}
+              label={loading ? 'Loading...' : 'Continue'}
               disabled={loading}
+              style={styles.actionButton}
+              onPress={login}
+              backgroundColor="#3366ff"
+              enableShadow
             />
 
             <View style={styles.secondaryContainer}>
-              <Text size="md">Don't have an account?</Text>
+              <Text>Don't have an account?</Text>
               <TouchableOpacity onPress={() => navigation.navigate('Auth.Signup')}>
-                <Text size="md" fontWeight="bold" style={styles.bottomText}>
+                <Text style={{...styles.bottomText, ...styles.link}}>
                   Register here
 								</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.tertiaryContainer}>
               <TouchableOpacity onPress={() => navigation.navigate('Auth.ForgotPassword')}>
-                <Text size="md" fontWeight="bold">
+                <Text style={styles.link}>
                   Forgot password
 								</Text>
               </TouchableOpacity>
