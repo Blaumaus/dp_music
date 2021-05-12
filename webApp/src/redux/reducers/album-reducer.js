@@ -1,5 +1,4 @@
 
-import { v4 as uuidv4 } from 'uuid';
 
 const CREATE_ALBUM = 'CREATE_ALBUM';
 const UPDATE_ALBUM = 'UPDATE_ALBUM';
@@ -72,14 +71,14 @@ export const getAlbums = () => {
         //TODO: Get FROM API
         dispatch(SetAlbumsSuccess([
             {
-                id: uuidv4(),
+                id: 1,
                 name: 'Unleashed',
                 image: 'https://upload.wikimedia.org/wikipedia/ru/8/8c/SkilletUnleasedCover.jpg',
                 year: 2016,
                 description: 'This is Unleashed Album Skillet group'
             },
             {
-                id: uuidv4(),
+                id: 2,
                 name: 'Back in Black',
                 image: 'https://342031.selcdn.ru/rusplt/images/25072020/1595670438055-upload.jpeg',
                 year: 1980,

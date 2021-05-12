@@ -4,8 +4,6 @@ import Genre from 'components/Genre'
 import { connect } from "react-redux";
 import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer'
 import { compose } from 'redux'
-import { v4 as uuidv4 } from 'uuid';
-
 class GenreContainer extends React.Component {
 
     state = {
@@ -13,23 +11,28 @@ class GenreContainer extends React.Component {
         selectedGenre: null,
         action: null,
         disableField: false,
-        file: null,
-        isAdmin: false
+        ImagefileToView: null,
+        ImagefileToSend: null,
+        isAdmin: true
     };
     newGenre = {
-        //TODO: without id
-        id: uuidv4(),
+        id: null,
         name: '',
-        image: '',
+        file: null,
+        image: null,
         description: '',
     };
     componentDidMount() {
         this.props.getGenres();
+        this.setState({
+            ImagefileToView: null
+        })
     };
 
     handleUpload = event => {
         this.setState({
-            file: URL.createObjectURL(event.target.files[0])
+            ImagefileToView: URL.createObjectURL(event.target.files[0]),
+            ImagefileToSend: event.target.files[0]
         })
     };
     onChange = (field, value) => {
@@ -41,13 +44,13 @@ class GenreContainer extends React.Component {
         this.setState({
             selectedGenre: null,
             disableField: false,
-            file: null
+            ImagefileToView: null
         })
     }
     handleGenreItemClick = (genre) => {
         const { history } = this.props
         history.push(`/Bands/${genre.id}`)
-        
+
     }
     handleClickCreate = () => {
         this.setState({
@@ -59,7 +62,7 @@ class GenreContainer extends React.Component {
         this.setState({
             selectedGenre: genre,
             action: 'update',
-            file: genre.image
+            ImagefileToView: genre.image
         })
     }
     handleClickDelete = (genre) => {
@@ -67,24 +70,25 @@ class GenreContainer extends React.Component {
             selectedGenre: genre,
             action: 'delete',
             disableField: true,
-            file: genre.image
+            ImagefileToView: genre.image
         })
     }
     handleSubmit = () => {
-        const GenreToSubmit = {
-            ...this.state.selectedGenre, image: this.state.file
-        }
+        const formData = new FormData();
+        const { selectedGenre, ImagefileToSend } = this.state;
+        formData.append('genre', selectedGenre);
+        formData.append('file', ImagefileToSend)
+     
         switch (this.state.action) {
 
-            case 'create': this.props.Create(GenreToSubmit); break;
-            case 'update': this.props.Update(GenreToSubmit); break;
+            case 'create': this.props.Create(formData); break;
+            case 'update': this.props.Update(formData); break;
             case 'delete': this.props.Delete(this.state.selectedGenre); break;
         }
         this.setState({
             selectedGenre: null,
             action: null,
             disableField: false,
-            file: null
         })
 
     }
@@ -100,7 +104,7 @@ class GenreContainer extends React.Component {
             handleButtonBackClick={this.handleButtonBackClick}
             handleGenreItemClick={this.handleGenreItemClick}
             disableField={this.state.disableField}
-            file={this.state.file}
+            ImagefileToView={this.state.ImagefileToView}
             isAdmin={this.state.isAdmin}
             selectedGenre={this.state.selectedGenre}
             genres={this.props.genres}

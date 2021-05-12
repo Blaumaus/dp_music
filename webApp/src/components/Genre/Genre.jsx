@@ -20,7 +20,7 @@ const Genre = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        genres, file, disableField, isAdmin, selectedGenre,
+        genres, ImagefileToView, disableField, isAdmin, selectedGenre,
         handleButtonBackClick, handleGenreItemClick } = props
 
     const validationSchema = yup.object({
@@ -52,7 +52,7 @@ const Genre = props => {
                             <Form onSubmit={handleSubmit}>
 
                                 <div className={classes.upload}>
-                                    <img src={file} className={classes.avatar} />
+                                    <img src={ImagefileToView} className={classes.avatar} />
                                     <input
                                         accept="image/*"
                                         className={classes.input}

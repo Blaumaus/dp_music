@@ -54,7 +54,7 @@ namespace BLL.Services
             await unitOfWork.SaveAsync();
         }
 
-        public async Task Create(GenreDTO genreDTO)
+        public async Task Create(GenreDTO genreDTO, object file)
         {
 
             var genre = _mapper.Map<GenreDTO, Genre>(genreDTO);
@@ -74,8 +74,12 @@ namespace BLL.Services
 
         public async Task<IEnumerable<GenreDTO>> GetAllGenre()
         {
-            var genre = await Task.Run(() => _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(unitOfWork.Genre.GetAll()));
-            return genre;
+            var genres = await Task.Run(() => _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(unitOfWork.Genre.GetAll()));
+            foreach( var genre in genres)
+            {
+                genre.Image = _contentFolder + genre.Image;
+            }
+            return genres;
         }
     }
 }
