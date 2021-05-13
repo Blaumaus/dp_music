@@ -22,6 +22,8 @@ export default function ({ navigation }) {
   async function login() {
     setLoading(true)
     // TODO: Implement auth logic using Redux Saga patterns
+    setLoading(false)
+    navigation.navigate('Main')
   }
 
   return (
@@ -83,6 +85,13 @@ export default function ({ navigation }) {
               <TouchableOpacity onPress={() => navigation.navigate('Auth.ForgotPassword')}>
                 <Text style={styles.link}>
                   Forgot password
+								</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.secondaryContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate('Main')}>
+                <Text style={styles.link}>
+                  Continue as an Anonymous
 								</Text>
               </TouchableOpacity>
             </View>
