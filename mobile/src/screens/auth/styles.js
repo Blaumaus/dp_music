@@ -24,8 +24,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   formHeader: {
+    fontSize: 20,
     alignSelf: 'center',
-    padding: 30,
+    paddingTop: 20,
+    paddingBottom: 10,
   },
   actionButton: {
     marginTop: 20,
@@ -45,8 +47,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'center',
   },
-  mt15: {
-    marginTop: 15,
+  mt10: {
+    marginTop: 10,
+  },
+  link: {
+    color: '#3366ff',
   }
 })
 

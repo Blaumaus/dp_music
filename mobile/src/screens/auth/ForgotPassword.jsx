@@ -3,13 +3,15 @@ import { StatusBar } from 'expo-status-bar'
 import {
   ScrollView,
   TouchableOpacity,
-  View,
   KeyboardAvoidingView,
   Image,
-  TextInput,
-  Button,
-  Text,
 } from 'react-native'
+import {
+  Text,
+  TextField,
+  View,
+  Button,
+} from 'react-native-ui-lib'
 import styles from './styles'
 
 export default function ({ navigation }) {
@@ -32,12 +34,12 @@ export default function ({ navigation }) {
           />
         </View>
         <View style={styles.form}>
-          <Text size="h3" fontWeight="bold" style={styles.formHeader}>
-            Forget Password
-						</Text>
-          <Text>Email</Text>
-          <TextInput
-            containerStyle={styles.mt15}
+          <Text style={styles.formHeader} uppercase>
+            Forgot Password
+					</Text>
+          <TextField
+            title="Email"
+            containerStyle={styles.mt10}
             placeholder="you@example.com"
             value={email}
             autoCapitalize="none"
@@ -47,17 +49,19 @@ export default function ({ navigation }) {
             onChangeText={setEmail}
           />
           <Button
-            title={loading ? 'Loading...' : 'Reset password'}
-            onPress={forget}
-            style={styles.actionButton}
+            label={loading ? 'Loading...' : 'Reset password'}
             disabled={loading}
+            style={styles.actionButton}
+            onPress={forget}
+            backgroundColor="#3366ff"
+            enableShadow
           />
           <View style={styles.secondaryContainer}>
-            <Text size="md">Already have an account?</Text>
+            <Text>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Auth.Signin')}>
-              <Text size="md" fontWeight="bold" style={styles.bottomText}>
+              <Text style={{...styles.bottomText, ...styles.link}}>
                 Login here
-								</Text>
+							</Text>
             </TouchableOpacity>
           </View>
         </View>
