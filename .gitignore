@@ -425,3 +425,6 @@ appsettings.json
 # Expo
 .expo/
 web-build/
+
+# Environment
+.env
