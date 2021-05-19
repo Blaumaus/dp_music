@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "musicForms", "musicForms\musicForms.csproj", "{A3224517-7DF9-4F5D-9379-5508A127613A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DP_music", "DP_music\DP_music.csproj", "{7D024CC6-24E9-4385-B4A6-91D64945446E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A3224517-7DF9-4F5D-9379-5508A127613A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3224517-7DF9-4F5D-9379-5508A127613A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3224517-7DF9-4F5D-9379-5508A127613A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3224517-7DF9-4F5D-9379-5508A127613A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D024CC6-24E9-4385-B4A6-91D64945446E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D024CC6-24E9-4385-B4A6-91D64945446E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D024CC6-24E9-4385-B4A6-91D64945446E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D024CC6-24E9-4385-B4A6-91D64945446E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B509558D-42B2-43AD-ADF3-748621453C41}
+		SolutionGuid = {286FBBAA-0AF6-44EE-AEDB-A321AC808076}
 	EndGlobalSection
 EndGlobal

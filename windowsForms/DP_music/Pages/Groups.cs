@@ -8,14 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace musicForms
+namespace DP_music
 {
-    public partial class Form1 : Form
+    public partial class Groups : Form
     {
-        public Form1()
+        public Groups()
         {
             InitializeComponent();
         }
-
     }
 }
