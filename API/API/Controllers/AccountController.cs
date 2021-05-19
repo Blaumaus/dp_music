@@ -75,7 +75,7 @@ namespace API.Controllers
         public ActionResult<RestResponse<bool>> IsAuthorizedUser()
         {
             var isAuthenticatedUser = User.Identity.IsAuthenticated;
-
+            
             try
             {
                 return _isAuthorizedUserService.IsAuthenticatedUser(isAuthenticatedUser);
