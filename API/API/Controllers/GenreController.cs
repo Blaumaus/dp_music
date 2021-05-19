@@ -54,7 +54,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GenreDTO>> Post(GenreDTO genreDTO)
+        public async Task<ActionResult<GenreDTO>> Post([FromForm] GenreDTO genreDTO)
         {
             try 
             {
@@ -67,8 +67,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(GenreDTO genreDTO)
+        [HttpPut]
+        public async Task<ActionResult> Put([FromForm]GenreDTO genreDTO)
         {
             if (genreDTO == null)
                 return NotFound();

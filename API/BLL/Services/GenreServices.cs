@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -30,7 +29,14 @@ namespace BLL.Services
 
         public async Task Delete(GenreDTO genreDTO)
         {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), genreDTO.Image.Replace("//", "\\"));
             unitOfWork.Genre.Delete(genreDTO.Id);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
             await unitOfWork.SaveAsync();
         }
 
@@ -44,24 +50,39 @@ namespace BLL.Services
         public async Task Update(GenreDTO genreDTO)
         {
             var genre = unitOfWork.Genre.Get(genreDTO.Id);
-            genre.Name = genreDTO.Name;
-            ///
-            ////
-            //genre.Image = genreDTO.Image;
-            genre.Description = genreDTO.Description;
+            if(genreDTO.Name != null)
+                genre.Name = genreDTO.Name;
+            if (genreDTO.Description != null)
+                genre.Description = genreDTO.Description;
+
+            
+            if (genreDTO.File != null)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), genre.Image);
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+
+                    using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
+                    {
+                        genreDTO.File.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                }
+            }
 
             unitOfWork.Genre.Update(genre);
             await unitOfWork.SaveAsync();
         }
 
-        public async Task Create(GenreDTO genreDTO, object file)
+        public async Task Create(GenreDTO genreDTO)
         {
 
             var genre = _mapper.Map<GenreDTO, Genre>(genreDTO);
             genre.Id = Guid.NewGuid().ToString();
             genre.Image = genre.Id + ".png";
             unitOfWork.Genre.Create(genre);
-            if (genreDTO.File.Length > 0)
+            if (genreDTO.File != null)
             {
                 using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
                 {
