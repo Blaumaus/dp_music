@@ -44,9 +44,9 @@ const NavBar = props => {
         <AppBar position="static" className={classes.root}>
             <Toolbar>
                 <Avatar className={classes.avatar} src={logo} />
-                <Button component={Link} variant="h4" className={classes.title} onClick={handleLogoLabelClick}>
+                <Typography  variant="h6" className={classes.title} onClick={handleLogoLabelClick}>
                     Dp_Music
-                    </Button>
+                    </Typography>
                 {isMobile ? (
                     <div>
                         <IconButton

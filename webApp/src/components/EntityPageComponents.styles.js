@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
             color: "white",
         },
     },
-    
+
     paperForm: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -61,6 +61,51 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
         display: 'none',
+    },
+    audioPlayer: {
+        margin: theme.spacing(8),
+    },
+    audioPlayerCompositionName: {
+        margin: theme.spacing(3),  
+        width:'auto',
+    },
+    arrayEmpty: {
+        marginLeft: '10%',
+        marginTop: theme.spacing(4),
+        display: 'flex',
+        fontSize:'2em'
+    },
+    compositonsActions: {
+        display: 'flex',
+        fontSize:'2em',
+        'cursor': 'pointer',
+        marginLeft: theme.spacing(2),
+    },
+    compositonsActionsContainer: {
+        marginLeft: '2%',
+        padding: theme.spacing(2),
+    },
+    listItem: {
+       
+        padding: theme.spacing(2),
+        borderColor: "#0275d8",
+        '&:hover': {
+            background: "#3f50b5",
+            color: "white",
+        },
+    },
+    compositionIcons: {
+        display: 'grid',
+        'justify-items': 'center',
+        'align-items': 'center'
+    },
+    addCompositionButton: {
+        marginTop: theme.spacing(1),
+        position: 'relative',
+        marginLeft: '50%',
+        transform: 'translate(-50%, 0)',
+        margin: theme.spacing(0.5),
+        width: '4em',
     },
 }));
 

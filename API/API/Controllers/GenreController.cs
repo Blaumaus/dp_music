@@ -54,7 +54,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GenreDTO>> Post([FromForm] GenreDTO genreDTO)
+        public async Task<ActionResult<GenreDTO>> Post(GenreDTO genreDTO)
         {
             try 
             {

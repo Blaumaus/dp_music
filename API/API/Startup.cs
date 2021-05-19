@@ -40,6 +40,8 @@ namespace API
             }));
             services.AddDbContext<dp_musicContext>(
             options => options.UseMySQL(Configuration.GetConnectionString("Dp_Database")));
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins(Configuration.GetSection("UIHosts:WebSpeakHost").Value)
+            .AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
             services.AddScoped<dp_musicContext>();
             services.AddControllers();
             services.AddTransient<IGenreService, GenreServices>();

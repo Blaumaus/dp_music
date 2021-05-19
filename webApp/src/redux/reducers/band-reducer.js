@@ -1,6 +1,4 @@
 
-import { v4 as uuidv4 } from 'uuid';
-
 const CREATE_BAND = 'CREATE_BAND';
 const UPDATE_BAND = 'UPDATE_BAND';
 const DELETE_BAND = 'DELETE_BAND';
@@ -72,7 +70,7 @@ export const getBands = () => {
         //TODO: Get FROM API
         dispatch(SetBandsSuccess([
             {
-                id: uuidv4(),
+                id: 1,
                 name: 'AC/DC',
                 image: 'https://acdcfans.ru/wp-content/uploads/2020/10/800px-acdcpowerup.jpg',
                 countryCode: 'UA',
@@ -80,7 +78,7 @@ export const getBands = () => {
                 description: 'This is AC/DC'
             },
             {
-                id: uuidv4(),
+                id: 2,
                 name: 'Skillet',
                 image: 'https://tekst-pesni.online/wp-content/uploads/2020/03/32-4.jpg',
                 countryCode: 'RU',
