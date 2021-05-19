@@ -54,7 +54,7 @@ namespace BLL.Services
             await unitOfWork.SaveAsync();
         }
 
-        public async Task Create(GenreDTO genreDTO, object file)
+        public async Task Create(GenreDTO genreDTO)
         {
 
             var genre = _mapper.Map<GenreDTO, Genre>(genreDTO);
