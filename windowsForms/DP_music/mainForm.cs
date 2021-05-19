@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using DP_music.Pages;
 
 namespace DP_music
 {
@@ -58,7 +59,7 @@ namespace DP_music
             this.Close();
         }
 
-        private void changeButtonColor(Panel panel, Button btn, int r, int g, int b )
+        private void changeButtonColor(Panel panel, Button btn, int r, int g, int b)
         {
             panel.Visible = true;
             panel.Height = btn.Height;
@@ -81,6 +82,7 @@ namespace DP_music
         private void buttonGenres_Click(object sender, EventArgs e)
         {
             changeButtonColor(panelNav, buttonGenres, 19, 24, 54);
+            openChildForm(new Genres());
         }
         private void buttonComposition_Click(object sender, EventArgs e)
         {
@@ -129,5 +131,11 @@ namespace DP_music
             buttonRecord.BackColor = Color.FromArgb(41, 52, 117);
         }
         #endregion
+
+        
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

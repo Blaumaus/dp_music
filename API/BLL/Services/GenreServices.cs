@@ -75,6 +75,11 @@ namespace BLL.Services
         public async Task<IEnumerable<GenreDTO>> GetAllGenre()
         {
             var genre = await Task.Run(() => _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(unitOfWork.Genre.GetAll()));
+            foreach(var g in genre)
+            {
+                g.Image = _contentFolder + g.Image;
+            }
+            
             return genre;
         }
     }
