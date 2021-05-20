@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="wwwroot\" />
+=======
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\Images\" />
+>>>>>>> windowsForms
   </ItemGroup>
 
   <ItemGroup>
