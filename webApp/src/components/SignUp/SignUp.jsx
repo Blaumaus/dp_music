@@ -1,481 +1,214 @@
-// import React, { useEffect, useState } from 'react';
-// import Avatar from '@material-ui/core/Avatar';
-// import TextField from '@material-ui/core/TextField';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Button from '@material-ui/core/Button';
-// import Container from '@material-ui/core/Container';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-// import Typography from '@material-ui/core/Typography';
-// import Grid from '@material-ui/core/Grid';
-// import IconButton from '@material-ui/core/IconButton';
-// import Visibility from '@material-ui/icons/Visibility';
-// import VisibilityOff from '@material-ui/icons/VisibilityOff';
-// import OutlinedInput from '@material-ui/core/OutlinedInput';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import InputAdornment from '@material-ui/core/InputAdornment';
-// import AccountApi from '../../api/modules/account';
-// import LanguageApi from '../../api/modules/language';
-// import Select from '@material-ui/core/Select';
-// import FormControl from '@material-ui/core/FormControl';
-// import Stepper from '@material-ui/core/Stepper';
-// import Step from '@material-ui/core/Step';
-// import StepLabel from '@material-ui/core/StepLabel';
-// import DateFnsUtils from '@date-io/date-fns';
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardDatePicker,
-// } from '@material-ui/pickers';
-// import { Formik, Form } from 'formik'
-// import * as yup from 'yup';
+import React from 'react';
+import { Typography } from 'antd';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import { Link } from 'react-router-dom';
+import useStyles from './SignUp.styles';
+import 'antd/dist/antd.css';
+import './SignUp.css';
+import { Input, Button, Row, Col } from 'antd';
+import { Form } from 'formik-antd';
+import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(8),
-//     display: 'flex',
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//   },
-//   avatar: {
-//     margin: theme.spacing(1),
-//     backgroundColor: theme.palette.secondary.main,
-//   },
-//   form: {
-//     width: '100%', // Fix IE 11 issue.
-//     marginTop: theme.spacing(2),
-//   },
-//   inputLabel: {
-//     marginBottom: theme.spacing(-1),
-//     position: 'relative',
-//     transform: 'translate(14px, -6px) scale(0.75)',
-//   },
-//   stepper: {
-//     width: '90%',
-//     position: 'inherit',
-//     padding: 0,
-//     margin: '5% 5% 10% 5%',
-//     'background-color': 'inherit',
-//   },
-//   buttonsGrid: {
-//     'margin-top': '2%',
-//   },
-//   errorLabel: {
-//     'font-size': '0.75rem',
-//     'margin-top': '3px',
-//     'text-align': 'left',
-//     'font-family': '"Roboto", "Helvetica", "Arial", sans-serif',
-//     'font-weight': '400',
-//     'line-height': '1.66',
-//     'letter-spacing': '0.03333em',
-//     color: '#f44336',
-//     'margin-left': '14px',
-//     'margin-right': '14px',
-//   },/*  */
-//   registrationFinishedText: {
-//     'text-align': 'center',
-//     'margin-top': '30%',
-//   },
-// }));
+const { Text, Title } = Typography;
 
-// const SignUp = (props) => {
-//   const classes = useStyles();
-//   const [user, setUser] = React.useState({
-//     userName: "",
-//     firstName: "",
-//     lastName: "",
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//     phone: "",
-//     dateBirth: null,
-//     nativeLanguageId: 0,
-//     targetLanguageId: 1,
-//     avatar: "",
-//     showPassword: false,
-//     showConfirmPassword: false,
-//   });
-//   const [nativelanguages, setNativeLanguages] = useState([]);
-//   const [targetlanguages, setTargetLanguages] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [activeStep, setActiveStep] = React.useState(0);
-//   const [selectedDate, setSelectedDate] = useState(new Date());
-//   const [selectedLanguage, setSelectedLanguage] = useState([]);
-//   const phoneRegExp = /^((\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-//   const emailRegExp = /^[^@]+@[^@]+\.[^@]+$/
-//   const validationSchema = yup.object({
-//     userName: yup
-//       .string()
-//       .required('Username required'),
-//     email: yup
-//       .string()
-//       .required('Email required')
-//       .matches(emailRegExp, 'Incorrect email'),
-//     firstName: yup
-//       .string()
-//       .required('First Name required'),
-//     lastName: yup
-//       .string()
-//       .required('Last Name required'),
-//     password: yup
-//       .string()
-//       .required('Password required'),
-//     confirmPassword: yup
-//       .string()
-//       .oneOf([yup.ref('password'), null], "Passwords don't match!")
-//       .required('Confirm password required'),
-//     phone: yup
-//       .string()
-//       .matches(phoneRegExp, 'Incorrect phone'),
-//     nativeLanguageId: yup
-//       .number(),
-//     targetLanguageId: yup
-//       .number()
-//       .test('', (value) =>
-//         Promise.resolve(value != user.nativeLanguageId),
-//   )});
+const SignUp = props => {
+  const classes = useStyles();
 
-//   useEffect(() => {
-//     loadInitialLanguagesData();
-//     setLoading(false);
-//   }, []);
 
-//   const handleSubmit = async () => (
-//     (activeStep === steps.length - 1) ? (
-//       setActiveStep((prevActiveStep) => prevActiveStep + 1),
-//       AccountApi.register(user)
-//     ) : (
-//       setActiveStep((prevActiveStep) => prevActiveStep + 1))
-//   );
-  
-//   const handleLanguageChange = (event) => {
-//     const name = event.target.name;
-//     setSelectedLanguage({
-//       ...selectedLanguage,
-//       [name]: event.target.value
-//     })
-//     setUser({
-//       ...user,
-//       [name]: +event.target.value
-//     })
-//   };
+  const {
+    user,
+    isValidatingUserName,
+    isValidatedUserName,
+    isValidatingEmail,
+    isValidatedEmail,
+    onChange,
+    validateUserName,
+    validateEmail,
+    handleSubmit,
+    handleUserNameFieldChange,
+    handleEmailFieldChange,
+    isValidEmail,
+    isValidUserName,
+    isMobile,
+  } = props;
 
-//   const handleClickShowPassword = () => {
-//     setUser({ ...user, showPassword: !user.showPassword });
-//   };
+  const emailRegExp = /^[^@]+@[^@]+\.[^@]+$/
+  const validationSchema = yup.object({
+    userName: yup
+      .string()
+      .required('Username required')
+      .test({
+        name: 'userName',
+        message: 'This User Name is already exist',
+        exclusive: true,
+        test: (isValid) => {
+          if (user.userName !== '' && isValidatedUserName === false) {
+            isValid = validateUserName();
 
-//   const handleClickShowConfirmPassword = () => {
-//     setUser({ ...user, showConfirmPassword: !user.showConfirmPassword });
-//   };
+            return isValid;
+          }
+          return true;
+        }
+      }),
+    email: yup
+      .string()
+      .required('Email required')
+      .email('Incorrect email')
+      .test({
+        name: 'email',
+        exclusive: true,
+        message: 'This Email is already exist',
+        test: (isValid) => {
+          if (user.email !== '' && isValidatedEmail === false && emailRegExp.test(user.email)) {
+            isValid = validateEmail();
+            return isValid;
+          }
+          return true;
+        }
+      }),
+    password: yup
+      .string()
+      .required('Password required'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], "Passwords don't match!")
+      .required('Confirm password required')
+  });
+  const onFieldChange = (event) => {
+    const fieldName = event.target.name;
+    const fieldValue = event.target.value;
+    onChange(fieldName, fieldValue);
+  };
 
-//   const handleMouseDownPassword = (event) => {
-//     event.preventDefault();
-//   };
+  const handleBlur = () => { };
 
-//   const handleMouseDownConfirmPassword = (event) => {
-//     event.preventDefault();
-//   };
+  const getValidationStatusUserName = () => {
+    if (isValidatingUserName) {
+      return 'validating'
+    }
+    if (isValidatedUserName && isValidatingUserName === false) {
+      if (isValidUserName) {
+        return 'success'
+      }
+      return 'error'
+    } else {
+      return ''
+    }
+  };
 
-//   const handleChange = (event) => {
-//     const { name, value } = event.target
-//     setUser(prevState => ({
-//       ...prevState,
-//       [name]: value
-//     }))
-//   };
+  const getValidationStatusEmail = () => {
+    if (isValidatingEmail) {
+      return 'validating'
+    }
+    if (isValidatedEmail && isValidatingEmail === false) {
+      if (isValidEmail) {
+        return 'success'
+      }
+      return 'error'
+    } else {
+      return ''
+    }
+  };
 
-//   const setLanguage = (data) => {
-//     const languages = Array.isArray(data) ? data : Object.values(data);
-//     try {
-//       setNativeLanguages(languages);
-//       setTargetLanguages(languages);
-//     }
-//     catch (e) {
-//       console.error(e)
-//     }
-//   }
+  const getRegistrationForm = (values, touched, errors) => {
 
-//   const loadTranslations = async (languageId) => {
-//     const { data } = await LanguageApi.getLanguage(languageId);
-//     setLanguage(data)
-//   }
-
-//   const loadInitialLanguagesData = async () => {
-//     const languageIso = window.navigator.language;
-//     const { data } = await LanguageApi.getLanguageByIso(languageIso);
-//     loadInitialLanguagesTranslations(data);
-//     setSelectedLanguage({ ...selectedLanguage, nativeLanguageId: data.languageIdToTranslate });
-//     setUser({ ...user, nativeLanguageId: data.languageIdToTranslate });
-//   }
-
-//   const loadInitialLanguagesTranslations = async (browserLanguageData) => {
-//     try {
-//       const nativeLanguageId = browserLanguageData.languageIdToTranslate;
-//       const { data } = await LanguageApi.getLanguage(nativeLanguageId);
-//       setLanguage(data)
-//     } catch (e) {
-//       console.error(e)
-//     }
-//   }
-
-//   const handleDateChange = (date) => {
-//     setSelectedDate(date)
-//     user.dateBirth = date
-//   };
-
-//   const handleBack = () => {
-//     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-//   };
-
-//   const getSteps = () => {
-//     return ['Main data', 'Additional data'];
-//   }
-
-//   const steps = getSteps();
-
-//   const getStepContent = (step, values, touched, errors) => {
-//     switch (step) {
-//       case 0:
-//         return <Grid container spacing={2}>
-//           <Grid item xs={12}>
-//             <TextField
-//               fullWidth
-//               autoFocus
-//               name="userName"
-//               label="User name"
-//               variant="outlined"
-//               value={values.userName || ''}
-//               onChange={handleChange}
-//               error={touched.userName && Boolean(errors.userName)}
-//               helperText={touched.userName && errors.userName} />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               fullWidth
-//               name="email"
-//               label="Email"
-//               variant="outlined"
-//               value={values.email || ''}
-//               onChange={handleChange}
-//               error={touched.email && Boolean(errors.email)}
-//               helperText={touched.email && errors.email} />
-//           </Grid>
-//           <Grid item xs={12} sm={6}>
-//             <TextField
-//               fullWidth
-//               name="firstName"
-//               label="First name"
-//               variant="outlined"
-//               value={values.firstName}
-//               onChange={handleChange}
-//               error={touched.firstName && Boolean(errors.firstName)}
-//               helperText={touched.firstName && errors.firstName} />
-//           </Grid>
-//           <Grid item xs={12} sm={6}>
-//             <TextField
-//               fullWidth
-//               name="lastName"
-//               label="Last name"
-//               variant="outlined"
-//               value={values.lastName}
-//               onChange={handleChange}
-//               error={touched.lastName && Boolean(errors.lastName)}
-//               helperText={touched.lastName && errors.lastName} />
-//           </Grid>
-//           <Grid item xs={12}>
-//             {touched.password && errors.password ? (<InputLabel className={classes.inputLabel}></InputLabel>) : (<InputLabel className={classes.inputLabel}>Password</InputLabel>)}
-//             <OutlinedInput
-//               id="password"
-//               name="password"
-//               fullWidth
-//               type={values.showPassword ? 'text' : 'password'}
-//               value={values.password}
-//               onChange={handleChange}
-//               error={touched.password && Boolean(errors.password)}
-//               endAdornment={
-//                 <InputAdornment position="end">
-//                   <IconButton
-//                     aria-label="toggle password visibility"
-//                     onClick={handleClickShowPassword}
-//                     onMouseDown={handleMouseDownPassword}
-//                     edge="end"
-//                   >
-//                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
-//                   </IconButton>
-//                 </InputAdornment>
-//               }
-//             />
-//             <InputLabel className={classes.errorLabel}>{touched.password && errors.password}</InputLabel>
-//           </Grid>
-//           <Grid item xs={12}>
-//             {touched.confirmPassword && errors.confirmPassword ? (<InputLabel className={classes.inputLabel}></InputLabel>) : (<InputLabel className={classes.inputLabel}>Confirm password</InputLabel>)}
-//             <OutlinedInput
-//               id="confirmPassword"
-//               name="confirmPassword"
-//               fullWidth
-//               type={values.showConfirmPassword ? 'text' : 'password'}
-//               value={values.confirmPassword}
-//               onChange={handleChange}
-//               error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-//               endAdornment={
-//                 <InputAdornment position="end">
-//                   <IconButton
-//                     aria-label="toggle confirmPassword visibility"
-//                     onClick={handleClickShowConfirmPassword}
-//                     onMouseDown={handleMouseDownConfirmPassword}
-//                     edge="end"
-//                   >
-//                     {values.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-//                   </IconButton>
-//                 </InputAdornment>
-//               }
-//             />
-//             <InputLabel className={classes.errorLabel}>{touched.confirmPassword && errors.confirmPassword}</InputLabel>
-//           </Grid>
-//         </Grid>;
-//       case 1:
-//         return <Grid container spacing={2}>
-//           <Grid item xs={12}>
-//             <TextField
-//               fullWidth
-//               autoFocus
-//               name="phone"
-//               label="Phone"
-//               variant="outlined"
-//               value={values.phone}
-//               onChange={handleChange}
-//               error={touched.phone && Boolean(errors.phone)}
-//               helperText={touched.phone && errors.phone} />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-//               <KeyboardDatePicker
-//                 autoOk
-//                 fullWidth
-//                 variant="inline"
-//                 name="dateBirth"
-//                 inputVariant="outlined"
-//                 label="Birth date"
-//                 format="MM/dd/yyyy"
-//                 value={selectedDate}
-//                 InputAdornmentProps={{ position: "start" }}
-//                 onChange={date => handleDateChange(date)}
-//               />
-//             </MuiPickersUtilsProvider>
-//           </Grid>
-//           <Grid item xs={12} sm={6}>
-//             <FormControl variant="outlined" className={classes.form}>
-//               <InputLabel shrink className={classes.inputLabel} >Native Language</InputLabel>
-//               <Select
-//                 native
-//                 value={selectedLanguage.nativeLanguageId || ''}
-//                 onChange={(e => {
-//                   handleLanguageChange(e)
-//                   loadTranslations(e.target.value)
-//                 })}
-//                 inputProps={{
-//                   name: 'nativeLanguageId',
-//                   id: 'nativeLanguageId',
-//                 }}
-//               >
-//                 {nativelanguages.map((option) => {
-//                   return <option value={option.languageIdToTranslate} key={option.meaning}>{option.meaning}</option>
-//                 })}
-//               </Select>
-//             </FormControl>
-//           </Grid>
-//           <Grid item xs={12} sm={6}>
-//             <FormControl variant="outlined" className={classes.form} >
-//               <InputLabel shrink className={classes.inputLabel}>Target Language</InputLabel>
-//               <Select
-//                 native
-//                 value={selectedLanguage.targetLanguageId || ''}
-//                 onChange={handleLanguageChange}
-//                 error={touched.targetLanguageId && Boolean(errors.targetLanguageId)}
-//                 inputProps={{
-//                   name: 'targetLanguageId',
-//                   id: 'targetLanguageId',
-//                 }}
-//               >
-//                 {targetlanguages.map((option) => {
-//                   return <option value={option.languageIdToTranslate} key={option.meaning}>{option.meaning}</option>
-//                 })}
-//               </Select>
-//             </FormControl>
-//           </Grid>
-//         </Grid>;
-//       default:
-//         return 'Unknown step';
-//     }
-//   }
-//   return (
-//     <Container component="main" maxWidth="xs">
-//       <CssBaseline />
-//       {!loading && (
-//         <div className={classes.paper}>
-//           <Avatar className={classes.avatar}>
-//             <LockOutlinedIcon />
-//           </Avatar>
-//           <Typography component="h1" variant="h5">
-//             Sign up
-//           </Typography>
-//           <Formik className={classes.form} enableReinitialize={true}
-//             initialValues={{ ...user }}
-//             validationSchema={validationSchema}
-//             onSubmit={handleSubmit}
-//           >
-//             {({ handleSubmit, values, touched, errors }) => (
-//               <Form onSubmit={handleSubmit}>
-//                 <Stepper className={classes.stepper} activeStep={activeStep}>
-//                   {steps.map((label, index) => {
-//                     const stepProps = {};
-//                     const labelProps = {};
-//                     return (
-//                       <Step key={label} {...stepProps}>
-//                         <StepLabel {...labelProps}>{label}</StepLabel>
-//                       </Step>
-//                     );
-//                   })}
-//                 </Stepper>
-//                 <div>
-//                   {activeStep === steps.length ? (
-//                     <div>
-//                       <Typography variant="h4" className={classes.registrationFinishedText}>Congratulations!<br />You have successfully registered</Typography>
-//                     </div>
-//                   ) : (
-//                     <Grid container spacing={2} >
-//                       {getStepContent(activeStep, values, touched, errors)}
-//                       <Grid item xs={12} sm={6} className={classes.buttonsGrid}>
-//                         <Button
-//                           fullWidth
-//                           variant="contained"
-//                           disabled={activeStep === 0}
-//                           onClick={handleBack}
-//                           className={classes.backButton}
-//                           name="backButton"
-//                         >
-//                           Back
-//                     </Button>
-//                       </Grid>
-//                       <Grid item xs={12} sm={6} className={classes.buttonsGrid}>
-//                         {activeStep === steps.length - 1 ? (
-//                           <Button fullWidth variant="contained" color="primary" name="registerButton" type="submit" onClick={handleSubmit}>
-//                             Register
-//                           </Button>
-//                         ) : (
-//                           <Button fullWidth variant="contained" color="primary" name="nextButton" onClick={handleSubmit} >
-//                             Next
-//                           </Button>
-//                         )}
-//                       </Grid>
-//                     </Grid>
-//                   )}
-//                 </div>
-//               </Form>
-//             )}
-//           </Formik>
-//         </div>
-//       )}
-//     </Container >
-//   )
-// }
-// export default SignUp;
+    return <div className={isMobile ? classes.paperMobileStepFirst : classes.paperDesktopStepFirst} align='center'>
+      <Title level={3} className={classes.textLabel}>
+        Sign up
+          </Title>
+      <Row className={classes.signUpFieldsContainer}>
+        <Col xs={24} sm={12}>
+          <Form.Item
+            name="userName"
+            help={touched.userName && errors.userName ? errors.userName : ''}
+            validateStatus={getValidationStatusUserName()}
+            hasFeedback
+          >
+            <Input
+              className={classes.textField}
+              name="userName"
+              placeholder="User Name"
+              value={values.userName}
+              onChange={handleUserNameFieldChange}
+              onBlur={handleBlur}
+            />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12}>
+          <Form.Item
+            name="email"
+            error={touched.email && errors.email ? errors.email : ''}
+            validateStatus={getValidationStatusEmail()}
+            hasFeedback
+          >
+            <Input
+              className={classes.textField}
+              name="email"
+              placeholder="Email"
+              value={values.email}
+              onChange={handleEmailFieldChange}
+              onBlur={handleBlur}
+            />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12}>
+          <Form.Item name="password" error={touched.password && errors.password ? errors.password : ''}>
+            <Input.Password
+              className={classes.textField}
+              placeholder="Password"
+              name="password"
+              value={values.password}
+              onChange={onFieldChange}
+              onBlur={handleBlur}
+            />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={12}>
+          <Form.Item name="confirmPassword" error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ''}>
+            <Input.Password
+              className={classes.textField}
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={values.confirmPassword}
+              onChange={onFieldChange}
+              onBlur={handleBlur}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Button
+        type="primary"
+        onClick={handleSubmit}
+        className={classes.stepButton}
+        icon={<ArrowRightOutlined />}
+        disabled={
+          !(Object.keys(touched).length === 0) && (Object.keys(errors).length === 0)
+            && isValidatingEmail === false && isValidatingUserName === false ? (false) : (true)
+        }
+      >
+      </Button>
+      <Row className={classes.alreadyHaveAccountGridItem}>
+        <Col xs={24} sm={24}>
+          <Text level={5} >
+            <Link to="/SignIn">Already have an account? Sign in!</Link>
+          </Text>
+        </Col>
+      </Row>
+    </div>
+  };
+  return (
+    <Formik enableReinitialize={true}
+      initialValues={{ ...user }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ handleSubmit, handleBlur, values, touched, errors }) => (
+        <Form onSubmit={handleSubmit} onBlur={handleBlur} className={classes.form}>
+          {getRegistrationForm(values, touched, errors)}
+        </Form>
+      )}
+    </Formik>
+  )
+};
+export default SignUp;
