@@ -29,21 +29,32 @@ namespace BLL.Services
 
         public async Task Delete(GenreDTO genreDTO)
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), genreDTO.Image.Replace("//", "\\"));
-            unitOfWork.Genre.Delete(genreDTO.Id);
-
-            if (File.Exists(filePath))
+            if (genreDTO.Image != null)
             {
-                File.Delete(filePath);
-            }
-
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), genreDTO.Image.Replace("//", "\\"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }    
+            unitOfWork.Genre.Delete(genreDTO.Id);
             await unitOfWork.SaveAsync();
         }
 
         public async Task<GenreDTO> GetGenre(string id)
         {
             var genre = await Task.Run(() => _mapper.Map<Genre, GenreDTO>(unitOfWork.Genre.Get(id)));
-            genre.Image = _contentFolder + genre.Image;
+            if (genre.Image != null)
+            {
+                genre.Image = _contentFolder + genre.Image;
+
+            }
+            //else
+            //{
+            //    //Зроби тут тоді дефолтну картинку для жанра якусь, створи  в папці картинку з назовою defaultGenreImage.png 
+            //    //genre.Image = _contentFolder + (і тут встав);
+            //}
+
             return genre;
         }
 
@@ -79,17 +90,18 @@ namespace BLL.Services
         {
 
             var genre = _mapper.Map<GenreDTO, Genre>(genreDTO);
-            genre.Id = Guid.NewGuid().ToString();
-            genre.Image = genre.Id + ".png";
-            unitOfWork.Genre.Create(genre);
+            genre.Id = Guid.NewGuid().ToString();    
             if (genreDTO.File != null)
             {
+                genre.Image = genre.Id + ".png";
                 using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
                 {
                     genreDTO.File.CopyTo(fileStream);
                     fileStream.Flush();
                 }
+               
             }
+            unitOfWork.Genre.Create(genre);
             await unitOfWork.SaveAsync();
         }
 

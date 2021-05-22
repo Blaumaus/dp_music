@@ -2,10 +2,12 @@
 using BLL.DTO;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -15,7 +17,6 @@ namespace API.Controllers
     public class GenreController : ControllerBase
     {
         private readonly IGenreService _genreService;
-
         public GenreController(IGenreService genreService)
         {
             _genreService = genreService;
@@ -54,11 +55,18 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GenreDTO>> Post([FromForm] GenreDTO genreDTO)
+        public ActionResult Post(IFormCollection data)
         {
             try 
             {
-                await _genreService.Create(genreDTO);
+                var name = data["name"].FirstOrDefault();
+                var description = data["description"].FirstOrDefault();
+                var imageFile = data.Files.FirstOrDefault();
+                GenreDTO genreDTO = new GenreDTO();
+                genreDTO.Name = name;
+                genreDTO.Description = description;
+                genreDTO.File = imageFile;
+                _genreService.Create(genreDTO);
                 return Ok();
             }
             catch

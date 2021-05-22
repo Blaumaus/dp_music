@@ -4,10 +4,11 @@ import Genre from 'components/Genre'
 import { connect } from "react-redux";
 import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer'
 import { compose } from 'redux'
+import CssBaseline from '@material-ui/core/CssBaseline';
 class GenreContainer extends React.Component {
 
     state = {
-        //isLoading: true,
+        isLoading: true,
         selectedGenre: null,
         action: null,
         disableField: false,
@@ -27,7 +28,18 @@ class GenreContainer extends React.Component {
         this.setState({
             ImagefileToView: null
         })
+        this.hideLoader();
     };
+    componentDidUpdate(prevProps) {
+        if (this.props.genres.length !== prevProps.genres.length) {
+            this.showLoader();
+            this.props.getGenres();
+            this.hideLoader();
+        }
+      }
+    showLoader = () => this.setState({ isLoading: true });
+
+    hideLoader = () => this.setState({ isLoading: false });
 
     handleUpload = event => {
         this.setState({
@@ -76,39 +88,46 @@ class GenreContainer extends React.Component {
     handleSubmit = () => {
         const formData = new FormData();
         const { selectedGenre, ImagefileToSend } = this.state;
-        formData.append('genre', selectedGenre);
         formData.append('file', ImagefileToSend)
-     
+        formData.set('name', selectedGenre.name)
+        formData.set('description', selectedGenre.description)
         switch (this.state.action) {
 
             case 'create': this.props.Create(formData); break;
             case 'update': this.props.Update(formData); break;
             case 'delete': this.props.Delete(this.state.selectedGenre); break;
-        }
+        }      
         this.setState({
             selectedGenre: null,
             action: null,
             disableField: false,
         })
-
+        
     }
 
     render() {
-        return <Genre
-            handleUpload={this.handleUpload}
-            onChange={this.onChange}
-            handleClickCreate={this.handleClickCreate}
-            handleClickEdit={this.handleClickEdit}
-            handleClickDelete={this.handleClickDelete}
-            handleSubmit={this.handleSubmit}
-            handleButtonBackClick={this.handleButtonBackClick}
-            handleGenreItemClick={this.handleGenreItemClick}
-            disableField={this.state.disableField}
-            ImagefileToView={this.state.ImagefileToView}
-            isAdmin={this.state.isAdmin}
-            selectedGenre={this.state.selectedGenre}
-            genres={this.props.genres}
-        />
+        const { isLoading } = this.state;
+        return (
+            <CssBaseline>
+                {
+                    !isLoading && <Genre
+                        handleUpload={this.handleUpload}
+                        onChange={this.onChange}
+                        handleClickCreate={this.handleClickCreate}
+                        handleClickEdit={this.handleClickEdit}
+                        handleClickDelete={this.handleClickDelete}
+                        handleSubmit={this.handleSubmit}
+                        handleButtonBackClick={this.handleButtonBackClick}
+                        handleGenreItemClick={this.handleGenreItemClick}
+                        disableField={this.state.disableField}
+                        ImagefileToView={this.state.ImagefileToView}
+                        isAdmin={this.state.isAdmin}
+                        selectedGenre={this.state.selectedGenre}
+                        genres={this.props.genres}
+                    />
+                }
+            </CssBaseline>
+        )
     }
 }
 

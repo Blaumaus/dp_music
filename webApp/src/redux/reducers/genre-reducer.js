@@ -78,7 +78,7 @@ export const getGenres = () => {
     }
 }
 export const Create = (genre) => {
-    return  (dispatch) => {
+    return (dispatch) => {
         GenreApi.create(genre);
         dispatch(CreateSuccess(genre))
     }

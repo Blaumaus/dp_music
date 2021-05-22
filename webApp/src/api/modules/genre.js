@@ -3,12 +3,11 @@ import axios from 'axios';
 
 export default class GenreApi {
   static async create(genre) {
-    //ApiClient.post('/Genre', genre);
     await axios({
       method: 'post',
       url: 'https://localhost:44304/api/Genre',
       data: genre,
-      headers: { 'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'multipart/form-data'}
     })
   }
   static getGenres() {
