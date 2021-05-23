@@ -1,4 +1,4 @@
-import { types } from 'redux/actions/errors/types'
+import { types } from '../actions/errors/types'
 
 const initialState = {
 	error: null

@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, ActivityIndicator, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import Spinner from '../../components/common/Spinner'
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +12,6 @@ const styles = StyleSheet.create({
 
 export default () => (
   <View style={styles.container}>
-    <ActivityIndicator size='large' />
+    <Spinner />
   </View>
 )
