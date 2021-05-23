@@ -1,4 +1,4 @@
-import { types } from 'actions/auth/types'
+import { types } from '../actions/auth/types'
 
 const initialState = {
 	redirectPath: null,
@@ -32,4 +32,4 @@ export default (state = initialState, { type, payload }) => {
 		default:
 			return state
 	}
-};
+}

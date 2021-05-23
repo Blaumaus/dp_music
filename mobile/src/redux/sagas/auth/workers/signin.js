@@ -1,8 +1,8 @@
 import { call, put } from 'redux-saga/effects'
-import { authActions } from 'actions/auth'
-import { errorsActions } from 'actions/errors'
-import { setAccessToken } from 'utils/accessToken'
-import { login } from 'api'
+import { authActions } from '../../../actions/auth'
+import { errorsActions } from '../../../actions/errors'
+import { setAccessToken } from '../../../../utils/accessToken'
+import { login } from '../../../../api'
 
 export default function* ({ payload: { credentials } }) {
 	try {

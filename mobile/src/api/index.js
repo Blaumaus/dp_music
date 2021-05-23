@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { store } from 'store'
-import { authActions } from 'actions/auth'
-import { getAccessToken, removeAccessToken } from 'utils/accessToken'
+import { store } from '../redux/store'
+import { authActions } from '../redux/actions/auth'
+import { getAccessToken, removeAccessToken } from '../utils/accessToken'
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -9,10 +9,10 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = getAccessToken()
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
-    }
+    // const token = getAccessToken()
+    // if (token) {
+    //   config.headers['Authorization'] = `Bearer ${token}`
+    // }
     return config
   },
   error => {
@@ -24,7 +24,7 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (error.response.data.statusCode === 401) {
-      removeAccessToken()
+      // removeAccessToken()
       store.dispatch(authActions.logout())
     }
     return Promise.reject(error)
@@ -133,4 +133,16 @@ export const verifyEmail = ({ path, id }) =>
     .then(response => response.data)
     .catch(error => {
       throw new Error(error.response.data.message)
+    })
+
+export const getGenres = () => 
+  api
+    .get('/Genre')
+    .then(response => {
+      console.log('response', response)
+      return response.data
+    })
+    .catch(error => {
+      console.log(error)
+      // throw new Error(error.response.data.message)
     })
