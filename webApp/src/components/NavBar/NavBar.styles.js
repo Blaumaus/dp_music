@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("xs")]: {
             flexGrow: 1
         },
-        color:'white'
+        color:'white',
+        'cursor': 'pointer'
     },
     headerOptions: {
         display: "flex",

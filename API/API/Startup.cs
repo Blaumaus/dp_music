@@ -5,12 +5,18 @@ using BLL.Services;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace API
 {
@@ -40,9 +46,41 @@ namespace API
             }));
             services.AddDbContext<dp_musicContext>(
             options => options.UseMySQL(Configuration.GetConnectionString("Dp_Database")));
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.WithOrigins(Configuration.GetSection("UIHosts:WebSpeakHost").Value)
+            .AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
             services.AddScoped<dp_musicContext>();
             services.AddControllers();
             services.AddTransient<IGenreService, GenreServices>();
+            services.AddTransient<IAccountService, RegistrationService>();
+            services.AddTransient<ILogInService, LogInService>();
+            services.AddTransient<ILogOutService, LogOutService>();
+            services.AddTransient<IAuthenticatedUser, IsAuthenticatedUserService>();
+            services.AddTransient<IUserValidationService, UserValidationService>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddJwtBearer(options =>
+                        {
+                            options.RequireHttpsMetadata = true;
+                            options.TokenValidationParameters = new TokenValidationParameters
+                            {
+                                ValidateIssuer = true,
+                                ValidIssuer = Configuration["Jwt:Issuer"],
+                                ValidateAudience = true,
+                                ValidAudience = Configuration["Jwt:Audience"],
+                                ValidateLifetime = true,
+                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                                ValidateIssuerSigningKey = true,
+                            };
+                            options.Events = new JwtBearerEvents
+                            {
+                                OnMessageReceived = context =>
+                                {
+                                    context.Token = context.Request.Cookies["jwtToken"];
+                                    return Task.CompletedTask;
+                                }
+                            };
+                        });
+
             services.AddControllersWithViews();
         }
 
@@ -61,11 +99,6 @@ namespace API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(

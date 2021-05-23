@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -30,6 +29,14 @@ namespace BLL.Services
 
         public async Task Delete(GenreDTO genreDTO)
         {
+            if (genreDTO.Image != null)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), genreDTO.Image.Replace("//", "\\"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }    
             unitOfWork.Genre.Delete(genreDTO.Id);
             await unitOfWork.SaveAsync();
         }
@@ -37,18 +44,43 @@ namespace BLL.Services
         public async Task<GenreDTO> GetGenre(string id)
         {
             var genre = await Task.Run(() => _mapper.Map<Genre, GenreDTO>(unitOfWork.Genre.Get(id)));
-            genre.Image = _contentFolder + genre.Image;
+            if (genre.Image != null)
+            {
+                genre.Image = _contentFolder + genre.Image;
+
+            }
+            //else
+            //{
+            //    //Зроби тут тоді дефолтну картинку для жанра якусь, створи  в папці картинку з назовою defaultGenreImage.png 
+            //    //genre.Image = _contentFolder + (і тут встав);
+            //}
+
             return genre;
         }
 
         public async Task Update(GenreDTO genreDTO)
         {
             var genre = unitOfWork.Genre.Get(genreDTO.Id);
-            genre.Name = genreDTO.Name;
-            ///
-            ////
-            //genre.Image = genreDTO.Image;
-            genre.Description = genreDTO.Description;
+            if(genreDTO.Name != null)
+                genre.Name = genreDTO.Name;
+            if (genreDTO.Description != null)
+                genre.Description = genreDTO.Description;
+
+            
+            if (genreDTO.File != null)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), genre.Image);
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+
+                    using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
+                    {
+                        genreDTO.File.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                }
+            }
 
             unitOfWork.Genre.Update(genre);
             await unitOfWork.SaveAsync();
@@ -58,29 +90,29 @@ namespace BLL.Services
         {
 
             var genre = _mapper.Map<GenreDTO, Genre>(genreDTO);
-            genre.Id = Guid.NewGuid().ToString();
-            genre.Image = genre.Id + ".png";
-            unitOfWork.Genre.Create(genre);
-            if (genreDTO.File.Length > 0)
+            genre.Id = Guid.NewGuid().ToString();    
+            if (genreDTO.File != null)
             {
+                genre.Image = genre.Id + ".png";
                 using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
                 {
                     genreDTO.File.CopyTo(fileStream);
                     fileStream.Flush();
                 }
+               
             }
+            unitOfWork.Genre.Create(genre);
             await unitOfWork.SaveAsync();
         }
 
         public async Task<IEnumerable<GenreDTO>> GetAllGenre()
         {
-            var genre = await Task.Run(() => _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(unitOfWork.Genre.GetAll()));
-            foreach(var g in genre)
+            var genres = await Task.Run(() => _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(unitOfWork.Genre.GetAll()));
+            foreach( var genre in genres)
             {
-                g.Image = _contentFolder + g.Image;
+                genre.Image = _contentFolder + genre.Image;
             }
-            
-            return genre;
+            return genres;
         }
     }
 }

@@ -1,0 +1,14 @@
+   .ant-form-item-explain {
+    display: contents;
+   }
+   .ant-form-item {
+    margin-bottom: 0px;
+   }
+   .anticon svg {
+        height: 1.5em;
+        width: 1.5em;
+        display: inline-block;
+    }
+   .ant-card-body{
+           padding: 5px;
+    }

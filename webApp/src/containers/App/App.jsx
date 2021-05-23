@@ -7,14 +7,14 @@ import { Switch, withRouter } from 'react-router';
 import Timeline from '@material-ui/icons/Timeline';
 import { isNil } from 'lodash';
 import { Route } from 'react-router-dom';
-import SignIn from 'components/SignIn';
-import SignUp from 'components/SignUp';
-import ProtectedRoute from 'components/ProtectedRoute';
-import ProfileContainer from 'containers/ProfileContainer';
 import GenreContainer from 'containers/GenreContainer';
 import BandContainer from 'containers/BandContainer';
 import SelectContainer from 'containers/SelectContainer';
 import AlbumContainer from 'containers/AlbumContainer';
+import CompositionContainer from 'containers/CompositionContainer';
+import SignInContainer from 'containers/SignInContainer';
+import SignUpContainer from 'containers/SignUpContainer';
+import ProtectedRoute from 'components/ProtectedRoute';
 import NavBar from 'components/NavBar';
 
 
@@ -41,14 +41,14 @@ function App() {
         <div className="App">
             <NavBar />
             <Switch>
-                {/* <Route exact path='/SignIn' component={SignIn} />
-                <Route exact path='/SignUp' component={SignUp} />      
-                <ProtectedRoute exact path='/Profile' component={ProfileContainer} />      */}
-                <Route exact path='/Genres' component={GenreContainer} />     
-                <Route exact path='/Bands/:genreId' component={BandContainer} />
-                <Route exact path='/Select/:bandId' component={SelectContainer} /> 
-                <Route exact path='/Albums/:bandId' component={AlbumContainer} />    
-                {/* <Route exact path='/Compositions/:bandId(/:albumId)' component={SelectContainer} />                 */}
+                <Route exact path='/SignIn' component={SignInContainer} />
+                <Route exact path='/SignUp' component={SignUpContainer} />
+                <Route exact path='/Genres' component={GenreContainer} />
+                <ProtectedRoute exact path='/Bands/:genreId' component={BandContainer} />
+                <ProtectedRoute exact path='/Select/:bandId' component={SelectContainer} />
+                <ProtectedRoute exact path='/Albums/:bandId' component={AlbumContainer} />
+                <ProtectedRoute exact path='/Compositions/:bandId/:albumId?' component={CompositionContainer} />
+                <ProtectedRoute exact path='/*' />
             </Switch>
         </div>
     );

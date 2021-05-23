@@ -10,6 +10,8 @@ namespace BLL.Services
         {
             CreateMap<GenreDTO, Genre>();//.ForMember("Id", opt => opt.MapFrom(src => src));
             CreateMap<Genre, GenreDTO>();//.ForMember("Id", opt => opt.MapFrom(src => src));
+            CreateMap<UserRegistrationDto, User>().ForMember("Login",opt=>opt.MapFrom(src=>src.UserName));
+            CreateMap<User, UserRegistrationDto>().ForMember("UserName", opt => opt.MapFrom(src => src.Login));
         }
     }
 }

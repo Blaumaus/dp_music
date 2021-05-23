@@ -8,10 +8,11 @@ namespace DAL.Repositories
     {
         private dp_musicContext db;
         private GenreRepository genreRepository;
-
+        private UserRepository userRepository;
         public UnitOfWork(dp_musicContext context)
         {
             db = context;
+            userRepository = new UserRepository(db);
             genreRepository = new GenreRepository(db);
         }
 
@@ -37,7 +38,15 @@ namespace DAL.Repositories
 
         public IRepository<Selected> Selected => throw new NotImplementedException();
 
-        public IRepository<User> User => throw new NotImplementedException();
+        public IRepository<User> User
+        {
+            get
+            {
+                if (userRepository == null)
+                    userRepository = new UserRepository(db);
+                return userRepository;
+            }
+        }
 
         public async Task SaveAsync()
         {
