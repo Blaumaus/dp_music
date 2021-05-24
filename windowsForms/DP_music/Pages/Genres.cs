@@ -65,10 +65,10 @@ namespace DP_music.Pages
         private Panel AddNewPanel(int i)
         {
             Panel panelGenre = new Panel();
-            panelGenre.Size = new Size(659, 190);
+            panelGenre.Size = new Size(845, 190);
             panelGenre.Location = new Point(20, 189 * i + 20 * (i+1));
             panelGenre.BackColor = Color.FromArgb(58, 150, 194);
-            panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 659, 189, 25, 25));
+            panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 845, 189, 25, 25));
 
             return panelGenre;
         }
@@ -98,13 +98,13 @@ namespace DP_music.Pages
             TextBox textBoxDescription = new TextBox();
             textBoxDescription.Location = new Point(200, 61);
             textBoxDescription.Multiline = true;
-            textBoxDescription.Size = new Size(433, 110);
+            textBoxDescription.Size = new Size(620, 110);
             textBoxDescription.ReadOnly = true;
             textBoxDescription.BackColor = Color.White;
             textBoxDescription.ForeColor = Color.Black;
             textBoxDescription.Font = new Font(new FontFamily("Century Gothic"), 12);
             textBoxDescription.ScrollBars = ScrollBars.Vertical;
-            textBoxDescription.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 433, 110, 10, 10));
+            textBoxDescription.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 620, 110, 10, 10));
             textBoxDescription.BorderStyle = BorderStyle.None;
 
             return textBoxDescription;
