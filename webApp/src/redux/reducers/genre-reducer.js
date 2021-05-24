@@ -12,6 +12,7 @@ let initialState = {
 
     ]
 };
+
 const GenreReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_GENRES: {
@@ -72,7 +73,6 @@ export const getGenres = () => {
             genres.forEach(genre => {
                 genre.image = BuildUrl.getUrl(genre.image)
             })
-            console.log(genres);
             dispatch(SetGenresSuccess(genres))
         });
     }

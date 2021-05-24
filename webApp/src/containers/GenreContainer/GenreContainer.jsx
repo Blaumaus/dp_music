@@ -3,8 +3,11 @@ import { withRouter } from 'react-router';
 import Genre from 'components/Genre'
 import { connect } from "react-redux";
 import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer'
+import { getUser } from 'redux/reducers/user-reducer'
 import { compose } from 'redux'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 class GenreContainer extends React.Component {
 
     state = {
@@ -14,7 +17,7 @@ class GenreContainer extends React.Component {
         disableField: false,
         ImagefileToView: null,
         ImagefileToSend: null,
-        isAdmin: true
+        isAdmin: true,
     };
     newGenre = {
         id: null,
@@ -25,8 +28,9 @@ class GenreContainer extends React.Component {
     };
     componentDidMount() {
         this.props.getGenres();
+        this.props.getUser();
         this.setState({
-            ImagefileToView: null
+            ImagefileToView: null,
         })
         this.hideLoader();
     };
@@ -36,7 +40,7 @@ class GenreContainer extends React.Component {
             this.props.getGenres();
             this.hideLoader();
         }
-      }
+    }
     showLoader = () => this.setState({ isLoading: true });
 
     hideLoader = () => this.setState({ isLoading: false });
@@ -96,13 +100,13 @@ class GenreContainer extends React.Component {
             case 'create': this.props.Create(formData); break;
             case 'update': this.props.Update(formData); break;
             case 'delete': this.props.Delete(this.state.selectedGenre); break;
-        }      
+        }
         this.setState({
             selectedGenre: null,
             action: null,
             disableField: false,
         })
-        
+
     }
 
     render() {
@@ -110,7 +114,7 @@ class GenreContainer extends React.Component {
         return (
             <CssBaseline>
                 {
-                    !isLoading && <Genre
+                    isLoading ? (<CircularProgress />) : (<Genre
                         handleUpload={this.handleUpload}
                         onChange={this.onChange}
                         handleClickCreate={this.handleClickCreate}
@@ -124,7 +128,8 @@ class GenreContainer extends React.Component {
                         isAdmin={this.state.isAdmin}
                         selectedGenre={this.state.selectedGenre}
                         genres={this.props.genres}
-                    />
+                        user={this.props.user}
+                    />)
                 }
             </CssBaseline>
         )
@@ -133,12 +138,13 @@ class GenreContainer extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        genres: state.genrePage.genres
+        genres: state.genrePage.genres,
+        user: state.user.user
 
     };
 };
 
 export default compose(
-    connect(mapStateToProps, { Create, Update, Delete, getGenres }),
+    connect(mapStateToProps, { Create, Update, Delete, getGenres, getUser }),
     withRouter,
 )(GenreContainer);

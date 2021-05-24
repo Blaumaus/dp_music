@@ -6,7 +6,7 @@ export default class AccountApi {
   }
   static async validateUserName(userName) {
     return await ApiClient.get(`/UserValidation/ValidateUserName/${userName}`).then(response => {
-      return response.data.data;
+      return response.data;
     });
   }
   static async validateEmail(email) {
