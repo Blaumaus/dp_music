@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DP_music.Pages;
+using DP_music.Account;
+
 
 namespace DP_music
 {
@@ -24,6 +26,7 @@ namespace DP_music
             int nWidthElipse,
             int nHeightElipse
         );
+        AccountMain accountMain;
 
         public mainForm()
         {
@@ -39,7 +42,6 @@ namespace DP_music
         }
 
         Form activeForm = null;
-
 
         private void openChildForm(Form childForm)
         {
@@ -127,6 +129,20 @@ namespace DP_music
             }
         }
 
+        private void buttonAccount_Click(object sender, EventArgs e)
+        {
+            changeButtonColor(panelNav, buttonAccount, 19, 24, 54);
+            buttonAccountName.BackColor = Color.FromArgb(19, 24, 54);
+            if (panelBar.Width > 0)
+            {
+                timerClosePanelBar.Enabled = true;
+            }
+            accountMain = new AccountMain(this);
+            this.Enabled = false;
+            accountMain.Show();
+
+        }
+
         private void buttonHomeName_Click(object sender, EventArgs e)
         {
             buttonHome_Click(buttonHome, new EventArgs());
@@ -154,6 +170,12 @@ namespace DP_music
         private void buttonRecordName_Click(object sender, EventArgs e)
         {
             buttonRecord_Click(buttonRecord, new EventArgs());
+            timerClosePanelBar.Enabled = true;
+        }
+
+        private void buttonAccountName_Click(object sender, EventArgs e)
+        {
+            buttonAccount_Click(buttonAccount, new EventArgs());
             timerClosePanelBar.Enabled = true;
         }
 
@@ -201,6 +223,13 @@ namespace DP_music
             buttonRecordName.BackColor = Color.FromArgb(41, 52, 117);
         }
 
+        private void buttonAccount_Leave(object sender, EventArgs e)
+        {
+            panelNav.Visible = false;
+            buttonAccount.BackColor = Color.FromArgb(41, 52, 117);
+            buttonAccountName.BackColor = Color.FromArgb(41, 52, 117);
+        }
+
         private void buttonHomeName_Leave(object sender, EventArgs e)
         {
             buttonHome_Leave(buttonHome, new EventArgs());
@@ -224,6 +253,12 @@ namespace DP_music
         private void buttonRecordName_Leave(object sender, EventArgs e)
         {
             buttonRecord_Leave(buttonRecord, new EventArgs());
+        }
+
+        private void buttonAccountName_Leave(object sender, EventArgs e)
+        {
+            buttonAccount_Leave(buttonRecord, new EventArgs());
+
         }
         #endregion
 
@@ -279,5 +314,7 @@ namespace DP_music
                 activeForm.BackColor = Color.White;
             }
         }
+
+        
     }
 }

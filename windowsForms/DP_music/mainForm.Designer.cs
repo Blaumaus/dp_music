@@ -32,6 +32,7 @@ namespace DP_music
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.panelBar = new System.Windows.Forms.Panel();
+            this.buttonAccountName = new System.Windows.Forms.Button();
             this.buttonRecordName = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.buttonCompositionName = new System.Windows.Forms.Button();
@@ -47,6 +48,7 @@ namespace DP_music
             this.panelHeader = new System.Windows.Forms.Panel();
             this.pictureBoxMenu = new System.Windows.Forms.PictureBox();
             this.panelBarMini = new System.Windows.Forms.Panel();
+            this.buttonAccount = new System.Windows.Forms.Button();
             this.buttonRecord = new System.Windows.Forms.Button();
             this.buttonComposition = new System.Windows.Forms.Button();
             this.buttonGenres = new System.Windows.Forms.Button();
@@ -67,6 +69,7 @@ namespace DP_music
             // panelBar
             // 
             this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.panelBar.Controls.Add(this.buttonAccountName);
             this.panelBar.Controls.Add(this.buttonRecordName);
             this.panelBar.Controls.Add(this.buttonSettings);
             this.panelBar.Controls.Add(this.buttonCompositionName);
@@ -79,6 +82,25 @@ namespace DP_music
             this.panelBar.Size = new System.Drawing.Size(197, 510);
             this.panelBar.TabIndex = 0;
             this.panelBar.Visible = false;
+            // 
+            // buttonAccountName
+            // 
+            this.buttonAccountName.FlatAppearance.BorderSize = 0;
+            this.buttonAccountName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAccountName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonAccountName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
+            this.buttonAccountName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonAccountName.Location = new System.Drawing.Point(0, 439);
+            this.buttonAccountName.Name = "buttonAccountName";
+            this.buttonAccountName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
+            this.buttonAccountName.Size = new System.Drawing.Size(197, 48);
+            this.buttonAccountName.TabIndex = 4;
+            this.buttonAccountName.Text = "Account";
+            this.buttonAccountName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonAccountName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.buttonAccountName.UseVisualStyleBackColor = true;
+            this.buttonAccountName.Click += new System.EventHandler(this.buttonAccountName_Click);
+            this.buttonAccountName.Leave += new System.EventHandler(this.buttonAccountName_Leave);
             // 
             // buttonRecordName
             // 
@@ -210,9 +232,9 @@ namespace DP_music
             this.buttonClose.FlatAppearance.BorderSize = 0;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonClose.Location = new System.Drawing.Point(935, 0);
+            this.buttonClose.Location = new System.Drawing.Point(930, 0);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(35, 43);
+            this.buttonClose.Size = new System.Drawing.Size(40, 40);
             this.buttonClose.TabIndex = 1;
             this.buttonClose.Text = "x";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -235,7 +257,7 @@ namespace DP_music
             this.textBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxSearch.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.textBoxSearch.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxSearch.Location = new System.Drawing.Point(654, 27);
+            this.textBoxSearch.Location = new System.Drawing.Point(594, 27);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(224, 31);
@@ -248,7 +270,7 @@ namespace DP_music
             this.buttonSearch.FlatAppearance.BorderSize = 0;
             this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSearch.Image = ((System.Drawing.Image)(resources.GetObject("buttonSearch.Image")));
-            this.buttonSearch.Location = new System.Drawing.Point(884, 27);
+            this.buttonSearch.Location = new System.Drawing.Point(824, 27);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(46, 31);
             this.buttonSearch.TabIndex = 4;
@@ -291,6 +313,7 @@ namespace DP_music
             // 
             this.panelBarMini.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
             this.panelBarMini.Controls.Add(this.panelNav);
+            this.panelBarMini.Controls.Add(this.buttonAccount);
             this.panelBarMini.Controls.Add(this.buttonRecord);
             this.panelBarMini.Controls.Add(this.buttonComposition);
             this.panelBarMini.Controls.Add(this.buttonGenres);
@@ -300,6 +323,20 @@ namespace DP_music
             this.panelBarMini.Name = "panelBarMini";
             this.panelBarMini.Size = new System.Drawing.Size(66, 510);
             this.panelBarMini.TabIndex = 7;
+            // 
+            // buttonAccount
+            // 
+            this.buttonAccount.FlatAppearance.BorderSize = 0;
+            this.buttonAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAccount.Image = ((System.Drawing.Image)(resources.GetObject("buttonAccount.Image")));
+            this.buttonAccount.Location = new System.Drawing.Point(0, 439);
+            this.buttonAccount.Name = "buttonAccount";
+            this.buttonAccount.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.buttonAccount.Size = new System.Drawing.Size(65, 48);
+            this.buttonAccount.TabIndex = 1;
+            this.buttonAccount.UseVisualStyleBackColor = true;
+            this.buttonAccount.Click += new System.EventHandler(this.buttonAccount_Click);
+            this.buttonAccount.Leave += new System.EventHandler(this.buttonAccount_Leave);
             // 
             // buttonRecord
             // 
@@ -451,6 +488,8 @@ namespace DP_music
         private System.Windows.Forms.PictureBox pictureBoxMenu;
         private System.Windows.Forms.Button buttonRecord;
         private System.Windows.Forms.Panel panelContent;
+        private System.Windows.Forms.Button buttonAccount;
+        private System.Windows.Forms.Button buttonAccountName;
     }
 }
 

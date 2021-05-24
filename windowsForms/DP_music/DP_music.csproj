@@ -28,4 +28,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Account\Registration\" />
+    <Folder Include="Account\SignIn\" />
+  </ItemGroup>
 </Project>
