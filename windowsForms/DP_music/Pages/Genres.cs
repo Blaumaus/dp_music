@@ -34,7 +34,7 @@ namespace DP_music.Pages
         {
             InitializeComponent();
         }
-        private async void Genres_Load(object sender, EventArgs e)
+        private void Genres_Load(object sender, EventArgs e)
         {
             //var responce = await apiHelpers.GetAll();
             //List<Genre> genre = new List<Genre>();

@@ -35,7 +35,8 @@ namespace DP_music
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 462);
+            this.ClientSize = new System.Drawing.Size(887, 463);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Groups";
             this.Text = "Groups";
             this.ResumeLayout(false);

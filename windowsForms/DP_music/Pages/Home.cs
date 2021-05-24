@@ -26,8 +26,6 @@ namespace DP_music
         public Home()
         {
             InitializeComponent();
-            panel1.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panel1.Width, panel1.Height, 40, 40));
-
         }
 
     }
