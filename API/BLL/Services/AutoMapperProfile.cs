@@ -12,6 +12,7 @@ namespace BLL.Services
             CreateMap<Genre, GenreDTO>();//.ForMember("Id", opt => opt.MapFrom(src => src));
             CreateMap<UserRegistrationDto, User>().ForMember("Login",opt=>opt.MapFrom(src=>src.UserName));
             CreateMap<User, UserRegistrationDto>().ForMember("UserName", opt => opt.MapFrom(src => src.Login));
+            CreateMap<User, UserDTO>().ReverseMap();
         }
     }
 }

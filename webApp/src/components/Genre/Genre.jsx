@@ -21,7 +21,7 @@ const Genre = props => {
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
         genres, ImagefileToView, disableField, isAdmin, selectedGenre,
-        handleButtonBackClick, handleGenreItemClick } = props
+        handleButtonBackClick, handleGenreItemClick, user } = props
 
     const validationSchema = yup.object({
         name: yup.string()
@@ -39,7 +39,7 @@ const Genre = props => {
     return (
         <div>
             <CssBaseline />
-            {isAdmin ? (<div>{selectedGenre ?
+            {user.role === 'Admin' ? (<div>{selectedGenre ?
                 (<div className={classes.paperForm}>
 
                     <Formik className={classes.form}
