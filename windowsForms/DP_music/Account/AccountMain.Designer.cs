@@ -32,7 +32,7 @@ namespace DP_music.Account
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountMain));
             this.panelHeader = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonLogIn = new System.Windows.Forms.Button();
+            this.buttonSignUp = new System.Windows.Forms.Button();
             this.buttonSignIn = new System.Windows.Forms.Button();
             this.panelBorderDark = new System.Windows.Forms.Panel();
             this.buttonClose = new System.Windows.Forms.Button();
@@ -63,31 +63,31 @@ namespace DP_music.Account
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // buttonLogIn
+            // buttonSignUp
             // 
-            this.buttonLogIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(92)))), ((int)(((byte)(182)))));
-            this.buttonLogIn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonLogIn.FlatAppearance.BorderSize = 0;
-            this.buttonLogIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLogIn.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonLogIn.ForeColor = System.Drawing.Color.White;
-            this.buttonLogIn.Location = new System.Drawing.Point(40, 272);
-            this.buttonLogIn.Name = "buttonLogIn";
-            this.buttonLogIn.Size = new System.Drawing.Size(314, 49);
-            this.buttonLogIn.TabIndex = 1;
-            this.buttonLogIn.Text = "LOG IN";
-            this.buttonLogIn.UseVisualStyleBackColor = false;
-            this.buttonLogIn.Click += new System.EventHandler(this.buttonLogIn_Click);
+            this.buttonSignUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(177)))), ((int)(((byte)(250)))));
+            this.buttonSignUp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonSignUp.FlatAppearance.BorderSize = 0;
+            this.buttonSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSignUp.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSignUp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(92)))), ((int)(((byte)(182)))));
+            this.buttonSignUp.Location = new System.Drawing.Point(40, 278);
+            this.buttonSignUp.Name = "buttonSignUp";
+            this.buttonSignUp.Size = new System.Drawing.Size(314, 49);
+            this.buttonSignUp.TabIndex = 1;
+            this.buttonSignUp.Text = "SIGN UP";
+            this.buttonSignUp.UseVisualStyleBackColor = false;
+            this.buttonSignUp.Click += new System.EventHandler(this.buttonLogIn_Click);
             // 
             // buttonSignIn
             // 
-            this.buttonSignIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(177)))), ((int)(((byte)(250)))));
+            this.buttonSignIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(92)))), ((int)(((byte)(182)))));
             this.buttonSignIn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonSignIn.FlatAppearance.BorderSize = 0;
             this.buttonSignIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSignIn.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSignIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(92)))), ((int)(((byte)(182)))));
-            this.buttonSignIn.Location = new System.Drawing.Point(40, 341);
+            this.buttonSignIn.ForeColor = System.Drawing.Color.White;
+            this.buttonSignIn.Location = new System.Drawing.Point(40, 349);
             this.buttonSignIn.Name = "buttonSignIn";
             this.buttonSignIn.Size = new System.Drawing.Size(314, 49);
             this.buttonSignIn.TabIndex = 1;
@@ -125,7 +125,7 @@ namespace DP_music.Account
             // 
             this.panelContent.BackColor = System.Drawing.Color.White;
             this.panelContent.Controls.Add(this.label1);
-            this.panelContent.Controls.Add(this.buttonLogIn);
+            this.panelContent.Controls.Add(this.buttonSignUp);
             this.panelContent.Controls.Add(this.panelHeader);
             this.panelContent.Controls.Add(this.buttonSignIn);
             this.panelContent.Location = new System.Drawing.Point(30, 50);
@@ -169,7 +169,7 @@ namespace DP_music.Account
 
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonLogIn;
+        private System.Windows.Forms.Button buttonSignUp;
         private System.Windows.Forms.Button buttonSignIn;
         private System.Windows.Forms.Panel panelBorderDark;
         private System.Windows.Forms.Panel panelContent;

@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using DP_music.helpers;
 using Newtonsoft.Json;
 using DP_music.API;
+using DP_music.Entities;
 
 namespace DP_music.Account.Login
 {
@@ -34,6 +35,7 @@ namespace DP_music.Account.Login
         {
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
+            panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -57,18 +59,16 @@ namespace DP_music.Account.Login
             string userLogin = customTextBoxLogin.Text;
             string userPass = customTextBoxPassword.Text;
             var userInfo = convertToJSON(userLogin, userPass);
-            var responce = await apiHelpers.IsLogin(userInfo);
-            var res= await apiHelpers.GetUser();
-            var isAutorized = JsonConvert.DeserializeObject<postLogin>(res);
-            postLogin loginInfo =JsonConvert.DeserializeObject<postLogin>(responce);
-            if (!loginInfo.data)
+            var loginStatus = await apiHelpers.IsLogin(userInfo);
+            if (loginStatus.data == "false")
             {
-                MessageBox.Show(loginInfo.errorMessage, "Error login", MessageBoxButtons.OK);
+                MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK);
             }
             else
             {
-                var user = await apiHelpers.GetUser();
-                textBoxTest.Text = user;
+                var user = await apiHelpers.GetUser(loginStatus.token);
+                user.token = loginStatus.token;
+                this.Close();
             }
         }
 

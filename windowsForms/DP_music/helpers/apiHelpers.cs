@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using DP_music.API;
+using System.Net;
+using DP_music.Entities;
 
 namespace DP_music.helpers
 {
@@ -32,52 +34,67 @@ namespace DP_music.helpers
             }
             return string.Empty;
         }
-        public static async Task<string> IsLogin(string userLogin)
+        public static async Task<postLogin> IsLogin(string userLogin)
         {
             HttpContent userInfo = new StringContent(userLogin, Encoding.UTF8, "application/json");
+
             using (HttpClient client = new HttpClient())
             {
                 using (HttpResponseMessage res = await client.PostAsync(localURL + "Account/Login", userInfo))
                 {
-                    using (HttpResponseMessage responce = await client.GetAsync(localURL + "Account/IsAuthorizedUser"))
-                    {
-                        var dataAutor = await responce.Content.ReadAsStringAsync();
-                        var isAutorized = JsonConvert.DeserializeObject<postLogin>(dataAutor);
-                        if(isAutorized.data)
-                        {
-                            
-                        }
-                        using (HttpContent content = res.Content)
-                        {
-                            var data = await content.ReadAsStringAsync();
-                            if (data != null)
-                            {
-                                return data;
-                            }
-                        }
-                    }
-                }
-            }
-            return string.Empty;
-        }
-
-        public static async Task<string> GetUser()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                using (HttpResponseMessage res = await client.GetAsync(localURL + "Account/IsAuthorizedUser"))
-                {
                     using (HttpContent content = res.Content)
                     {
                         var data = await content.ReadAsStringAsync();
+                        var cookie = res.Headers.SingleOrDefault(header => header.Key == "Set-Cookie").Value;
                         if (data != null)
                         {
-                            return data;
+                            postLogin loginInfo = JsonConvert.DeserializeObject<postLogin>(data);
+                            loginInfo.token = cookieToString(cookie.First());
+                            return loginInfo;
                         }
                     }
                 }
             }
-            return string.Empty;
+            return new postLogin();
+        }
+
+        private static string cookieToString(string cookie)
+        {
+            int semicolon = cookie.IndexOf(';');
+            return cookie.Substring(0, semicolon) ;
+        }
+
+        public static async Task<User> GetUser(string token)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, localURL + "User");
+                httpRequestMessage.Headers.Add("Cookie", token);
+
+                //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
+                using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage)) 
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var user = await content.ReadAsStringAsync();
+                        if (user != null)
+                        {
+                            return convertToUser(user);
+                        }
+                    }
+                }
+            }
+            return new User();
+        }
+
+        private static User convertToUser(string user)
+        {
+            var userStatus = JsonConvert.DeserializeObject<getUser>(user);
+            if (userStatus.errorMessage == null)
+            {
+                return userStatus.data;
+            }
+            return new User();
         }
     }
 }

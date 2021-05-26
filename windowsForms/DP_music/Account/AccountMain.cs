@@ -33,7 +33,7 @@ namespace DP_music.Account
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
             panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
-            buttonLogIn.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonLogIn.Width, buttonLogIn.Height, 25, 25));
+            buttonSignUp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSignUp.Width, buttonSignUp.Height, 25, 25));
             buttonSignIn.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSignIn.Width, buttonSignIn.Height, 25, 25));
             this.StartPosition = FormStartPosition.CenterScreen;
         }

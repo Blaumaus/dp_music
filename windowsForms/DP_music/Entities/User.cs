@@ -11,6 +11,9 @@ namespace DP_music.Entities
         public string id;
         public string login;
         public string role;
+        public string token;
+
+        public User() { }
 
         public User(string id, string login, string role)
         {
