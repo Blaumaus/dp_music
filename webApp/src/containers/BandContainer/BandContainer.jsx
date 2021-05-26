@@ -3,18 +3,25 @@ import { withRouter } from 'react-router';
 import Band from 'components/Band'
 import { connect } from "react-redux";
 import { Create, Update, Delete, getBands } from 'redux/reducers/band-reducer'
+import { getGenres } from 'redux/reducers/genre-reducer'
 import { compose } from 'redux'
 import { v4 as uuidv4 } from 'uuid';
 
 class BandContainer extends React.Component {
-   
+
     state = {
-        //isLoading: true,
+        isLoading: true,
         selectedBand: null,
         action: null,
         disableField: false,
         file: null,
-        isAdmin: false
+        isAdmin: true,
+        buttonsback: [
+            {
+                name: 'Жанри',
+                link: '/Genres'
+            }
+        ]
     };
     newBand = {
         //TODO: without id
@@ -22,11 +29,19 @@ class BandContainer extends React.Component {
         name: '',
         image: '',
         description: '',
-        foundationDate:''
+        foundationDate: '',
+        genreId: null
     };
     componentDidMount() {
         this.props.getBands();
+        this.props.getGenres();
+        this.hideLoader();
     };
+
+    showLoader = () => this.setState({ isLoading: true });
+
+    hideLoader = () => this.setState({ isLoading: false });
+
 
     handleUpload = event => {
         this.setState({
@@ -50,7 +65,7 @@ class BandContainer extends React.Component {
         debugger;
         //Push to all songs or albums choice page
         history.push(`/Select/${band.id}`)
-        
+
     }
     handleClickCreate = () => {
         this.setState({
@@ -107,16 +122,19 @@ class BandContainer extends React.Component {
             isAdmin={this.state.isAdmin}
             selectedBand={this.state.selectedBand}
             bands={this.props.bands}
+            genres={this.props.genres}
+            buttonsback={this.state.buttonsback}
         />
     }
 }
 const mapStateToProps = state => {
     return {
-        bands: state.bandPage.bands
+        bands: state.bandPage.bands,
+        genres: state.genrePage.genres
 
     };
 };
 export default compose(
-    connect(mapStateToProps, { Create, Update, Delete, getBands }),
+    connect(mapStateToProps, { Create, Update, Delete, getBands, getGenres }),
     withRouter,
 )(BandContainer);
