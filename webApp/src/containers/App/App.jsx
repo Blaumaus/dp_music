@@ -43,7 +43,7 @@ function App() {
             <Switch>
                 <Route exact path='/SignIn' component={SignInContainer} />
                 <Route exact path='/SignUp' component={SignUpContainer} />
-                <Route exact path='/Genres' component={GenreContainer} />
+                <ProtectedRoute exact path='/Genres' component={GenreContainer} />
                 <ProtectedRoute exact path='/Bands/:genreId' component={BandContainer} />
                 <ProtectedRoute exact path='/Select/:bandId' component={SelectContainer} />
                 <ProtectedRoute exact path='/Albums/:bandId' component={AlbumContainer} />

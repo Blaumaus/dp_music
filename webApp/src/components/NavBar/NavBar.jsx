@@ -18,7 +18,9 @@ import * as Constants from 'constants/constants';
 import { Link } from 'react-router-dom';
 import AuthenticationService from '../AuthenticationService'
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import { getUser, DeleteUser } from 'redux/reducers/user-reducer'
+import { connect } from "react-redux";
+import { compose } from 'redux'
 const logo = Constants.LOGO;
 
 const NavBar = props => {
@@ -44,104 +46,113 @@ const NavBar = props => {
     const handleSignOutClick = () => {
         AuthenticationService.signout();
         props.history.push('/SignIn');
+        //props.DeleteUser();
     }
 
     return (
         <CssBaseline>
-        <AppBar position="static" className={classes.root}>
-            {!loading && (
-                <Toolbar>
-                    <Avatar className={classes.avatar} src={logo} />
-                    <Typography variant="h6" className={classes.title}>
-                        WebSpeak
+            <AppBar position="static" className={classes.root}>
+                {!loading && (
+                    <Toolbar>
+                        <Avatar className={classes.avatar} src={logo} />
+                        <Typography variant="h6" className={classes.title}>
+                            WebSpeak
                     </Typography>
-                    {isMobile ? (
-                        <div>
-                            <IconButton
-                                edge="start"
-                                className={classes.menuButton}
-                                color="inherit"
-                                aria-label="menu"
-                                onClick={handleMenu}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right"
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right"
-                                }}
-                                open={open}
-                                onClose={() => setAnchorEl(null)}
-                            >
+                        {isMobile ? (
+                            <div>
+                                <IconButton
+                                    edge="start"
+                                    className={classes.menuButton}
+                                    color="inherit"
+                                    aria-label="menu"
+                                    onClick={handleMenu}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right"
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right"
+                                    }}
+                                    open={open}
+                                    onClose={() => setAnchorEl(null)}
+                                >
+                                    {auth ? (
+                                        <div>
+                                            <MenuItem component={Link} to="/SignIn" onClick={() => setAuth(false)}>Sign Out</MenuItem>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <MenuItem component={Link} to="/SignIn">SignIn</MenuItem>
+                                            <MenuItem component={Link} to="/SignUp" onClick={handleSignOutClick()}>Sign Up</MenuItem>
+                                        </div>
+                                    )}
+
+                                </Menu>
+                            </div>
+                        ) : (
+                            <div className={classes.headerOptions}>
                                 {auth ? (
-                                    <div>
-                                        <MenuItem component={Link} to="/SignIn" onClick={() => setAuth(false)}>Sign Out</MenuItem>                               
+                                    <div className={classes.menuButtonMargin}>
+                                        <Button
+                                            component={Link} to="/Profile"
+                                            variant="text"
+                                            className={classes.menuButton}
+                                            startIcon={<PersonIcon />}
+                                        >
+                                            UserName
+                                     </Button>
+                                        <Button
+                                            component={Link} to="/SignIn"
+                                            variant="text"
+                                            className={classes.menuButton}
+                                            endIcon={<ExitToAppIcon />}
+                                            onClick={handleSignOutClick}
+                                        >
+                                            Sign Out
+                                     </Button>
+
                                     </div>
                                 ) : (
-                                    <div>
-                                        <MenuItem component={Link} to="/SignIn">SignIn</MenuItem>
-                                        <MenuItem component={Link} to="/SignUp">Sign Up</MenuItem>
+                                    <div className={classes.menuButtonMargin}>
+                                        <Button
+                                            component={Link} to="/SignIn"
+                                            variant="text"
+                                            className={classes.menuButton}
+                                        >
+                                            Sign In
+                                     </Button>
+                                        <Button
+                                            component={Link} to="/SignUp"
+                                            variant="text"
+                                            className={classes.menuButton}
+                                        >
+                                            Sign Up
+                                     </Button>
+
                                     </div>
                                 )}
-
-                            </Menu>
-                        </div>
-                    ) : (
-                        <div className={classes.headerOptions}>
-                            {auth ? (
-                                <div className={classes.menuButtonMargin}>
-                                    <Button
-                                        component={Link} to="/Profile"
-                                        variant="text"
-                                        className={classes.menuButton}
-                                        startIcon={<PersonIcon />}
-                                    >
-                                        UserName
-                                     </Button>
-                                    <Button
-                                        component={Link} to="/SignIn"
-                                        variant="text"
-                                        className={classes.menuButton}
-                                        endIcon={<ExitToAppIcon />}
-                                        onClick={handleSignOutClick}
-                                    >
-                                        Sign Out
-                                     </Button>
-
-                                </div>
-                            ) : (
-                                <div className={classes.menuButtonMargin}>
-                                    <Button
-                                        component={Link} to="/SignIn"
-                                        variant="text"
-                                        className={classes.menuButton}
-                                    >
-                                        Sign In
-                                     </Button>
-                                    <Button
-                                        component={Link} to="/SignUp"
-                                        variant="text"
-                                        className={classes.menuButton}
-                                    >
-                                        Sign Up
-                                     </Button>
-
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </Toolbar>
-            )}
-        </AppBar>
+                            </div>
+                        )}
+                    </Toolbar>
+                )}
+            </AppBar>
         </CssBaseline>
     );
 }
-export default withRouter(NavBar);
+const mapStateToProps = state => {
+    return {
+       
+    };
+};
+export default compose(
+    connect(mapStateToProps,{ DeleteUser, getUser }),
+    withRouter,
+)(NavBar);
