@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
         width: 'auto',
         height: '25em',
     },
-    
+    buttonsBackContainer: {
+        display: 'flex',
+        margin: '1em'
+    }
 
 }));
 

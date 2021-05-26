@@ -75,7 +75,8 @@ export const getBands = () => {
                 image: 'https://acdcfans.ru/wp-content/uploads/2020/10/800px-acdcpowerup.jpg',
                 countryCode: 'UA',
                 foundationDate:new Date('10/11/2014'),
-                description: 'This is AC/DC'
+                description: 'This is AC/DC',
+                genreId:'15f7c520-e48d-4af7-a8ae-7dab8e798d86'
             },
             {
                 id: 2,
@@ -83,7 +84,8 @@ export const getBands = () => {
                 image: 'https://tekst-pesni.online/wp-content/uploads/2020/03/32-4.jpg',
                 countryCode: 'RU',
                 foundationDate:new Date('12/02/2020'),
-                description: 'This is Skillet'
+                description: 'This is Skillet',
+                genreId:'d3f0f3bd-b3d3-4b8f-8c82-9a59bf741e3b'
             }
         ]));
     }

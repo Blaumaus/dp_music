@@ -103,19 +103,24 @@ const Genre = props => {
                                         />
                                     </Grid>
                                 </Grid>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Підтвердити
+                                <div className={classes.buttonsFormContainer}>
+                                    <div className={classes.buttonSubmitContainer}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                        >
+                                            Підтвердити
                                 </Button>
-                                <Button variant="contained" className={classes.buttonBack} onClick={handleButtonBackClick}>
-                                    Назад
+                                    </div>
+                                    <div className={classes.buttonBackContainer}>
+                                        <Button variant="contained" fullWidth className={classes.buttonBack} onClick={handleButtonBackClick}>
+                                            Назад
                                 </Button>
+                                    </div>
+                                </div>
                             </Form>
 
                         )}

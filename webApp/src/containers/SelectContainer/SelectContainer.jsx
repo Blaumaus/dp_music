@@ -3,6 +3,20 @@ import { withRouter } from 'react-router';
 import Select from 'components/Select'
 import { compose } from 'redux'
 class SelectContainer extends React.Component {
+
+    state = {
+        buttonsback: [
+            {
+                name: 'Жанри',
+                link: '/Genres'
+            },
+            {
+                name: 'Групи',
+                link: `/Bands/${this.props.match.params.bandId}`
+            }
+        ]
+    };
+
     componentDidMount() {
 
     };
@@ -29,6 +43,7 @@ class SelectContainer extends React.Component {
         return <Select
             handleAllCompositionClick={this.handleAllCompositionClick}
             handleAlbumClick={this.handleAlbumClick}
+            buttonsback={this.state.buttonsback}
         />
     }
 }

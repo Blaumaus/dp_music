@@ -9,15 +9,27 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const Select = props => {
 
     const classes = useStyles()
 
-    const { handleAllCompositionClick, handleAlbumClick } = props
+    const { handleAllCompositionClick, handleAlbumClick, buttonsback } = props
 
     return (
         <CssBaseline>
+            <div className={classes.buttonsBackContainer}>
+                <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
+                    {buttonsback.map(button => {
+                        return <Button component={Link} to={button.link}>
+                            {button.name}
+                        </Button>
+                    })}
+                </Breadcrumbs>
+            </div>
             <div className={classes.paper} align="center">
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
@@ -25,10 +37,10 @@ const Select = props => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                    <Card className={classes.mediaCardContainer}>
+                        <Card className={classes.mediaCardContainer}>
                             <CardActionArea
                                 onClick={handleAllCompositionClick}
-                               
+
                             >
                                 <CardMedia
                                     className={classes.mediaCardContainer}
@@ -47,7 +59,7 @@ const Select = props => {
                         <Card className={classes.mediaCardContainer}>
                             <CardActionArea
                                 onClick={handleAlbumClick}
-                               
+
                             >
                                 <CardMedia
                                     className={classes.mediaCardContainer}

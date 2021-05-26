@@ -14,7 +14,21 @@ class AlbumContainer extends React.Component {
         action: null,
         disableField: false,
         file: null,
-        isAdmin: false
+        isAdmin: false,
+        buttonsback: [
+            {
+                name: 'Жанри',
+                link: '/Genres'
+            },
+            {
+                name: 'Групи',
+                link: `/Bands/${this.props.match.params.bandId}`
+            },
+            {
+                name: 'Вибір',
+                link: `/Select/${this.props.match.params.bandId}`
+            }
+        ]
     };
     newAlbum = {
         //TODO: without id
@@ -105,6 +119,7 @@ class AlbumContainer extends React.Component {
             isAdmin={this.state.isAdmin}
             selectedAlbum={this.state.selectedAlbum}
             albums={this.props.albums}
+            buttonsback={this.state.buttonsback}
         />
     }
 }

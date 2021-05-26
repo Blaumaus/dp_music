@@ -19,6 +19,13 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { Link } from 'react-router-dom';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+
 const Band = props => {
 
     const classes = useStyles()
@@ -26,16 +33,16 @@ const Band = props => {
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
         bands, file, disableField, isAdmin, selectedBand,
-        handleButtonBackClick, handleBandItemClick } = props
+        handleButtonBackClick, handleBandItemClick, buttonsback, genres } = props
 
     const today = new Date(Date.now());
     const validationSchema = yup.object({
         name: yup.string()
             .required("Введіть Назву"),
         description: yup.string(),
-        countryCode: yup.string().matches(/^[a-zA-Z]*$/,"Не вірний формат").length(2,"Не вірний формат"),
+        countryCode: yup.string().matches(/^[a-zA-Z]*$/, "Не вірний формат").length(2, "Не вірний формат"),
         foundationDate: yup.date().max(today, 'Не може бути раніше сьогоднішньої'),
-
+        genreId: yup.string().required("Виберіть жанр"),
     });
 
     const handleFieldChange = (event) => {
@@ -52,6 +59,15 @@ const Band = props => {
     return (
         <div>
             <CssBaseline />
+            <div className={classes.buttonsBackContainer}>
+                <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
+                    {buttonsback.map(button => {
+                        return <Button component={Link} to={button.link}>
+                            {button.name}
+                        </Button>
+                    })}
+                </Breadcrumbs>
+            </div>
             {isAdmin ? (<div>{selectedBand ?
                 (<div className={classes.paperForm}>
 
@@ -152,21 +168,43 @@ const Band = props => {
                                             helperText={touched.description && errors.description}
                                         />
                                     </Grid>
-
+                                    <Grid item xs={12}>
+                                        <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
+                                            <InputLabel style={{ marginTop: '-1em' }} htmlFor="genreId">Жанр</InputLabel>
+                                            <Select
+                                                native
+                                                id="genreId"
+                                                name="genreId"
+                                                value={values.genreId ? values.genreId : genres[0].id}
+                                                onChange={handleFieldChange}
+                                                fullWidth
+                                                disabled={disableField}
+                                            >
+                                                {genres.map(genre => {
+                                                    return <option key={genre.name} value={genre.id}>{genre.name}</option>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
                                 </Grid>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Підтвердити
+                                <div className={classes.buttonsFormContainer}>
+                                    <div className={classes.buttonSubmitContainer}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                        >
+                                            Підтвердити
                                 </Button>
-                                <Button variant="contained" className={classes.buttonBack} onClick={handleButtonBackClick}>
-                                    Назад
+                                    </div>
+                                    <div className={classes.buttonBackContainer}>
+                                        <Button variant="contained" fullWidth className={classes.buttonBack} onClick={handleButtonBackClick}>
+                                            Назад
                                 </Button>
+                                    </div>
+                                </div>
                             </Form>
 
                         )}

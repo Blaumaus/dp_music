@@ -56,7 +56,7 @@ const NavBar = props => {
                     <Toolbar>
                         <Avatar className={classes.avatar} src={logo} />
                         <Typography variant="h6" className={classes.title}>
-                            WebSpeak
+                            DP_Music
                     </Typography>
                         {isMobile ? (
                             <div>
@@ -86,12 +86,12 @@ const NavBar = props => {
                                 >
                                     {auth ? (
                                         <div>
-                                            <MenuItem component={Link} to="/SignIn" onClick={() => setAuth(false)}>Sign Out</MenuItem>
+                                            <MenuItem onClick={handleSignOutClick}>Sign Out</MenuItem>
                                         </div>
                                     ) : (
                                         <div>
-                                            <MenuItem component={Link} to="/SignIn">SignIn</MenuItem>
-                                            <MenuItem component={Link} to="/SignUp" onClick={handleSignOutClick()}>Sign Up</MenuItem>
+                                            <MenuItem component={Link} to="/SignIn">Sign In</MenuItem>
+                                            <MenuItem component={Link} to="/SignUp" >Sign Up</MenuItem>
                                         </div>
                                     )}
 
@@ -101,16 +101,7 @@ const NavBar = props => {
                             <div className={classes.headerOptions}>
                                 {auth ? (
                                     <div className={classes.menuButtonMargin}>
-                                        <Button
-                                            component={Link} to="/Profile"
-                                            variant="text"
-                                            className={classes.menuButton}
-                                            startIcon={<PersonIcon />}
-                                        >
-                                            UserName
-                                     </Button>
-                                        <Button
-                                            component={Link} to="/SignIn"
+                                        <Button                                  
                                             variant="text"
                                             className={classes.menuButton}
                                             endIcon={<ExitToAppIcon />}
@@ -149,10 +140,10 @@ const NavBar = props => {
 }
 const mapStateToProps = state => {
     return {
-       
+
     };
 };
 export default compose(
-    connect(mapStateToProps,{ DeleteUser, getUser }),
+    connect(mapStateToProps, { DeleteUser, getUser }),
     withRouter,
 )(NavBar);
