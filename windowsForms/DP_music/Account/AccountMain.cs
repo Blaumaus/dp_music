@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using DP_music.Account.Login;
 
 
 namespace DP_music.Account
@@ -50,7 +51,8 @@ namespace DP_music.Account
 
         private void buttonSignIn_Click(object sender, EventArgs e)
         {
-
+            SignIn signIn = new SignIn();
+            signIn.Show();
         }
     }
 }

@@ -8,17 +8,15 @@ namespace DP_music.Entities
 {
     public class User
     {
-        public int id;
-        public string userName;
-        public string email;
-        public string password;
+        public string id;
+        public string login;
+        public string role;
 
-        public User(int id, string userName, string email, string password)
+        public User(string id, string login, string role)
         {
             this.id = id;
-            this.userName = userName;
-            this.email = email;
-            this.password = password;
+            this.login = login;
+            this.role = role;
         }
     }
 }
