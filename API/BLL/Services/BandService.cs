@@ -65,5 +65,22 @@ namespace BLL.Services
             unitOfWork.Band.Create(band);
             await unitOfWork.SaveAsync();
         }
+
+        public async Task Delete(BandDto bandDto)
+        {
+            //Images
+            unitOfWork.Band.Delete(bandDto.Id);
+            unitOfWork.Bandgenre.Delete(bandDto.Id);
+            await unitOfWork.SaveAsync();
+        }
+
+        public async Task<BandDto> GetBandId(string id)
+        {
+            var band = await Task.Run(() => _mapper.Map<Band, BandDto>(unitOfWork.Band.Get(id)));
+
+            //Images
+
+            return band;
+        }
     }
 }

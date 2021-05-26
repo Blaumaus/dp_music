@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace DAL.Repositories
 {
@@ -24,7 +23,7 @@ namespace DAL.Repositories
 
         public void Delete(string id)
         {
-            var bandgenre = db.Bandgenre.Find(id);
+            var bandgenre = db.Bandgenre.FirstOrDefault(e => e.BandId == id);
             if (bandgenre != null)
                 db.Bandgenre.Remove(bandgenre);
         }

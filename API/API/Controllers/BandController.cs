@@ -1,10 +1,7 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -34,7 +31,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("id")]
         public async Task<ActionResult<IEnumerable<BandDto>>> Get( string id)
         {
             try
@@ -43,6 +40,23 @@ namespace API.Controllers
                 if (band == null)
                     return NotFound();
                 return new ObjectResult(band);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("id")]
+        public async Task<ActionResult<BandDto>> Delete(string id)
+        {
+            try
+            {
+                BandDto band = await _bandService.GetBandId(id);
+                if (band == null)
+                    return NotFound();
+                await _bandService.Delete(band);
+                return Ok();
             }
             catch
             {
