@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects'
-import { authActions } from 'actions/auth'
-import { errorsActions } from 'actions/errors'
-import { changeCustomerDetails } from 'api'
+import { authActions } from '../../../actions/auth'
+import { errorsActions } from '../../../actions/errors'
+import { changeCustomerDetails } from '../../../../api'
 
 export default function* ({ payload: { data, successfulCallback } }) {
 	try {
