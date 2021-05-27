@@ -59,16 +59,16 @@ export const authActions = {
 	},
 
 	//Async
-	loginAsync(credentials) {
+	loginAsync(credentials, callback) {
 		return {
 			type: types.LOGIN_ASYNC,
-			payload: { credentials }
+			payload: { credentials, callback }
 		}
 	},
-	signupAsync(data, resetRecaptcha) {
+	signupAsync(data, callback) {
 		return {
 			type: types.SIGNUP_ASYNC,
-			payload: { data, resetRecaptcha }
+			payload: { data, callback }
 		}
 	},
 	emailVerifyAsync(data, successfulCallback, errorCallback) {

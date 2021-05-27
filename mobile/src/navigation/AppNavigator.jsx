@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import Signout from '../components/common/Signout'
+import DetailedInfo from '../screens/common/DetailedInfo'
 import Home from '../screens/Home'
 import Settings from '../screens/Settings'
 import Signin from '../screens/auth/Signin'
@@ -36,6 +37,10 @@ const Main = () => (
     <MainStack.Screen name="Home" component={Home} />
     <MainStack.Screen name="Settings" component={Settings} />
     <MainStack.Screen name="Sign out" component={Signout} />
+    <MainStack.Screen
+      name="DetailedInfo"
+      component={DetailedInfo}
+    />
   </MainStack.Navigator>
 )
 
