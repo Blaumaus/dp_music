@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import _isEmpty from 'lodash/isEmpty'
+import { useDispatch } from 'react-redux'
 import { StatusBar } from 'expo-status-bar'
 import {
   ScrollView,
@@ -12,18 +14,31 @@ import {
   View,
   Button,
 } from 'react-native-ui-lib'
+
+import { authActions } from '../../redux/actions/auth'
 import styles from './styles'
 
 export default function ({ navigation }) {
-  const [email, setEmail] = useState('')
+	const dispatch = useDispatch()
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function login() {
+  const login = () => {
     setLoading(true)
-    // TODO: Implement auth logic using Redux Saga patterns
-    setLoading(false)
-    navigation.navigate('Main')
+    const data = {
+      login: username,
+      password,
+    }
+
+		dispatch(authActions.loginAsync(data, err => {
+      setLoading(false)
+      if (err) {
+        setPassword('')
+      } else {
+        navigation.navigate('Main')
+      }
+    }))
   }
 
   return (
@@ -42,15 +57,15 @@ export default function ({ navigation }) {
               Sign in
 						</Text>
             <TextField
-              title="Email"
+              title="Username"
               containerStyle={styles.mt10}
               placeholder="you@example.com"
-              value={email}
+              value={username}
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
               keyboardType="email-address"
-              onChangeText={setEmail}
+              onChangeText={setUsername}
             />
 
             <TextField
@@ -66,7 +81,7 @@ export default function ({ navigation }) {
             />
             <Button
               label={loading ? 'Loading...' : 'Continue'}
-              disabled={loading}
+              disabled={loading || _isEmpty(username) || _isEmpty(password)}
               style={styles.actionButton}
               onPress={login}
               backgroundColor="#3366ff"

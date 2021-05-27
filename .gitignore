@@ -428,3 +428,4 @@ web-build/
 
 # Environment
 .env
+env.js
