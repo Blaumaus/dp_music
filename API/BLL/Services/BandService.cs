@@ -47,7 +47,7 @@ namespace BLL.Services
             return null;
         }
 
-        public async Task Create(string genreId, BandDto bandDto)
+        public async Task Create(BandDto bandDto)
         {
             var band = _mapper.Map<BandDto, Band>(bandDto);
             band.Id = Guid.NewGuid().ToString();
@@ -57,7 +57,7 @@ namespace BLL.Services
             BandgenreDto bandgenreDto = new BandgenreDto
             {
                 BandId = band.Id,
-                GenreId = genreId
+                GenreId = bandDto.GenreId
             };
             var bandgenre = _mapper.Map<BandgenreDto, Bandgenre>(bandgenreDto);
 
@@ -77,10 +77,47 @@ namespace BLL.Services
         public async Task<BandDto> GetBandId(string id)
         {
             var band = await Task.Run(() => _mapper.Map<Band, BandDto>(unitOfWork.Band.Get(id)));
+            band.GenreId = id;
 
             //Images
 
             return band;
+        }
+
+        public async Task Update(BandDto bandDto)
+        {
+            var band = unitOfWork.Band.Get(bandDto.Id);
+            if (bandDto.Name != null)
+                band.Name = bandDto.Name;
+            if (bandDto.Description != null)
+                band.Description = bandDto.Description;
+            if (bandDto.FoundationDate != null)
+                band.FoundationDate = bandDto.FoundationDate;
+            if (bandDto.CountryCode != null)
+                band.CountryCode = bandDto.CountryCode;
+
+
+            //Images
+
+            if(bandDto.GenreId != null)
+            {
+                unitOfWork.Bandgenre.Delete(bandDto.Id);
+                //Bandgenre bandgenre1 = new Bandgenre
+                //{
+                //    BandId = band.Id,
+                //    GenreId = bandDto.GenreId
+                //};
+                BandgenreDto bandgenreDto = new BandgenreDto
+                {
+                    BandId = band.Id,
+                    GenreId = bandDto.GenreId
+                };
+                var bandgenre = _mapper.Map<BandgenreDto, Bandgenre>(bandgenreDto);
+                unitOfWork.Bandgenre.Create(bandgenre);
+            }
+
+            unitOfWork.Band.Update(band);
+            await unitOfWork.SaveAsync();
         }
     }
 }

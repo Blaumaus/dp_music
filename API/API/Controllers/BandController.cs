@@ -18,11 +18,11 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BandDto>> PostBand(string id, [FromForm] BandDto bandDto)
+        public async Task<ActionResult<BandDto>> PostBand([FromForm] BandDto bandDto)
         {
             try
             {
-                await _bandService.Create(id, bandDto);
+                await _bandService.Create(bandDto);
                 return Ok();
             }
             catch
@@ -40,6 +40,22 @@ namespace API.Controllers
                 if (band == null)
                     return NotFound();
                 return new ObjectResult(band);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put([FromForm] BandDto bandDto)
+        {
+            if (bandDto == null)
+                return NotFound();
+            try
+            {
+                await _bandService.Update(bandDto);
+                return Ok(bandDto);
             }
             catch
             {

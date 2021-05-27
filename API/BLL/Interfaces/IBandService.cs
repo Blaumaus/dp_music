@@ -8,7 +8,8 @@ namespace BLL.Interfaces
     {
         Task<IEnumerable<BandDto>> GetBand(string id);
         Task<BandDto> GetBandId(string id);
-        Task Create(string genreId, BandDto bandDto);
+        Task Create(BandDto bandDto);
         Task Delete(BandDto bandDto);
+        Task Update(BandDto bandDto);
     }
 }
