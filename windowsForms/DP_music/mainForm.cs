@@ -163,16 +163,24 @@ namespace DP_music
 
         public void buttonAccount_Click(object sender, EventArgs e)
         {
-            openChildForm(new AccountMain(this));
-            if (activeForm.Name == "Composition")
+            if( user.login == "Guest")
             {
-                changeButtonColor(panelNav, buttonAccount, 19, 24, 54);
-                buttonAccountName.BackColor = Color.FromArgb(19, 24, 54);
+                openChildForm(new AccountMain(this));
+                if (activeForm.Name == "Composition")
+                {
+                    changeButtonColor(panelNav, buttonAccount, 19, 24, 54);
+                    buttonAccountName.BackColor = Color.FromArgb(19, 24, 54);
+                }
+                
             }
+            else
+                openChildForm(new AccountMain(this));
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
+
+
         }
 
         private void buttonHomeName_Click(object sender, EventArgs e)

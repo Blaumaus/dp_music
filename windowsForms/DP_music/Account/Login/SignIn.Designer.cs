@@ -171,7 +171,7 @@ namespace DP_music.Account.Login
             this.panelBorder.Controls.Add(this.panelInside);
             this.panelBorder.Location = new System.Drawing.Point(436, 19);
             this.panelBorder.Name = "panelBorder";
-            this.panelBorder.Size = new System.Drawing.Size(514, 137);
+            this.panelBorder.Size = new System.Drawing.Size(389, 137);
             this.panelBorder.TabIndex = 0;
             // 
             // panelInside
@@ -180,7 +180,7 @@ namespace DP_music.Account.Login
             this.panelInside.Controls.Add(this.label1);
             this.panelInside.Location = new System.Drawing.Point(7, 7);
             this.panelInside.Name = "panelInside";
-            this.panelInside.Size = new System.Drawing.Size(422, 123);
+            this.panelInside.Size = new System.Drawing.Size(382, 123);
             this.panelInside.TabIndex = 1;
             // 
             // label1
@@ -201,7 +201,7 @@ namespace DP_music.Account.Login
             this.customTextBoxLogin.BorderColorNotActive = System.Drawing.Color.Gray;
             this.customTextBoxLogin.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.customTextBoxLogin.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customTextBoxLogin.FontTextPreview = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.customTextBoxLogin.FontTextPreview = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.customTextBoxLogin.ForeColor = System.Drawing.Color.Black;
             this.customTextBoxLogin.Location = new System.Drawing.Point(461, 178);
             this.customTextBoxLogin.Name = "customTextBoxLogin";

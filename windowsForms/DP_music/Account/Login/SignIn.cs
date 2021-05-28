@@ -57,7 +57,7 @@ namespace DP_music.Account.Login
 
         private async void buttonSignIn_Click(object sender, EventArgs e)
         {
-            if(user.login == "guest")
+            if(user.login == "Guest")
             {
                 string userLogin = customTextBoxLogin.Text;
                 string userPass = customTextBoxPassword.Text;
@@ -93,6 +93,13 @@ namespace DP_music.Account.Login
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
+            if(string.IsNullOrWhiteSpace(customTextBoxLogin.Text) && string.IsNullOrWhiteSpace(customTextBoxPassword.Text))
+            {
+                AccountMain account = new AccountMain(parent);
+                parent.activeForm = account;
+                parent.buttonAccount_Click(this, new EventArgs());
+                return;
+            }
             DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
             {

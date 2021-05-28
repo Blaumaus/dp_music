@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DP_music.Account.Login;
 using DP_music.Entities;
+using DP_music.Account.Registration;
 
 namespace DP_music.Account
 {
@@ -43,7 +44,7 @@ namespace DP_music.Account
 
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
-
+            parent.openChildForm(new SignUp(parent));
         }
 
         private void buttonSignIn_Click(object sender, EventArgs e)

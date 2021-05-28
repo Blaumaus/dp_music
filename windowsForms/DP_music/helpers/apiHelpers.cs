@@ -81,7 +81,7 @@ namespace DP_music.helpers
                 httpRequestMessage.Headers.Add("Cookie", token);
 
                 //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
-                using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage)) 
+                using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -104,6 +104,64 @@ namespace DP_music.helpers
                 return userStatus.data;
             }
             return new User();
+        }
+
+        public static async Task<postLogin> ValidateUserName(string userName)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(localURL + "UserValidation/ValidateUserName/" + userName))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var valid = await content.ReadAsStringAsync();
+                        if (valid != null)
+                        {
+                            return JsonConvert.DeserializeObject<postLogin>(valid);
+                        }
+                    }
+                }
+            }
+            return new postLogin();
+        }
+
+        public static async Task<postLogin> ValidateEmail(string email)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(localURL + "UserValidation/ValidateEmail/" + email))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var valid = await content.ReadAsStringAsync();
+                        if (valid != null)
+                        {
+                            return JsonConvert.DeserializeObject<postLogin>(valid);
+                        }
+                    }
+                }
+            }
+            return new postLogin();
+        }
+
+        public static async Task<bool> Registration(string user)
+        {
+            HttpContent userInfo = new StringContent(user, Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.PostAsync(localURL + "Account/Register", userInfo))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data == null || data == "")
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }
