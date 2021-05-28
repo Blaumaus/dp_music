@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using BLL.DTO;
+﻿using BLL.DTO;
 using BLL.Interfaces;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
