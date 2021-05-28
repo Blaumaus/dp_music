@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace BLL.DTO
 {
@@ -9,8 +10,8 @@ namespace BLL.DTO
         public string Name { get; set; }
         public string Image { get; set; }
         public string CountryCode { get; set; }
-        public DateTime FoundationDate { get; set; }
+        public DateTime? FoundationDate { get; set; }
         public string Description { get; set; }
-        
+        public IFormFile File { get; set; }
     }
 }

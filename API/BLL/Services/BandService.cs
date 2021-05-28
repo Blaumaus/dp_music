@@ -6,6 +6,7 @@ using DAL.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace BLL.Services
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             unitOfWork = new UnitOfWork(context);
             _mapper = mapper;
-            _contentFolder = config["Iamges"];
+            _contentFolder = config["Images"];
         }
 
         public async Task<IEnumerable<BandDto>> GetBand(string id)
@@ -36,13 +37,19 @@ namespace BLL.Services
                 foreach (var bandgenre in bandsgenre)
                 {
                     BandDto band = await Task.Run(() => _mapper.Map<Band, BandDto>(unitOfWork.Band.Get(bandgenre.BandId)));
+                    band.GenreId = id;
+
+                    //Image
+                    if (band.Image != null)
+                        band.Image = _contentFolder + band.Image;
+                    else
+                        band.Image = _contentFolder + "default.png";
+
                     bands = bands.Append(band);
                 }
 
                 return bands;
             }
-            
-            //Images
 
             return null;
         }
@@ -53,6 +60,16 @@ namespace BLL.Services
             band.Id = Guid.NewGuid().ToString();
 
             //Images
+            if (bandDto.File != null)
+            {
+                band.Image = band.Id + ".png";
+                using (FileStream fileStream = File.Create(_contentFolder + band.Id + ".png"))
+                {
+                    bandDto.File.CopyTo(fileStream);
+                    fileStream.Flush();
+                }
+
+            }
 
             BandgenreDto bandgenreDto = new BandgenreDto
             {
@@ -69,6 +86,15 @@ namespace BLL.Services
         public async Task Delete(BandDto bandDto)
         {
             //Images
+            if (bandDto.Image != _contentFolder + "default.png")
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), bandDto.Image.Replace("//", "\\"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+
             unitOfWork.Band.Delete(bandDto.Id);
             unitOfWork.Bandgenre.Delete(bandDto.Id);
             await unitOfWork.SaveAsync();
@@ -80,6 +106,15 @@ namespace BLL.Services
             band.GenreId = id;
 
             //Images
+            if (band.Image != null)
+            {
+                band.Image = _contentFolder + band.Image;
+
+            }
+            else
+            {
+                band.Image = _contentFolder + "default.png";
+            }
 
             return band;
         }
@@ -92,12 +127,28 @@ namespace BLL.Services
             if (bandDto.Description != null)
                 band.Description = bandDto.Description;
             if (bandDto.FoundationDate != null)
-                band.FoundationDate = bandDto.FoundationDate;
+                band.FoundationDate = (DateTime)bandDto.FoundationDate;
             if (bandDto.CountryCode != null)
                 band.CountryCode = bandDto.CountryCode;
 
 
             //Images
+            if (bandDto.File != null)
+            {
+                if(band.Image != null)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), band.Image);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
+                }
+
+                using (FileStream fileStream = File.Create(_contentFolder + band.Id + ".png"))
+                {
+                    bandDto.File.CopyTo(fileStream);
+                    fileStream.Flush();
+                    band.Image = band.Id + ".png";
+                }
+            }
 
             if(bandDto.GenreId != null)
             {
