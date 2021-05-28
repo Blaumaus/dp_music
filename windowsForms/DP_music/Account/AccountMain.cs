@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DP_music.Account.Login;
-
+using DP_music.Entities;
 
 namespace DP_music.Account
 {
@@ -25,22 +25,19 @@ namespace DP_music.Account
             int nWidthElipse,
             int nHeightElipse
         );
-        private Form enableForm;
 
-        public AccountMain(Form enableForm)
+        public mainForm parent;
+
+        public AccountMain(mainForm parent)
         {
-            this.enableForm = enableForm;
             InitializeComponent();
-            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-            panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
-            buttonSignUp.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSignUp.Width, buttonSignUp.Height, 25, 25));
-            buttonSignIn.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSignIn.Width, buttonSignIn.Height, 25, 25));
+            this.parent = parent;
+            panelChild.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelChild.Width, panelChild.Height, 25, 25));
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            enableForm.Enabled = true;
             this.Close();
         }
 
@@ -51,8 +48,25 @@ namespace DP_music.Account
 
         private void buttonSignIn_Click(object sender, EventArgs e)
         {
-            SignIn signIn = new SignIn();
-            signIn.Show();
+            parent.openChildForm(new SignIn(parent));
+        }
+
+        Form activeForm = null;
+
+        private void openChildForm(Form childForm)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            panelChild.Controls.Add(childForm);
+            panelChild.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

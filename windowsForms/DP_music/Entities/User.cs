@@ -13,7 +13,10 @@ namespace DP_music.Entities
         public string role;
         public string token;
 
-        public User() { }
+        public User() 
+        {
+            this.login = "Guest";
+        }
 
         public User(string id, string login, string role)
         {
