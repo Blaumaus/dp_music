@@ -174,7 +174,7 @@ namespace DP_music
                 
             }
             else
-                openChildForm(new AccountMain(this));
+                openChildForm(new AccountLogout(this));
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;

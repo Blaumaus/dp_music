@@ -54,13 +54,13 @@ namespace DP_music.Account.Registration
                 return;
             if (password == passwordSubmit)
             {
+                var validName = await apiHelpers.ValidateUserName(name);
                 var validEmail = await apiHelpers.ValidateEmail(customTextBoxEmail.Text);
                 if (Regex.IsMatch(email, regEmail))
                 {
-                    if (validEmail.data == "true" )
+                    if (validName.data == "true")
                     {
-                        var validName = await apiHelpers.ValidateUserName(name);
-                        if (validName.data == "true")
+                        if (validEmail.data == "true" )
                         {
                             bool isRegistred = await apiHelpers.Registration(ConvertToRegistration(name, email, password));
                             if (isRegistred)
