@@ -33,9 +33,12 @@ const NavBar = props => {
     const open = Boolean(anchorEl);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         AuthenticationService.checkAuthenticated().then(data => { setAuth(data) })
+        AuthenticationService.getUserInfo().then(data => { setUser(data) })
+        
         setLoading(false);
     }, []);
 
@@ -45,8 +48,8 @@ const NavBar = props => {
 
     const handleSignOutClick = () => {
         AuthenticationService.signout();
+        setAuth(false);
         props.history.push('/SignIn');
-        //props.DeleteUser();
     }
 
     return (
@@ -86,7 +89,9 @@ const NavBar = props => {
                                 >
                                     {auth ? (
                                         <div>
+                                            <MenuItem >{user && user.login}</MenuItem>
                                             <MenuItem onClick={handleSignOutClick}>Sign Out</MenuItem>
+
                                         </div>
                                     ) : (
                                         <div>
@@ -101,7 +106,14 @@ const NavBar = props => {
                             <div className={classes.headerOptions}>
                                 {auth ? (
                                     <div className={classes.menuButtonMargin}>
-                                        <Button                                  
+                                        <Button
+                                            variant="text"
+                                            className={classes.menuButton}
+
+                                        >
+                                           {user && user.login}
+                                        </Button>
+                                        <Button
                                             variant="text"
                                             className={classes.menuButton}
                                             endIcon={<ExitToAppIcon />}
@@ -109,6 +121,7 @@ const NavBar = props => {
                                         >
                                             Sign Out
                                      </Button>
+
 
                                     </div>
                                 ) : (
