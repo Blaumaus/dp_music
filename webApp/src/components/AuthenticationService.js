@@ -1,4 +1,5 @@
 import AccountApi from 'api//modules/account';
+import UserApi from 'api//modules/user';
 
 class AuthenticationService {
     constructor() {
@@ -18,6 +19,11 @@ class AuthenticationService {
     async signout() {
         await AccountApi.logout();
         this.isAuthenticated = false;
+    };
+
+    async getUserInfo() {
+        const data = await UserApi.getUser();
+        return data
     };
 
     async checkAuthenticated() {

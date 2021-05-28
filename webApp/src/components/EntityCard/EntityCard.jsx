@@ -22,7 +22,7 @@ export default function MediaCard(props) {
             className={classes.mediaCardContainer}
             className={classes.media}
             image={props.image}
-            style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+            style={{ width: 'auto', height: '13em', objectFit: 'contain' }}
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2" align="center" color="primary">
