@@ -138,7 +138,6 @@ namespace DP_music
             this.buttonSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonSettings.UseVisualStyleBackColor = true;
-            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             this.buttonSettings.Leave += new System.EventHandler(this.buttonSettings_Leave);
             // 
             // buttonCompositionName
@@ -257,7 +256,7 @@ namespace DP_music
             this.textBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxSearch.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.textBoxSearch.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxSearch.Location = new System.Drawing.Point(594, 27);
+            this.textBoxSearch.Location = new System.Drawing.Point(602, 27);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(224, 31);
@@ -270,7 +269,7 @@ namespace DP_music
             this.buttonSearch.FlatAppearance.BorderSize = 0;
             this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSearch.Image = ((System.Drawing.Image)(resources.GetObject("buttonSearch.Image")));
-            this.buttonSearch.Location = new System.Drawing.Point(824, 27);
+            this.buttonSearch.Location = new System.Drawing.Point(832, 27);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(46, 31);
             this.buttonSearch.TabIndex = 4;

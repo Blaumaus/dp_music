@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DP_music.Pages;
 using DP_music.Account;
-
+using DP_music.Entities;
 
 namespace DP_music
 {
@@ -26,7 +26,14 @@ namespace DP_music
             int nWidthElipse,
             int nHeightElipse
         );
-        AccountMain accountMain;
+        public User user { get; set; }
+        public Button userName
+        {
+            get => buttonAccountName;
+            set => buttonAccountName.Text = value.ToString();
+        }
+
+        public Form activeForm = null;
 
         public mainForm()
         {
@@ -39,20 +46,33 @@ namespace DP_music
             panelHeader.BringToFront();
             panelBar.Size = new Size(0, panelBar.Height);
             panelChildForm.Size = panelContent.Size;
+            user = new User();
+            buttonAccountName.Text = user.login;
         }
 
-        Form activeForm = null;
-
-        private void openChildForm(Form childForm)
+        public void openChildForm(Form childForm)
         {
             if (activeForm != null)
             {
+                if(activeForm.Name == "SignIn")
+                {
+                    DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                    if (result == DialogResult.Yes)
+                    {
+                        activeForm.Close();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 activeForm.Close();
             }
             activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
+            childForm.Tag = this;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
@@ -74,73 +94,85 @@ namespace DP_music
         }
 
         #region btnClick
-        private void buttonHome_Click(object sender, EventArgs e)
+        public void buttonHome_Click(object sender, EventArgs e)
         {
-            changeButtonColor(panelNav, buttonHome, 19, 24, 54);
-            buttonHomeName.BackColor = Color.FromArgb(19, 24, 54);
+            openChildForm(new Home());
+            if(activeForm.Name == "Home")
+            {
+                changeButtonColor(panelNav, buttonHome, 19, 24, 54);
+                buttonHomeName.BackColor = Color.FromArgb(19, 24, 54);
+            }
             if(panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
-
-            openChildForm(new Home());
         }
         private void buttonGroups_Click(object sender, EventArgs e)
         {
-            changeButtonColor(panelNav, buttonGroups, 19, 24, 54);
-            buttonGroupsName.BackColor = Color.FromArgb(19, 24, 54);
+            openChildForm(new Groups());
+            if (activeForm.Name == "Groups")
+            {
+                changeButtonColor(panelNav, buttonGroups, 19, 24, 54);
+                buttonGroupsName.BackColor = Color.FromArgb(19, 24, 54);
+            }
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
-            openChildForm(new Groups());
         }
         private void buttonGenres_Click(object sender, EventArgs e)
         {
-            changeButtonColor(panelNav, buttonGenres, 19, 24, 54);
-            buttonGenresName.BackColor = Color.FromArgb(19, 24, 54);
+            openChildForm(new Genres());
+            if (activeForm.Name == "Genres")
+            {
+                changeButtonColor(panelNav, buttonGenres, 19, 24, 54);
+                buttonGenresName.BackColor = Color.FromArgb(19, 24, 54);
+            }
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
-            openChildForm(new Genres());
         }
         private void buttonComposition_Click(object sender, EventArgs e)
         {
-            changeButtonColor(panelNav, buttonComposition, 19, 24, 54);
-            buttonCompositionName.BackColor = Color.FromArgb(19, 24, 54);
+            openChildForm(new Composition());
+            if (activeForm.Name == "Composition")
+            {
+                changeButtonColor(panelNav, buttonComposition, 19, 24, 54);
+                buttonCompositionName.BackColor = Color.FromArgb(19, 24, 54);
+            }
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
-        }
-        private void buttonSettings_Click(object sender, EventArgs e)
-        {
-            changeButtonColor(panelNav, buttonSettings, 19, 24, 54);
         }
 
         private void buttonRecord_Click(object sender, EventArgs e)
         {
-            changeButtonColor(panelNav, buttonRecord, 19, 24, 54);
-            buttonRecordName.BackColor = Color.FromArgb(19, 24, 54);
+            openChildForm(new Record());
+            if (activeForm.Name == "Record")
+            {
+                changeButtonColor(panelNav, buttonRecord, 19, 24, 54);
+                buttonRecordName.BackColor = Color.FromArgb(19, 24, 54);
+            }
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
         }
 
-        private void buttonAccount_Click(object sender, EventArgs e)
+        public void buttonAccount_Click(object sender, EventArgs e)
         {
-            changeButtonColor(panelNav, buttonAccount, 19, 24, 54);
-            buttonAccountName.BackColor = Color.FromArgb(19, 24, 54);
+            openChildForm(new AccountMain(this));
+            if (activeForm.Name == "Composition")
+            {
+                changeButtonColor(panelNav, buttonAccount, 19, 24, 54);
+                buttonAccountName.BackColor = Color.FromArgb(19, 24, 54);
+            }
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
-            accountMain = new AccountMain(this);
-            this.Enabled = false;
-            accountMain.Show();
-
         }
 
         private void buttonHomeName_Click(object sender, EventArgs e)

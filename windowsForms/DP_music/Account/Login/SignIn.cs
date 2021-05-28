@@ -29,14 +29,15 @@ namespace DP_music.Account.Login
             int nHeightElipse
         );
 
-        public string inputText = "";
-
-        public SignIn()
+        public User user;
+        public mainForm parent;
+        public SignIn(mainForm parent)
         {
+            this.parent = parent;
             InitializeComponent();
-            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-            panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
-            this.StartPosition = FormStartPosition.CenterScreen;
+            panelChild.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelChild.Width, panelChild.Height, 25, 25));
+            //this.user = userMain;
+            user = new User();
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -56,19 +57,27 @@ namespace DP_music.Account.Login
 
         private async void buttonSignIn_Click(object sender, EventArgs e)
         {
-            string userLogin = customTextBoxLogin.Text;
-            string userPass = customTextBoxPassword.Text;
-            var userInfo = convertToJSON(userLogin, userPass);
-            var loginStatus = await apiHelpers.IsLogin(userInfo);
-            if (loginStatus.data == "false")
+            if(user.login == "guest")
             {
-                MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK);
-            }
-            else
-            {
-                var user = await apiHelpers.GetUser(loginStatus.token);
-                user.token = loginStatus.token;
-                this.Close();
+                string userLogin = customTextBoxLogin.Text;
+                string userPass = customTextBoxPassword.Text;
+                if(userLogin != "" && userPass != "")
+                {
+                    var userInfo = convertToJSON(userLogin, userPass);
+                    var loginStatus = await apiHelpers.IsLogin(userInfo);
+                    if (loginStatus.data != "false")
+                    {
+                        user = await apiHelpers.GetUser(loginStatus.token);
+                        user.token = loginStatus.token;
+                        parent.userName.Text = user.login;
+                        parent.user = user;
+                        parent.activeForm = new Home();
+                        parent.buttonHome_Click(this, new EventArgs());
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -80,6 +89,17 @@ namespace DP_music.Account.Login
                 {"password", userPass }
             };
             return JsonConvert.SerializeObject(content);
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                AccountMain account= new AccountMain(parent);
+                parent.activeForm = account;
+                parent.buttonAccount_Click(this, new EventArgs());
+            }
         }
     }
 }

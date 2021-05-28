@@ -20,7 +20,7 @@ namespace DP_music.helpers
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.GetAsync(localURL + "Genre"))
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Genre"))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -37,31 +37,40 @@ namespace DP_music.helpers
         public static async Task<postLogin> IsLogin(string userLogin)
         {
             HttpContent userInfo = new StringContent(userLogin, Encoding.UTF8, "application/json");
-
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.PostAsync(localURL + "Account/Login", userInfo))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.PostAsync(localURL + "Account/Login", userInfo))
                     {
-                        var data = await content.ReadAsStringAsync();
-                        var cookie = res.Headers.SingleOrDefault(header => header.Key == "Set-Cookie").Value;
-                        if (data != null)
+                        using (HttpContent content = res.Content)
                         {
-                            postLogin loginInfo = JsonConvert.DeserializeObject<postLogin>(data);
-                            loginInfo.token = cookieToString(cookie.First());
-                            return loginInfo;
+                            var data = await content.ReadAsStringAsync();
+                            var cookie = res.Headers.SingleOrDefault(header => header.Key == "Set-Cookie").Value;
+                            if (data != null)
+                            {
+                                postLogin loginInfo = JsonConvert.DeserializeObject<postLogin>(data);
+                                if (loginInfo.data != "false")
+                                {
+                                    loginInfo.token = cookieToString(cookie.First());
+                                }
+                                return loginInfo;
+                            }
                         }
                     }
                 }
+                return new postLogin();
             }
-            return new postLogin();
+            catch
+            {
+                return new postLogin();
+            }
         }
 
         private static string cookieToString(string cookie)
         {
             int semicolon = cookie.IndexOf(';');
-            return cookie.Substring(0, semicolon) ;
+            return cookie.Substring(0, semicolon);
         }
 
         public static async Task<User> GetUser(string token)
