@@ -36,10 +36,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
     paperForm: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(2),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        paddingBottom: theme.spacing(5),
     },
     form: {
         width: '100%',
@@ -53,11 +54,17 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, 0)',
     },
-    buttonBack: {
-        marginTop: theme.spacing(1),
-        position: 'relative',
-        left: '50%',
-        transform: 'translate(-50%, 0)',
+    buttonsFormContainer: {
+        marginTop: '1em',
+        display: 'flex',
+        width: '100%',
+        gap:'1em'
+    },
+    buttonBackContainer: {
+        width:'25%'
+    },
+    buttonSubmitContainer: {
+        width:'75%'
     },
     input: {
         display: 'none',
@@ -66,18 +73,18 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(8),
     },
     audioPlayerCompositionName: {
-        margin: theme.spacing(3),  
-        width:'auto',
+        margin: theme.spacing(3),
+        width: 'auto',
     },
     arrayEmpty: {
         marginLeft: '10%',
         marginTop: theme.spacing(4),
         display: 'flex',
-        fontSize:'2em'
+        fontSize: '2em'
     },
     compositonsActions: {
         display: 'flex',
-        fontSize:'2em',
+        fontSize: '2em',
         'cursor': 'pointer',
         marginLeft: theme.spacing(2),
     },
@@ -86,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
     listItem: {
-       
+
         padding: theme.spacing(2),
         borderColor: "#0275d8",
         '&:hover': {
@@ -107,6 +114,10 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(0.5),
         width: '4em',
     },
+    buttonsBackContainer: {
+        display: 'flex',
+        margin: '1em'
+    }
 }));
 
 export default useStyles;

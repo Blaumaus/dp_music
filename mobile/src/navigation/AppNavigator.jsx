@@ -1,10 +1,17 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import _filter from 'lodash/filter'
+import _includes from 'lodash/includes'
+import _map from 'lodash/map'
+import { NavigationContainer, useRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
+import { useTranslation } from 'react-i18next'
 
+import { drawerWhitelist } from '../redux/constants'
 import Signout from '../components/common/Signout'
+import DetailedInfo from '../screens/common/DetailedInfo'
 import Home from '../screens/Home'
+import Bands from '../screens/Bands'
 import Settings from '../screens/Settings'
 import Signin from '../screens/auth/Signin'
 import Signup from '../screens/auth/Signup'
@@ -13,6 +20,19 @@ import ForgotPassword from '../screens/auth/ForgotPassword'
 const AuthStack = createStackNavigator()
 const MainStack = createDrawerNavigator()
 const RootStack = createStackNavigator()
+
+const CustomDrawerContent = ({ navigation, t, ...props }) => (
+  <DrawerContentScrollView navigation={navigation} {...props}>
+    {_map(drawerWhitelist, el => (
+      <DrawerItem
+        key={el}
+        label={t(`drawer.${el}`)}
+        onPress={() => navigation.navigate(el)}
+        // focused={??? === el}
+      />
+    ))}
+  </DrawerContentScrollView>
+)
 
 const Auth = () => (
   <AuthStack.Navigator
@@ -26,18 +46,25 @@ const Auth = () => (
   </AuthStack.Navigator>
 )
 
-const Main = () => (
-  <MainStack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}
-    initialRouteName="Home"
-  >
-    <MainStack.Screen name="Home" component={Home} />
-    <MainStack.Screen name="Settings" component={Settings} />
-    <MainStack.Screen name="Sign out" component={Signout} />
-  </MainStack.Navigator>
-)
+const Main = () => {
+  const { t } = useTranslation('common')
+
+  return (
+    <MainStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Home"
+      drawerContent={props => <CustomDrawerContent t={t} {...props} />}
+    >
+      <MainStack.Screen name="home" component={Home} />
+      <MainStack.Screen name="settings" component={Settings} />
+      <MainStack.Screen name="logout" component={Signout} />
+      <MainStack.Screen name="Bands" component={Bands} />
+      <MainStack.Screen name="DetailedInfo" component={DetailedInfo} />
+    </MainStack.Navigator>
+  )
+}
 
 const Root = () => (
   <RootStack.Navigator
@@ -51,11 +78,8 @@ const Root = () => (
   </RootStack.Navigator>
 )
 
-export default () => {
-  // TODO: Check if user is authorised
-  return (
-    <NavigationContainer>
-      <Root />
-    </NavigationContainer>
-  )
-}
+export default () => (
+  <NavigationContainer>
+    <Root />
+  </NavigationContainer>
+)

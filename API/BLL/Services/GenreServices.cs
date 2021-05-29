@@ -29,7 +29,7 @@ namespace BLL.Services
 
         public async Task Delete(GenreDTO genreDTO)
         {
-            if (genreDTO.Image != null)
+            if (genreDTO.Image != _contentFolder + "default.png")
             {
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), genreDTO.Image.Replace("//", "\\"));
                 if (File.Exists(filePath))
@@ -49,11 +49,10 @@ namespace BLL.Services
                 genre.Image = _contentFolder + genre.Image;
 
             }
-            //else
-            //{
-            //    //Зроби тут тоді дефолтну картинку для жанра якусь, створи  в папці картинку з назовою defaultGenreImage.png 
-            //    //genre.Image = _contentFolder + (і тут встав);
-            //}
+            else
+            {
+                genre.Image = _contentFolder + "default.png";
+            }
 
             return genre;
         }
@@ -69,16 +68,17 @@ namespace BLL.Services
             
             if (genreDTO.File != null)
             {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), genre.Image);
-                if (File.Exists(filePath))
+                if (genre.Image != null)
                 {
-                    File.Delete(filePath);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), genre.Image);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
+                }     
 
-                    using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
-                    {
-                        genreDTO.File.CopyTo(fileStream);
-                        fileStream.Flush();
-                    }
+                using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
+                {
+                    genreDTO.File.CopyTo(fileStream);
+                    fileStream.Flush();
                 }
             }
 
@@ -110,7 +110,10 @@ namespace BLL.Services
             var genres = await Task.Run(() => _mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(unitOfWork.Genre.GetAll()));
             foreach( var genre in genres)
             {
-                genre.Image = _contentFolder + genre.Image;
+                if (genre.Image != null)
+                    genre.Image = _contentFolder + genre.Image;
+                else
+                    genre.Image = _contentFolder + "default.png";
             }
             return genres;
         }

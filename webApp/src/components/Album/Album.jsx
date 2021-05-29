@@ -12,6 +12,9 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import styles from './Albums.module.css';
 import AlbumCard from 'components/EntityCard/EntityCard';
 import MainAdminMenu from 'components/MainAdminMenu/MainAdminMenu'
+import { Link } from 'react-router-dom';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 const Album = props => {
@@ -21,7 +24,7 @@ const Album = props => {
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
         albums, file, disableField, isAdmin, selectedAlbum,
-        handleButtonBackClick, handleAlbumItemClick } = props
+        handleButtonBackClick, handleAlbumItemClick, buttonsback } = props
     const today = new Date(Date.now());
     const validationSchema = yup.object({
         name: yup.string()
@@ -41,6 +44,15 @@ const Album = props => {
     return (
         <div>
             <CssBaseline />
+            <div className={classes.buttonsBackContainer}>
+                <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
+                    {buttonsback.map(button => {
+                        return <Button component={Link} to={button.link}>
+                            {button.name}
+                        </Button>
+                    })}
+                </Breadcrumbs>
+            </div>
             {isAdmin ? (<div>{selectedAlbum ?
                 (<div className={classes.paperForm}>
 
@@ -120,18 +132,24 @@ const Album = props => {
                                     </Grid>
                                 </Grid>
 
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Підтвердити
+                                <div className={classes.buttonsFormContainer}>
+                                    <div className={classes.buttonSubmitContainer}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                        >
+                                            Підтвердити
                                 </Button>
-                                <Button variant="contained" className={classes.buttonBack} onClick={handleButtonBackClick}>
-                                    Назад
+                                    </div>
+                                    <div className={classes.buttonBackContainer}>
+                                        <Button variant="contained" fullWidth className={classes.buttonBack} onClick={handleButtonBackClick}>
+                                            Назад
                                 </Button>
+                                    </div>
+                                </div>
                             </Form>
 
                         )}

@@ -22,7 +22,21 @@ class CompositionContainer extends React.Component {
         disableField: false,
         compositionFile: null,
         isAdmin:  false,
-        isLoading: true
+        isLoading: true,
+        buttonsback: [
+            {
+                name: 'Жанри',
+                link: '/Genres'
+            },
+            {
+                name: 'Групи',
+                link: `/Bands/${this.props.match.params.bandId}`
+            },
+            {
+                name: 'Вибір',
+                link: `/Select/${this.props.match.params.bandId}`
+            }
+        ]
     };
     newComposition = {
         //TODO: without id
@@ -119,6 +133,7 @@ class CompositionContainer extends React.Component {
                         selectedComposition={this.state.selectedComposition}
                         compositions={this.props.compositions}
                         handleSortAlphabetically={this.handleSortAlphabetically}
+                        buttonsback={this.state.buttonsback}
                     />
                     ) : (<div style={arrayEmpty}>Композицій ще не додано</div>)
                 }

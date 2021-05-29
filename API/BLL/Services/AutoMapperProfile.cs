@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTO;
 using DAL;
+using System.Collections.Generic;
 
 namespace BLL.Services
 {
@@ -13,6 +14,11 @@ namespace BLL.Services
             CreateMap<UserRegistrationDto, User>().ForMember("Login",opt=>opt.MapFrom(src=>src.UserName));
             CreateMap<User, UserRegistrationDto>().ForMember("UserName", opt => opt.MapFrom(src => src.Login));
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Band, BandDto>();
+            CreateMap<BandDto, Band>();
+            CreateMap<Bandgenre, BandgenreDto>();
+            CreateMap<BandgenreDto, Bandgenre>();
+            CreateMap<Band, IEnumerable<BandDto>>();
         }
     }
 }

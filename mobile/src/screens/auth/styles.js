@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   actionButton: {
-    marginTop: 20,
+    marginTop: 10,
   },
   bottomText: {
     marginLeft: 5,

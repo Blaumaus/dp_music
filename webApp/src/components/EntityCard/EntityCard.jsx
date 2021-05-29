@@ -17,11 +17,12 @@ export default function MediaCard(props) {
         <CardActionArea
           onClick={props.onClick}
           id={props.id}
-          >
+        >
           <CardMedia
             className={classes.mediaCardContainer}
             className={classes.media}
             image={props.image}
+            style={{ width: 'auto', height: '13em', objectFit: 'contain' }}
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2" align="center" color="primary">
@@ -29,7 +30,7 @@ export default function MediaCard(props) {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <ShowDetails name={props.name} description={props.description} foundationDate={props.foundationDate}/>
+        <ShowDetails name={props.name} description={props.description} foundationDate={props.foundationDate} />
       </Card>
     </div>
 

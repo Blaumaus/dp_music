@@ -33,9 +33,12 @@ const NavBar = props => {
     const open = Boolean(anchorEl);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         AuthenticationService.checkAuthenticated().then(data => { setAuth(data) })
+        AuthenticationService.getUserInfo().then(data => { setUser(data) })
+        
         setLoading(false);
     }, []);
 
@@ -45,8 +48,8 @@ const NavBar = props => {
 
     const handleSignOutClick = () => {
         AuthenticationService.signout();
+        setAuth(false);
         props.history.push('/SignIn');
-        //props.DeleteUser();
     }
 
     return (
@@ -56,7 +59,7 @@ const NavBar = props => {
                     <Toolbar>
                         <Avatar className={classes.avatar} src={logo} />
                         <Typography variant="h6" className={classes.title}>
-                            WebSpeak
+                            DP_Music
                     </Typography>
                         {isMobile ? (
                             <div>
@@ -86,12 +89,14 @@ const NavBar = props => {
                                 >
                                     {auth ? (
                                         <div>
-                                            <MenuItem component={Link} to="/SignIn" onClick={() => setAuth(false)}>Sign Out</MenuItem>
+                                            <MenuItem >{user && user.login}</MenuItem>
+                                            <MenuItem onClick={handleSignOutClick}>Sign Out</MenuItem>
+
                                         </div>
                                     ) : (
                                         <div>
-                                            <MenuItem component={Link} to="/SignIn">SignIn</MenuItem>
-                                            <MenuItem component={Link} to="/SignUp" onClick={handleSignOutClick()}>Sign Up</MenuItem>
+                                            <MenuItem component={Link} to="/SignIn">Sign In</MenuItem>
+                                            <MenuItem component={Link} to="/SignUp" >Sign Up</MenuItem>
                                         </div>
                                     )}
 
@@ -102,15 +107,13 @@ const NavBar = props => {
                                 {auth ? (
                                     <div className={classes.menuButtonMargin}>
                                         <Button
-                                            component={Link} to="/Profile"
                                             variant="text"
                                             className={classes.menuButton}
-                                            startIcon={<PersonIcon />}
+
                                         >
-                                            UserName
-                                     </Button>
+                                           {user && user.login}
+                                        </Button>
                                         <Button
-                                            component={Link} to="/SignIn"
                                             variant="text"
                                             className={classes.menuButton}
                                             endIcon={<ExitToAppIcon />}
@@ -118,6 +121,7 @@ const NavBar = props => {
                                         >
                                             Sign Out
                                      </Button>
+
 
                                     </div>
                                 ) : (
@@ -149,10 +153,10 @@ const NavBar = props => {
 }
 const mapStateToProps = state => {
     return {
-       
+
     };
 };
 export default compose(
-    connect(mapStateToProps,{ DeleteUser, getUser }),
+    connect(mapStateToProps, { DeleteUser, getUser }),
     withRouter,
 )(NavBar);

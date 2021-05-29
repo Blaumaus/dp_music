@@ -18,6 +18,10 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import SortIcon from '@material-ui/icons/Sort';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import { Link } from 'react-router-dom';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+
 
 const Composition = props => {
     const classes = useStyles()
@@ -40,7 +44,7 @@ const Composition = props => {
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
         compositions, compositionFile, disableField, isAdmin, selectedComposition,
-        handleButtonBackClick, handleCompositionItemClick, onPlayed, handleSortAlphabetically } = props
+        handleButtonBackClick, handleCompositionItemClick, onPlayed, handleSortAlphabetically, buttonsback } = props
 
     const today = new Date(Date.now());
     const validationSchema = yup.object({
@@ -58,6 +62,15 @@ const Composition = props => {
     return (
         <div>
             <CssBaseline />
+            <div className={classes.buttonsBackContainer}>
+                <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
+                    {buttonsback.map(button => {
+                        return <Button component={Link} to={button.link}>
+                            {button.name}
+                        </Button>
+                    })}
+                </Breadcrumbs>
+            </div>
             {isAdmin ? (<div>{selectedComposition ?
                 (<div className={classes.paperForm}>
 
@@ -95,8 +108,8 @@ const Composition = props => {
                                     />
                                     <label htmlFor="icon-button-file">
                                         <div className={classes.addCompositionButton}>
-                                            <MusicNoteIcon className={classes.addCompositionButton} color="primary"/>
-                                        </div>                                 
+                                            <MusicNoteIcon className={classes.addCompositionButton} color="primary" />
+                                        </div>
                                     </label>
 
                                 </div>
@@ -135,18 +148,24 @@ const Composition = props => {
                                     </Grid>
 
                                 </Grid>
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Підтвердити
+                                <div className={classes.buttonsFormContainer}>
+                                    <div className={classes.buttonSubmitContainer}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                        >
+                                            Підтвердити
                                 </Button>
-                                <Button variant="contained" className={classes.buttonBack} onClick={handleButtonBackClick}>
-                                    Назад
+                                    </div>
+                                    <div className={classes.buttonBackContainer}>
+                                        <Button variant="contained" fullWidth className={classes.buttonBack} onClick={handleButtonBackClick}>
+                                            Назад
                                 </Button>
+                                    </div>
+                                </div>
                             </Form>
 
                         )}
