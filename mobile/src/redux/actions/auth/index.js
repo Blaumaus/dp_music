@@ -1,3 +1,5 @@
+import constants from '../../constants'
+import { deleteItem } from '../../../utils/storage'
 import { types } from './types'
 
 export const authActions = {
@@ -26,11 +28,10 @@ export const authActions = {
 		}
 	},
 	logout() {
-		localStorage.removeItem('access_token')
-		localStorage.removeItem('user_info')
+		deleteItem(constants.TOKEN)
 
 		return {
-			type: types.LOGOUT
+			type: types.LOGOUT,
 		}
 	},
 	clearErrors() {
@@ -45,16 +46,24 @@ export const authActions = {
 		}
 	},
 	deleteAccountSuccess() {
-		localStorage.removeItem('access_token')
-		localStorage.removeItem('user_info')
+		// localStorage.removeItem('access_token')
+		// localStorage.removeItem('user_info')
 
 		return {
 			type: types.DELETE_ACCOUNT_SUCCESS
 		}
 	},
+
 	finishLoading() {
 		return {
-			type: types.FINISH_LOADING
+			type: types.FINISH_LOADING,
+		}
+	},
+
+	initialise(payload) {
+		return {
+			type: types.FINISH_INITIALISATION,
+			payload,
 		}
 	},
 

@@ -1,0 +1,53 @@
+{
+  "drawer": {
+    "home": "Home",
+    "settings": "Settings",
+    "logout": "Sign out",
+    "login": "Sign in"
+  },
+  "languages": {
+    "selectLanguage": "Select language",
+    "searchLanguage": "Search language",
+    "pickerTitle": "Languages",
+    "en": "English",
+    "ru": "Russian",
+    "uk": "Ukrainian"
+  },
+  "auth": {
+    "signin": "Sign in",
+    "forgotPassword": "Forgot password",
+    "login": "Username",
+    "email": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "your secure password",
+    "dontHaveAnAccount": "Don't have an account?",
+    "haveAnAccount": "Already have an account?",
+    "registerHere": "Register here",
+    "loginHere": "Login here",
+    "anonymousContinue": "Continue as an Anonymous",
+    "usernameTaken": "This username is already taken!",
+    "emailTaken": "This email is already taken!"
+  },
+  "common": {
+    "continue": "Continue",
+    "loading": "Loading"
+  },
+  "home": {
+    "noGenres": "There are currently no genres available.. :(",
+    "noBands":  "There are no bands available for the genre {{ genre }}.. :(",
+    "availableGenres": "Available genres",
+    "availableBands": "Bands of genre {{ genre }}",
+    "holdForInfo": "Hold for detailed information",
+    "refresh": "Refresh",
+    "name": "Name",
+    "description": "Description",
+    "foundationDate": "Foundation date",
+    "countryCode": "Country"
+  },
+  "countries": {
+    "US": "The United States of America",
+    "RU": "The Russian Federation",
+    "UA": "Ukraine",
+    "UK": "The United Kingdom"
+  }
+}

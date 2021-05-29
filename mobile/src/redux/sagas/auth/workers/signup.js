@@ -22,7 +22,7 @@ export default function* ({ payload: { data: credentials, callback = () => {} } 
 		yield call(set, constants.TOKEN, token)
 		callback()
 	} catch (error) {
-		const message = _isString(error) ? error : 'Invalid username or password!'
+		const message = _isString(error) ? error : 'Username or email are already taken!'
 
 		yield put(errorsActions.loginFailed(message))
 	} finally {

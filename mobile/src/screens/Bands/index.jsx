@@ -12,7 +12,7 @@ import _map from 'lodash/map'
 import _truncate from 'lodash/truncate'
 
 import { CDN_URL } from '../../../env'
-import { getGenres } from '../../api'
+import { getBands } from '../../api'
 import Loading from '../common/Loading'
 
 const styles = StyleSheet.create({
@@ -51,27 +51,33 @@ const styles = StyleSheet.create({
   }
 })
 
-const Home = ({ navigation }) => {
+const Bands = ({ route, navigation }) => {
   const { t } = useTranslation('common')
-  const [genres, setGenres] = useState([])
+  const { info } = route.params
+  if (_isEmpty(info)) {
+    navigation.goBack(null)
+  }
+  const { id, name } = info
+
+  const [bands, setBands] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [filterInput, setFilterInput] = useState('')
 
   const onSeatchByName = () => {
-		return _filter(genres, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
+		return _filter(bands, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
 	}
 
-  const loadGenres = async () => {
+  const loadBands = async () => {
     try {
-      const data = await getGenres()
+      const data = await getBands(id)
 
       if (_isArray(data)) {
-        setGenres(data)
+        setBands(data)
       } else {
-        setGenres(_values(data))
+        setBands(_values(data))
       }
     } catch (e) {
-      console.error('Error while receiving genres')
+      console.error('Error while receiving bands')
       console.error(e)
     } finally {
       setLoading(false)
@@ -79,7 +85,7 @@ const Home = ({ navigation }) => {
   }
 
   useEffect(() => {
-    loadGenres()
+    loadBands()
   }, [])
 
   if (loading) {
@@ -90,14 +96,14 @@ const Home = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {_isEmpty(genres) ? (
-        <Text style={styles.text}>{t('home.noGenres')}</Text>
+      {_isEmpty(bands) ? (
+        <Text style={styles.text}>{t('home.noBands', { genre: name })}</Text>
       ) : (
         <>
-          <Text style={styles.text}>{t('home.availableGenres')}</Text>
+          <Text style={styles.text}>{t('home.availableBands', { genre: name })}</Text>
           <Text style={styles.desc}>{t('home.holdForInfo')}</Text>
-          {_map(genres, genre => {
-            const { id, name, image, description } = genre
+          {_map(bands, band => {
+            const { id, name, image, description, foundationDate, countryCode } = band
             const hasImage = _includes(image, id)
 
             return (
@@ -105,12 +111,10 @@ const Home = ({ navigation }) => {
                 key={id}
                 height={160}
                 style={styles.card}
-                onPress={() => navigation.navigate('Bands', {
-                  info: genre,
-                })}
+                onPress={() => {}}
                 onLongPress={() => navigation.navigate('DetailedInfo', {
-                  data: genre,
-                  type: 'genre',
+                  data: band,
+                  type: 'band',
                 })}
                 borderRadius={styles.card.borderRadius}
                 backgroundColor={styles.card.backgroundColor}
@@ -140,9 +144,9 @@ const Home = ({ navigation }) => {
           })}
         </>
       )}
-      <Button onPress={loadGenres} label={t('home.refresh')} backgroundColor="#3366ff" />
+      <Button onPress={loadBands} label={t('home.refresh')} backgroundColor="#3366ff" />
     </ScrollView>
   )
 }
 
-export default memo(Home)
+export default memo(Bands)

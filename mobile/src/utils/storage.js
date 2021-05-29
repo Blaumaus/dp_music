@@ -8,6 +8,10 @@ const get = async (key) => {
   return await SecureStore.getItemAsync(key)
 }
 
+const deleteItem = async (key) => {
+  await SecureStore.setItemAsync(key, '')
+}
+
 export {
-  set, get,
+  set, get, deleteItem,
 }
