@@ -1,7 +1,9 @@
 import React, { memo, useState, useEffect } from 'react'
 import { StyleSheet, ScrollView, Dimensions } from 'react-native'
-import { Text, Card, Button } from 'react-native-ui-lib'
+import { Text, Card, Button, View, Colors } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
+import { Flag } from 'react-native-svg-flagkit'
+import _toUpper from 'lodash/toUpper'
 import _isArray from 'lodash/isArray'
 import _values from 'lodash/values'
 import _toLower from 'lodash/toLower'
@@ -48,6 +50,12 @@ const styles = StyleSheet.create({
   cardSection: {
     padding: 20,
     flex: 1,
+  },
+  metadata: {
+    position: 'absolute',
+    bottom: 5,
+    left: 15,
+    alignItems: 'center',
   }
 })
 
@@ -68,6 +76,7 @@ const Bands = ({ route, navigation }) => {
 	}
 
   const loadBands = async () => {
+    setLoading(true)
     try {
       const data = await getBands(id)
 
@@ -86,7 +95,7 @@ const Bands = ({ route, navigation }) => {
 
   useEffect(() => {
     loadBands()
-  }, [])
+  }, [info])
 
   if (loading) {
     return (
@@ -109,7 +118,7 @@ const Bands = ({ route, navigation }) => {
             return (
               <Card
                 key={id}
-                height={160}
+                height={170}
                 style={styles.card}
                 onPress={() => {}}
                 onLongPress={() => navigation.navigate('DetailedInfo', {
@@ -129,16 +138,26 @@ const Bands = ({ route, navigation }) => {
                     imageStyle={styles.cardImage}
                   />
                 )}
-                <Card.Section
-                  content={[
-                    {text: name, text70: true, grey10: true},
-                    {text: _truncate(description, {
-                      'length': hasImage ? 70 : 85,
-                      'omission': '...',
-                    }), text80: true, grey10: true}
-                  ]}
-                  style={styles.cardSection}
-                />
+                <View style={styles.cardSection}>
+                  <Text text70 grey10 color={Colors.grey10}>
+                    {name}
+                  </Text>
+                  <View>
+                    <Text text80 grey10>
+                      {_truncate(description, {
+                        'length': hasImage ? 76 : 90,
+                        'omission': '...',
+                      })}
+                    </Text>
+                  </View>
+
+                  <View row style={styles.metadata}>
+                    <Text>
+                      <Flag id={_toUpper(countryCode)} width={35} height={17} />
+                    </Text>
+                    <Text row right>| {new Date(foundationDate).getUTCFullYear()}</Text>
+                  </View>
+                </View>
               </Card>
             )
           })}

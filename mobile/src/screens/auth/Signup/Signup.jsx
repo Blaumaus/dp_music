@@ -35,8 +35,7 @@ export default function ({ navigation, register: _register, authorised }) {
     const data = {
       userName: username,
       password,
-      email,
-      // userId: 0 // What the fuck?!
+      email
     }
 
     _register(data, err => {
@@ -47,13 +46,12 @@ export default function ({ navigation, register: _register, authorised }) {
         setUsername('')
         setEmailVerified(false)
         setUsernameVerified(false)
-        navigation.navigate('Main')
+        navigation.navigate('Auth.Signin')
       }
     })
   }
 
   const checkUsernameAvailability = () => {
-    setIsValidating(true)
     if (!_isEmpty(username)) {
       validateUsername(username)
         .then(({ data, errorMessage }) => {
@@ -75,7 +73,6 @@ export default function ({ navigation, register: _register, authorised }) {
   }
 
   const checkEmailAvailability = () => {
-    setIsValidating(true)
     if (!_isEmpty(email)) {
       validateEmail(email)
         .then(({ data, errorMessage }) => {
@@ -126,7 +123,10 @@ export default function ({ navigation, register: _register, authorised }) {
             autoCompleteType="off"
             autoCorrect={false}
             keyboardType="email-address"
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => {
+              setEmailError('')
+              setEmail(text)
+            }}
             onBlur={checkEmailAvailability}
           />
           <TextField
@@ -139,7 +139,10 @@ export default function ({ navigation, register: _register, authorised }) {
             autoCompleteType="off"
             autoCorrect={false}
             keyboardType="email-address"
-            onChangeText={(text) => setUsername(text)}
+            onChangeText={(text) => {
+              setUsernameError('')
+              setUsername(text)
+            }}
             onBlur={checkUsernameAvailability}
           />
           <TextField

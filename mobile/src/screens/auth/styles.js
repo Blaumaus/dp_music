@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
   container: {
+    minHeight: Dimensions.get('window').height,
     flexGrow: 1,
   },
   imageContainer: {

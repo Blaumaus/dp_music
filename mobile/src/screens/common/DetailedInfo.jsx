@@ -52,6 +52,13 @@ const DetailedInfo = ({ route, navigation }) => {
   }
   const { image } = data
 
+  const getTextRepesentation = (el) => {
+    if (el === 'countryCode') return t(`countries.${data[el]}`)
+    if (el === 'foundationDate') return new Date(data[el]).getUTCFullYear()
+    
+    return data[el]
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {image && (
@@ -65,7 +72,7 @@ const DetailedInfo = ({ route, navigation }) => {
           <Text style={styles.col_name}>{t(`home.${el}`)}: </Text>
           <Text style={styles.desc}>
             {el === 'countryCode' && <Flag id={_toUpper(data[el])} width={35} height={15} />}
-            {el === 'countryCode' ? t(`countries.${data[el]}`) : data[el]}
+            {getTextRepesentation(el)}
           </Text>
         </Text>
       ))}

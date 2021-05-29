@@ -1,12 +1,20 @@
 {
   "name": "mobile",
-  "displayName": "mobile",
+  "displayName": "DP Music",
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "DP Music",
+    "slug": "dp-music",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.blaumaus.dpmusic",
+      "versionCode": 1
+    },
+    "ios": {
+      "bundleIdentifier": "com.blaumaus.dpmusic",
+      "buildNumber": "1.0.0"
+    }
   }
 }

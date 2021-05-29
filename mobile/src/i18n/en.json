@@ -13,6 +13,9 @@
     "ru": "Russian",
     "uk": "Ukrainian"
   },
+  "settings": {
+    "darkTheme": "Dark theme"
+  },
   "auth": {
     "signin": "Sign in",
     "forgotPassword": "Forgot password",
