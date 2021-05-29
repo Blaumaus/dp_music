@@ -31,6 +31,7 @@ namespace DP_music.Account.Login
 
         public User user;
         public mainForm parent;
+        Message message;
         public SignIn(mainForm parent)
         {
             this.parent = parent;
@@ -50,19 +51,16 @@ namespace DP_music.Account.Login
             this.Close();
         }
 
-        private void customTextBoxPassword_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private async void buttonSignIn_Click(object sender, EventArgs e)
         {
-            if(user.login == "Guest")
+            string userLogin = customTextBoxLogin.Text;
+            string userPass = customTextBoxPassword.Text;
+
+            if (checkTextBox(userLogin, userPass))
             {
-                string userLogin = customTextBoxLogin.Text;
-                string userPass = customTextBoxPassword.Text;
-                if(userLogin != "" && userPass != "")
+                if (user.login == "Guest")
                 {
+
                     var userInfo = convertToJSON(userLogin, userPass);
                     var loginStatus = await apiHelpers.IsLogin(userInfo);
                     if (loginStatus.data != "false")
@@ -76,9 +74,32 @@ namespace DP_music.Account.Login
                         this.Close();
                     }
                     else
-                        MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        new Message(parent, loginStatus.errorMessage, true, false);
                 }
             }
+            else
+                return;            
+        }
+
+        private bool checkTextBox(string userLogin, string userPassword)
+        {
+            bool valid = true;
+            if (string.IsNullOrWhiteSpace(userLogin))
+            {
+                labelLoginValid.Visible = true;
+                valid = false;
+            }
+            else
+                labelLoginValid.Visible = false;
+            if (string.IsNullOrWhiteSpace(userPassword))
+            {
+                valid = false;
+                labelPasswordValid.Visible = true;
+            }
+            else
+                labelPasswordValid.Visible = false;
+            return valid;
         }
 
         private string convertToJSON(string userLogin, string userPass)
@@ -100,8 +121,9 @@ namespace DP_music.Account.Login
                 parent.buttonAccount_Click(this, new EventArgs());
                 return;
             }
-            DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes)
+            //DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            message = new Message(parent, "Ваші дані буде втрачено. Ви хочете вийти?", true, true);
+            if (message.pressOk)
             {
                 AccountMain account= new AccountMain(parent);
                 parent.activeForm = account;

@@ -109,9 +109,9 @@ namespace DP_music.Account.Registration
             this.labelPasswordRepeatValid.ForeColor = System.Drawing.Color.Red;
             this.labelPasswordRepeatValid.Location = new System.Drawing.Point(411, 373);
             this.labelPasswordRepeatValid.Name = "labelPasswordRepeatValid";
-            this.labelPasswordRepeatValid.Size = new System.Drawing.Size(222, 17);
+            this.labelPasswordRepeatValid.Size = new System.Drawing.Size(231, 17);
             this.labelPasswordRepeatValid.TabIndex = 4;
-            this.labelPasswordRepeatValid.Text = "Поле обов\'язкове для зповнення!";
+            this.labelPasswordRepeatValid.Text = "Поле обов\'язкове для зaповнення!";
             // 
             // labelPasswordValid
             // 
@@ -120,9 +120,9 @@ namespace DP_music.Account.Registration
             this.labelPasswordValid.ForeColor = System.Drawing.Color.Red;
             this.labelPasswordValid.Location = new System.Drawing.Point(411, 283);
             this.labelPasswordValid.Name = "labelPasswordValid";
-            this.labelPasswordValid.Size = new System.Drawing.Size(222, 17);
+            this.labelPasswordValid.Size = new System.Drawing.Size(231, 17);
             this.labelPasswordValid.TabIndex = 4;
-            this.labelPasswordValid.Text = "Поле обов\'язкове для зповнення!";
+            this.labelPasswordValid.Text = "Поле обов\'язкове для зaповнення!";
             // 
             // labelEmailValid
             // 
@@ -131,9 +131,9 @@ namespace DP_music.Account.Registration
             this.labelEmailValid.ForeColor = System.Drawing.Color.Red;
             this.labelEmailValid.Location = new System.Drawing.Point(411, 193);
             this.labelEmailValid.Name = "labelEmailValid";
-            this.labelEmailValid.Size = new System.Drawing.Size(222, 17);
+            this.labelEmailValid.Size = new System.Drawing.Size(231, 17);
             this.labelEmailValid.TabIndex = 4;
-            this.labelEmailValid.Text = "Поле обов\'язкове для зповнення!";
+            this.labelEmailValid.Text = "Поле обов\'язкове для зaповнення!";
             // 
             // labelNameValid
             // 
@@ -142,9 +142,9 @@ namespace DP_music.Account.Registration
             this.labelNameValid.ForeColor = System.Drawing.Color.Red;
             this.labelNameValid.Location = new System.Drawing.Point(411, 102);
             this.labelNameValid.Name = "labelNameValid";
-            this.labelNameValid.Size = new System.Drawing.Size(222, 17);
+            this.labelNameValid.Size = new System.Drawing.Size(231, 17);
             this.labelNameValid.TabIndex = 4;
-            this.labelNameValid.Text = "Поле обов\'язкове для зповнення!";
+            this.labelNameValid.Text = "Поле обов\'язкове для зaповнення!";
             // 
             // pictureBox1
             // 

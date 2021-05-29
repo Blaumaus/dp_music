@@ -32,6 +32,7 @@ namespace DP_music.Account.Registration
 
         mainForm parent;
         string regEmail = @"(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)";
+        Message message;
 
         public SignUp(mainForm parent)
         {
@@ -60,7 +61,7 @@ namespace DP_music.Account.Registration
                 {
                     if (validName.data == "true")
                     {
-                        if (validEmail.data == "true" )
+                        if (validEmail.data == "true")
                         {
                             bool isRegistred = await apiHelpers.Registration(ConvertToRegistration(name, email, password));
                             if (isRegistred)
@@ -74,16 +75,28 @@ namespace DP_music.Account.Registration
                             }
                         }
                         else
-                            MessageBox.Show("Таке ім'я вже зареєстрована!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        {
+                            new Message(parent, "Така пошта вже зареєстрована!", true, false);
+                        }
+                        //MessageBox.Show("Таке ім'я вже зареєстрована!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
-                        MessageBox.Show("Така пошта вже існує!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Таке ім'я вже зареєстрован!е", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        new Message(parent, "Користувач з таким іменем вже зареєстрований!", true, false);
+                    }
                 }
                 else
-                    MessageBox.Show("Не валідна пошта!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // MessageBox.Show("Не валідна пошта!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    new Message(parent, "Не валідна пошта!", true, false);
+                }   
             }
             else
-                MessageBox.Show("Паролі не збігаються!", "Різні паролі", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Паролі не збігаються!", "Різні паролі", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                new Message(parent, "Паролі не збігаються!", true, false);
+            }
         }
 
         private string ConvertToRegistration(string name, string email, string password)
@@ -100,28 +113,28 @@ namespace DP_music.Account.Registration
         private bool checkTextBox(string name, string email, string password, string passwordRepeat)
         {
             bool valid = true;
-            if(string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
+            if(string.IsNullOrWhiteSpace(name))
             {
                 labelNameValid.Visible = true;
                 valid = false;
             }
             else
                 labelNameValid.Visible = false;
-            if (string.IsNullOrEmpty(email) || string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 labelEmailValid.Visible = true;
                 valid = false;
             }
             else
                 labelEmailValid.Visible = false;
-            if (string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(password))
             {
                 labelPasswordValid.Visible = true;
                 valid = false;
             }
             else
                 labelPasswordValid.Visible = false;
-            if (string.IsNullOrEmpty(passwordRepeat) || string.IsNullOrWhiteSpace(passwordRepeat))
+            if (string.IsNullOrWhiteSpace(passwordRepeat))
             {
                 labelPasswordRepeatValid.Visible = true;
                 valid = false;
@@ -141,8 +154,9 @@ namespace DP_music.Account.Registration
                 parent.buttonAccount_Click(this, new EventArgs());
                 return;
             }
-            DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes)
+            //DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            message = new Message(parent, "Ваші дані буде втрачено. Ви хочете вийти?", true, true);
+            if (message.pressOk)
             {
                 AccountMain account = new AccountMain(parent);
                 parent.activeForm = account;

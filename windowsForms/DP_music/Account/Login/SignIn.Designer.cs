@@ -43,6 +43,8 @@ namespace DP_music.Account.Login
             this.panelInside = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.customTextBoxLogin = new DP_music.CustomItems.CustomTextBox();
+            this.labelLoginValid = new System.Windows.Forms.Label();
+            this.labelPasswordValid = new System.Windows.Forms.Label();
             this.panelBackColor.SuspendLayout();
             this.panelContent.SuspendLayout();
             this.panelMainBorder.SuspendLayout();
@@ -100,6 +102,8 @@ namespace DP_music.Account.Login
             // panelChild
             // 
             this.panelChild.BackColor = System.Drawing.Color.White;
+            this.panelChild.Controls.Add(this.labelPasswordValid);
+            this.panelChild.Controls.Add(this.labelLoginValid);
             this.panelChild.Controls.Add(this.pictureBox);
             this.panelChild.Controls.Add(this.buttonExit);
             this.panelChild.Controls.Add(this.customTextBoxPassword);
@@ -148,7 +152,6 @@ namespace DP_music.Account.Login
             this.customTextBoxPassword.TabIndex = 2;
             this.customTextBoxPassword.TextInput = "";
             this.customTextBoxPassword.TextPreview = "ENTER PASSWORD";
-            this.customTextBoxPassword.TextChanged += new System.EventHandler(this.customTextBoxPassword_TextChanged);
             // 
             // buttonSignIn
             // 
@@ -210,6 +213,30 @@ namespace DP_music.Account.Login
             this.customTextBoxLogin.TextInput = "";
             this.customTextBoxLogin.TextPreview = "ENTER LOGIN";
             // 
+            // labelLoginValid
+            // 
+            this.labelLoginValid.AutoSize = true;
+            this.labelLoginValid.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelLoginValid.ForeColor = System.Drawing.Color.Red;
+            this.labelLoginValid.Location = new System.Drawing.Point(461, 249);
+            this.labelLoginValid.Name = "labelLoginValid";
+            this.labelLoginValid.Size = new System.Drawing.Size(90, 17);
+            this.labelLoginValid.TabIndex = 5;
+            this.labelLoginValid.Text = "Введіть логін!";
+            this.labelLoginValid.Visible = false;
+            // 
+            // labelPasswordValid
+            // 
+            this.labelPasswordValid.AutoSize = true;
+            this.labelPasswordValid.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelPasswordValid.ForeColor = System.Drawing.Color.Red;
+            this.labelPasswordValid.Location = new System.Drawing.Point(461, 345);
+            this.labelPasswordValid.Name = "labelPasswordValid";
+            this.labelPasswordValid.Size = new System.Drawing.Size(106, 17);
+            this.labelPasswordValid.TabIndex = 5;
+            this.labelPasswordValid.Text = "Введіть пароль!";
+            this.labelPasswordValid.Visible = false;
+            // 
             // SignIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -224,6 +251,7 @@ namespace DP_music.Account.Login
             this.panelContent.ResumeLayout(false);
             this.panelMainBorder.ResumeLayout(false);
             this.panelChild.ResumeLayout(false);
+            this.panelChild.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panelBorder.ResumeLayout(false);
             this.panelInside.ResumeLayout(false);
@@ -247,5 +275,7 @@ namespace DP_music.Account.Login
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Panel panelMainBorder;
         private System.Windows.Forms.Panel panelChild;
+        private System.Windows.Forms.Label labelPasswordValid;
+        private System.Windows.Forms.Label labelLoginValid;
     }
 }
