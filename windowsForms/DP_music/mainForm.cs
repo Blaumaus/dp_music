@@ -54,10 +54,11 @@ namespace DP_music
         {
             if (activeForm != null)
             {
-                if(activeForm.Name == "SignIn")
+                if(activeForm.Name == "SignIn" || activeForm.Name == "SignUp")
                 {
-                    DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-                    if (result == DialogResult.Yes)
+                    //DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                    var message = new Message(this, "Ваші дані буде втрачено. Ви хочете вийти?", true, true);
+                    if (message.pressOk)
                     {
                         activeForm.Close();
                     }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DP_music.Entities;
+using DP_music.helpers;
 
 namespace DP_music.Account
 {
@@ -34,13 +35,22 @@ namespace DP_music.Account
             panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
         }
 
-        private void buttonSignIn_Click(object sender, EventArgs e)
+        private async void buttonLogOut_Click(object sender, EventArgs e)
         {
-            parent.user = new User();
-            parent.userName.Text = parent.user.login;
-            AccountMain account= new AccountMain(parent);
+            if(await apiHelpers.deleteAccount(parent.user.token))
+            {
+                parent.user = new User();
+                parent.userName.Text = parent.user.login;
+            }
+            else
+            {
+                var message = new Message(parent, "Упс.. Спробуйте вийти ще раз!", true, false);
+            }
+            AccountMain account = new AccountMain(parent);
             parent.activeForm = account;
             parent.buttonAccount_Click(this, new EventArgs());
+
+
         }
     }
 }

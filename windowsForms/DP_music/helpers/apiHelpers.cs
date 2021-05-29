@@ -163,5 +163,24 @@ namespace DP_music.helpers
             }
             return false;
         }
+
+        public static async Task<bool> deleteAccount(string token)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, localURL + "Account/Logout");
+                httpRequestMessage.Headers.Add("Cookie", token);
+
+                //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
+                using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage))
+                {
+                    if(res.StatusCode == HttpStatusCode.OK)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
