@@ -3,6 +3,7 @@ import { types } from '../actions/auth/types'
 const initialState = {
 	isAuthenticated: false,
 	isLoading: true,
+	isInitialised: false,
 	userInfo: null,
 	token: null,
 }
@@ -47,6 +48,13 @@ export default (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				isLoading: false,
+			}
+
+		case types.FINISH_INITIALISATION:
+			return {
+				...state,
+				...payload,
+				isInitialised: true,
 			}
 
 		default:

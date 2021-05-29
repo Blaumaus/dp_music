@@ -76,9 +76,33 @@ export const isAuthorised = () =>
       throw new Error(error.response.data.errorMessage)
     })
 
+export const validateUsername = (username) =>
+  api
+    .get(`/UserValidation/ValidateUserName/${username}`)
+    .then(({ data }) => data)
+    .catch(error => {
+      console.error(error)
+    })
+
+export const validateEmail = (email) =>
+  api
+    .get(`/UserValidation/ValidateEmail/${email}`)
+    .then(({ data }) => data)
+    .catch(error => {
+      console.error(error)
+    })
+
 export const getGenres = () =>
   api
-    .get('/Genre')
+    .get('/genre')
+    .then(({ data }) => data)
+    .catch(error => {
+      console.error(error)
+    })
+
+export const getBands = (genreId) =>
+  api
+    .get(`/band/id?id=${genreId}`)
     .then(({ data }) => data)
     .catch(error => {
       console.error(error)

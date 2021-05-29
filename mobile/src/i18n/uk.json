@@ -1,0 +1,54 @@
+{
+  "drawer": {
+    "home": "Головна",
+    "settings": "Налаштування",
+    "logout": "Вийти",
+    "login": "Увійти"
+  },
+  "languages": {
+    "selectLanguage": "Виберіть мову",
+    "searchLanguage": "Пошук мови",
+    "pickerTitle": "Вибір мови",
+    "en": "Англійська",
+    "ru": "Російська",
+    "uk": "Українська"
+  },
+  "auth": {
+    "signin": "Авторизація",
+    "signup": "Реєстрація",
+    "forgotPassword": "Забув пароль",
+    "login": "Логін",
+    "email": "Ел. пошта",
+    "password": "Пароль",
+    "passwordPlaceholder": "ваш безпечний пароль",
+    "dontHaveAnAccount": "Немає акаунту?",
+    "haveAnAccount": "Вже маєте акаунт?",
+    "registerHere": "Зареєструватись",
+    "loginHere": "Увійти",
+    "anonymousContinue": "Продовжити без реєстрації",
+    "usernameTaken": "Введений логін вже зайнятий!",
+    "emailTaken": "Введена ел. адреса вже зайнята!"
+  },
+  "common": {
+    "continue": "Продовжити",
+    "loading": "Завантаження"
+  },
+  "home": {
+    "noGenres": "Поки що немає доступних жанрів.. :(",
+    "noBands":  "Поки що немає доступнів гуртів для жанру {{ genre }}.. :(",
+    "availableGenres": "Доступні жанри",
+    "availableBands": "Гурти жанру {{ genre }}",
+    "holdForInfo": "Зажміть для детальної інформації",
+    "refresh": "Оновити",
+    "name": "Назва",
+    "description": "Опис",
+    "foundationDate": "Дата заснування",
+    "countryCode": "Країна"
+  },
+  "countries": {
+    "US": "Сполучені Штати Америки",
+    "RU": "Російська Федерація",
+    "UA": "Україна",
+    "UK": "Великобританія"
+  }
+}
