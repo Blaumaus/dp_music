@@ -54,7 +54,7 @@ const apiConfig = {
     },
 };
 
-const apiUrl = process.env.REACT_APP_API_BASE + '/api';
+export const apiUrl = process.env.REACT_APP_API_BASE + '/api';
 //Uncomment later, because current CORS configuration doesn`t work when Credentials are true
 //apiConfig.withCredentials = true;
 //

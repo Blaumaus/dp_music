@@ -1,11 +1,11 @@
-import ApiClient from '../apiClient';
+import ApiClient, { apiUrl } from '../apiClient';
 import axios from 'axios';
 
 export default class GenreApi {
   static async create(genre) {
     await axios({
       method: 'post',
-      url: 'https://localhost:44304/api/Genre',
+      url: `${apiUrl}/Genre`,
       data: genre,
       headers: { 'Content-Type': 'multipart/form-data'}
     })

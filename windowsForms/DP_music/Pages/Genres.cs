@@ -34,13 +34,13 @@ namespace DP_music.Pages
         {
             InitializeComponent();
         }
-        private void Genres_Load(object sender, EventArgs e)
+        private async void Genres_Load(object sender, EventArgs e)
         {
-            //var responce = await apiHelpers.GetAll();
-            //List<Genre> genre = new List<Genre>();
-            //genre = JsonConvert.DeserializeObject<List<Genre>>(responce);
-            StaticData staticData = new StaticData();
-            List<Genre> genre = staticData.getStaticGenre();
+            var responce = await apiHelpers.GetAllGenres();
+            List<Genre> genre = new List<Genre>();
+            genre = JsonConvert.DeserializeObject<List<Genre>>(responce);
+            //StaticData staticData = new StaticData();
+            //List<Genre> genre = staticData.getStaticGenre();
             int i = 0;
             genre.ForEach((genre)=>
             {
@@ -52,8 +52,8 @@ namespace DP_music.Pages
                 textBoxDescription.Text = genre.description;
 
                 //string url = Path.GetFullPath(@"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\wwwroot\Images\" + genre.image);
-                //string url = "https://localhost:44304/" + genre.image;
-                pictureBoxGenre.ImageLocation = genre.image;
+                string urlImage = "http://164.90.166.133/" + genre.image;
+                pictureBoxGenre.ImageLocation = urlImage;
                 panelGenre.Controls.Add(pictureBoxGenre);
                 panelGenre.Controls.Add(labelName);
                 panelGenre.Controls.Add(textBoxDescription);

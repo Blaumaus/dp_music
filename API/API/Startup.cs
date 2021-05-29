@@ -56,6 +56,7 @@ namespace API
             services.AddTransient<ILogOutService, LogOutService>();
             services.AddTransient<IAuthenticatedUser, IsAuthenticatedUserService>();
             services.AddTransient<IUserValidationService, UserValidationService>();
+            services.AddTransient<IUserService, UserService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(options =>
