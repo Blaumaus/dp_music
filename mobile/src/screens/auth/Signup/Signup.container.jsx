@@ -5,6 +5,7 @@ import Signup from './Signup'
 
 const mapStateToProps = (state = {}) => ({
   authorised: !_isEmpty(state.authReducer?.token),
+  theme: state.themeReducer?.theme,
 })
 
 const mapDispatchToProps = dispatch => ({

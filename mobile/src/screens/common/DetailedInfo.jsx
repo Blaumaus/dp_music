@@ -7,12 +7,13 @@ import _isEmpty from 'lodash/isEmpty'
 import _toUpper from 'lodash/toUpper'
 import _map from 'lodash/map'
 
+import constants from '../../redux/constants'
 import { CDN_URL } from '../../../env'
 
-const styles = StyleSheet.create({
+const getStyles = theme => StyleSheet.create({
   container: {
     minHeight: Dimensions.get('window').height,
-    backgroundColor: '#fff',
+    backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
     paddingTop: 40,
     paddingLeft: 20,
     paddingRight: 20,
@@ -35,7 +36,10 @@ const styles = StyleSheet.create({
   },
   textBlock: {
     marginTop: 10,
-  }
+  },
+  text: {
+    color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
+  },
 })
 
 const params = {
@@ -46,7 +50,8 @@ const params = {
 
 const DetailedInfo = ({ route, navigation }) => {
   const { t } = useTranslation('common')
-  const { data, type } = route.params
+  const { data, type, theme } = route.params
+  const styles = getStyles(theme)
   if (_isEmpty(data) || !type) {
     navigation.goBack(null)
   }
@@ -68,9 +73,9 @@ const DetailedInfo = ({ route, navigation }) => {
         </View>
       )}
       {_map(params[type], el => (
-        <Text key={el} style={styles.textBlock}>
-          <Text style={styles.col_name}>{t(`home.${el}`)}: </Text>
-          <Text style={styles.desc}>
+        <Text key={el} style={{ ...styles.textBlock, ...styles.text }}>
+          <Text style={{ ...styles.col_name, ...styles.text }}>{t(`home.${el}`)}: </Text>
+          <Text style={{ ...styles.desc, ...styles.text }}>
             {el === 'countryCode' && <Flag id={_toUpper(data[el])} width={35} height={15} />}
             {getTextRepesentation(el)}
           </Text>

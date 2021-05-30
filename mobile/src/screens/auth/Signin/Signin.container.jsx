@@ -5,6 +5,7 @@ import Signin from './Signin'
 
 const mapStateToProps = (state = {}) => ({
   authorised: !_isEmpty(state.authReducer?.token),
+  theme: state.themeReducer?.theme,
 })
 
 const mapDispatchToProps = dispatch => ({

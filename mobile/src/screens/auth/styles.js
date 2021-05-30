@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
+import constants from '../../redux/constants'
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f7f7f7',
+    backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK_2 : constants.BACKGROUND_LIGHT_2,
   },
   image: {
     height: 220,
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 3,
     paddingHorizontal: 20,
     paddingBottom: 20,
-    backgroundColor: '#fff',
+    backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
   },
   formHeader: {
     fontSize: 20,
@@ -35,6 +36,9 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     marginLeft: 5,
+  },
+  text: {
+    color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
   },
   secondaryContainer: {
     flexDirection: 'row',

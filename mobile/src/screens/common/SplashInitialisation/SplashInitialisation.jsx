@@ -1,15 +1,37 @@
 import React, { memo, useEffect, useCallback } from 'react'
+import { Appearance, useColorScheme } from 'react-native'
 import PropTypes from 'prop-types'
 import constants from '../../../redux/constants'
-import { get } from '../../../utils/storage'
+import { get, set } from '../../../utils/storage'
 import LoadingScreen from '../../common/Loading'
 
 // Loading data from async storage and saving it into the redux state via initialise action
-const SplashInitialisation = ({ children, initialised, initialise }) => {
+const SplashInitialisation = ({ children, initialised, initialise, onThemeChange }) => {
+  const colourTheme = useColorScheme()
+
   const load = useCallback(async () => {
     const token = (await get(constants.TOKEN)) || null
-    initialise({ token })
+    let theme = await get(constants.THEME)
+
+    if (!theme) {
+      theme = colourTheme || constants.DEFAULT_FALLBACK_THEME
+      await set(constants.THEME, theme)
+    }
+
+    initialise({ token, theme })
   }, [])
+
+  const colourThemeHandler = useCallback((theme) => {
+    onThemeChange(theme)
+  })
+
+  useEffect(() => {
+    Appearance.addChangeListener(colourThemeHandler)
+
+    return () => {
+      Appearance.removeChangeListener(colourThemeHandler)
+    }
+  }, [colourThemeHandler])
 
   useEffect(() => {
     load()

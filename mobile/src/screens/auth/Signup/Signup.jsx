@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import { useTranslation } from 'react-i18next'
 import _isEmpty from 'lodash/isEmpty'
 import _toString from 'lodash/toString'
@@ -17,9 +16,10 @@ import {
 } from 'react-native-ui-lib'
 
 import { validateUsername, validateEmail } from '../../../api'
-import styles from '../styles'
+import getStyles from '../styles'
 
-export default function ({ navigation, register: _register, authorised }) {
+export default function ({ navigation, register: _register, authorised, theme }) {
+  const styles = getStyles(theme)
   const { t } = useTranslation('common')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -100,7 +100,6 @@ export default function ({ navigation, register: _register, authorised }) {
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={styles.keyboardView}>
-      <StatusBar style="auto" translucent backgroundColor="#f7f7f7" />
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.imageContainer}>
           <Image
@@ -110,7 +109,7 @@ export default function ({ navigation, register: _register, authorised }) {
           />
         </View>
         <View style={styles.form}>
-          <Text style={styles.formHeader} uppercase>
+          <Text style={{ ...styles.formHeader, ...styles.text }} uppercase>
             {t('auth.signup')}
 					</Text>
           <TextField
@@ -166,7 +165,7 @@ export default function ({ navigation, register: _register, authorised }) {
           />
 
           <View style={styles.secondaryContainer}>
-            <Text>{t('auth.haveAnAccount')}</Text>
+            <Text style={styles.text}>{t('auth.haveAnAccount')}</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Auth.Signin')}>
               <Text style={{...styles.bottomText, ...styles.link}}>
                 {t('auth.loginHere')}
