@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Runtime.InteropServices;
 using DP_music.staticData;
+using DP_music.SubPages.Genres;
 
 namespace DP_music.Pages
 {
@@ -30,84 +31,103 @@ namespace DP_music.Pages
             int nHeightElipse
         );
 
-        public Genres()
+        private List<Genre> genres;
+        private mainForm parent;
+
+        public Genres(mainForm parent)
         {
+            this.parent = parent;
             InitializeComponent();
         }
         private async void Genres_Load(object sender, EventArgs e)
         {
             var responce = await apiHelpers.GetAllGenres();
-            List<Genre> genre = new List<Genre>();
-            genre = JsonConvert.DeserializeObject<List<Genre>>(responce);
+            genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
             //StaticData staticData = new StaticData();
-            //List<Genre> genre = staticData.getStaticGenre();
+            //List<Genre> genres = staticData.getStaticGenre();
+            
             int i = 0;
-            genre.ForEach((genre)=>
+            int x = 0;
+            int y = 0;
+            genres.ForEach((genre) =>
             {
-                Panel panelGenre = AddNewPanel(i);
-                PictureBox pictureBoxGenre = addNewPictureBox(i);
+                Panel panelGenre = AddNewPanel(x, y);
+                PictureBox pictureBoxGenre = addNewPictureBox();
                 Label labelName = addNewLabel();
+                PictureBox pictureBoxDescription = addDescription(pictureBoxGenre, genre.id);
                 labelName.Text = genre.name.ToUpper();
-                TextBox textBoxDescription = addNewTextBox();
-                textBoxDescription.Text = genre.description;
 
-                //string url = Path.GetFullPath(@"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\wwwroot\Images\" + genre.image);
                 string urlImage = "http://164.90.166.133/" + genre.image;
                 pictureBoxGenre.ImageLocation = urlImage;
+                panelGenre.Controls.Add(pictureBoxDescription);
                 panelGenre.Controls.Add(pictureBoxGenre);
                 panelGenre.Controls.Add(labelName);
-                panelGenre.Controls.Add(textBoxDescription);
-                this.Controls.Add(panelGenre);
+                panelContent.Controls.Add(panelGenre);
                 i++;
+                x = i % 3;
+                y = i / 3;
+
             });
+            panelContent.Height = y < 1 ? 590 : 265 * (y+1) + 30 * (y + 2);
+            //panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
         }
 
-        private Panel AddNewPanel(int i)
+        private Panel AddNewPanel(int x, int y)
         {
             Panel panelGenre = new Panel();
-            panelGenre.Size = new Size(845, 190);
-            panelGenre.Location = new Point(20, 189 * i + 20 * (i+1));
-            panelGenre.BackColor = Color.FromArgb(58, 150, 194);
-            panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 845, 189, 25, 25));
+            panelGenre.Size = new Size(236, 265);
+            panelGenre.Location = new Point(29 * (x+1) + 236 * x, 265 * y + 30 * (y+1));
+            //panelGenre.BackColor = Color.White;
+            panelGenre.BackColor = Color.FromArgb(82, 177, 250);
+            panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelGenre.Width, panelGenre.Height, 25, 25));
 
             return panelGenre;
         }
 
-        private PictureBox addNewPictureBox(int i)
+        private PictureBox addNewPictureBox()
         {
             PictureBox pictureBoxImg = new PictureBox();
-            pictureBoxImg.Location = new Point(20, 20);
-            pictureBoxImg.Size = new Size(150,150);
-            pictureBoxImg.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBoxImg.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 150, 150, 50, 50));
+            pictureBoxImg.Location = new Point(18, 18);
+            pictureBoxImg.Size = new Size(200,200);
+            pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;
         }
 
         private Label addNewLabel()
         {
             Label labelName = new Label();
-            labelName.Location = new Point(199, 20);
-            labelName.Font = new Font( new FontFamily("Century Gothic"), 14, FontStyle.Bold);
-            labelName.ForeColor = Color.White;
-            labelName.Size = new Size(433, 25);
+            labelName.Location = new Point(18, 221);
+            labelName.Font = new Font(new FontFamily("Century Gothic"), 14, FontStyle.Bold);
+            //labelName.ForeColor = Color.White;
+            labelName.ForeColor = Color.FromArgb(41, 52, 117);
+            labelName.Size = new Size(200, 25);
             return labelName;
         }
 
-        private TextBox addNewTextBox()
+        private PictureBox addDescription(PictureBox parent, string id)
         {
-            TextBox textBoxDescription = new TextBox();
-            textBoxDescription.Location = new Point(200, 61);
-            textBoxDescription.Multiline = true;
-            textBoxDescription.Size = new Size(620, 110);
-            textBoxDescription.ReadOnly = true;
-            textBoxDescription.BackColor = Color.White;
-            textBoxDescription.ForeColor = Color.Black;
-            textBoxDescription.Font = new Font(new FontFamily("Century Gothic"), 12);
-            textBoxDescription.ScrollBars = ScrollBars.Vertical;
-            textBoxDescription.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, 620, 110, 10, 10));
-            textBoxDescription.BorderStyle = BorderStyle.None;
+            PictureBox pictureBoxImg = new PictureBox();
+            pictureBoxImg.AccessibleName = id;
+            pictureBoxImg.Location = new Point(179, 221);
+            pictureBoxImg.Size = new Size(39,39) ;
+            pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxImg.Parent = parent;
+            pictureBoxImg.BackColor = Color.Transparent;
+            pictureBoxImg.Cursor = Cursors.Hand;
+            pictureBoxImg.ImageLocation = Path.GetFullPath(@"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\windowsForms\DP_music\pictures\description2.png");
+            pictureBoxImg.Click += pictureBoxImg_Click;
 
-            return textBoxDescription;
+            return pictureBoxImg;
         }
+
+        private void pictureBoxImg_Click(object sender, EventArgs e)
+        {
+            PictureBox pB = (PictureBox)sender;
+            var genre = genres.FirstOrDefault(e => e.id == pB.AccessibleName);
+            parent.openChildForm(new GenreDescription(genre, parent));
+        }
+
+
     }
 }

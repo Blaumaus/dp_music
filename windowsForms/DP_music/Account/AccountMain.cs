@@ -51,23 +51,5 @@ namespace DP_music.Account
         {
             parent.openChildForm(new SignIn(parent));
         }
-
-        Form activeForm = null;
-
-        private void openChildForm(Form childForm)
-        {
-            if (activeForm != null)
-            {
-                activeForm.Close();
-            }
-            activeForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            panelChild.Controls.Add(childForm);
-            panelChild.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
-        }
     }
 }

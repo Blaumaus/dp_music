@@ -48,6 +48,7 @@ namespace DP_music
             panelChildForm.Size = panelContent.Size;
             user = new User();
             buttonAccountName.Text = user.login;
+            buttonHome_Click(this, new EventArgs());
         }
 
         public void openChildForm(Form childForm)
@@ -121,9 +122,9 @@ namespace DP_music
                 timerClosePanelBar.Enabled = true;
             }
         }
-        private void buttonGenres_Click(object sender, EventArgs e)
+        public void buttonGenres_Click(object sender, EventArgs e)
         {
-            openChildForm(new Genres());
+            openChildForm(new Genres(this));
             if (activeForm.Name == "Genres")
             {
                 changeButtonColor(panelNav, buttonGenres, 19, 24, 54);
@@ -151,7 +152,7 @@ namespace DP_music
         private void buttonRecord_Click(object sender, EventArgs e)
         {
             openChildForm(new Record());
-            if (activeForm.Name == "Record")
+            if (activeForm.Text == "Record")
             {
                 changeButtonColor(panelNav, buttonRecord, 19, 24, 54);
                 buttonRecordName.BackColor = Color.FromArgb(19, 24, 54);
@@ -346,13 +347,13 @@ namespace DP_music
                 panelBar.Visible = true;
                 timerOpenPanelBar.Enabled = true;
                 activeForm.Enabled = false;
-                activeForm.BackColor = Color.FromArgb(225, 225, 225);
+                //activeForm.BackColor = Color.FromArgb(225, 225, 225);
             }
             else
             {
                 timerClosePanelBar.Enabled = true;
                 activeForm.Enabled = true;
-                activeForm.BackColor = Color.White;
+                //activeForm.BackColor = Color.White;
             }
         }
 
