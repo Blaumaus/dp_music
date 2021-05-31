@@ -35,7 +35,7 @@ namespace DP_music.SubPages.Genres
             labelGenreName.Location = new Point((panelName.Width - labelGenreName.Width) / 2, (panelName.Height - labelGenreName.Height) / 2);
             pictureBoxImage.ImageLocation = "http://164.90.166.133/" + genre.image;
             textBoxDescription.Text = genre.description;
-            buttonBack.BringToFront();
+            //buttonBack.BringToFront();
         }
     }
 }

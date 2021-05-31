@@ -101,8 +101,8 @@ namespace DP_music
             openChildForm(new Home());
             if(activeForm.Name == "Home")
             {
-                changeButtonColor(panelNav, buttonHome, 19, 24, 54);
-                buttonHomeName.BackColor = Color.FromArgb(19, 24, 54);
+                changeButtonColor(panelNav, buttonHome, 41, 52, 117);
+                buttonHomeName.BackColor = Color.FromArgb(41, 52, 117);
             }
             if(panelBar.Width > 0)
             {
@@ -114,8 +114,8 @@ namespace DP_music
             openChildForm(new Groups());
             if (activeForm.Name == "Groups")
             {
-                changeButtonColor(panelNav, buttonGroups, 19, 24, 54);
-                buttonGroupsName.BackColor = Color.FromArgb(19, 24, 54);
+                changeButtonColor(panelNav, buttonGroups, 41, 52, 117);
+                buttonGroupsName.BackColor = Color.FromArgb(41, 52, 117);
             }
             if (panelBar.Width > 0)
             {
@@ -127,8 +127,8 @@ namespace DP_music
             openChildForm(new Genres(this));
             if (activeForm.Name == "Genres")
             {
-                changeButtonColor(panelNav, buttonGenres, 19, 24, 54);
-                buttonGenresName.BackColor = Color.FromArgb(19, 24, 54);
+                changeButtonColor(panelNav, buttonGenres, 41, 52, 117);
+                buttonGenresName.BackColor = Color.FromArgb(41, 52, 117);
             }
             if (panelBar.Width > 0)
             {
@@ -140,8 +140,8 @@ namespace DP_music
             openChildForm(new Composition());
             if (activeForm.Name == "Composition")
             {
-                changeButtonColor(panelNav, buttonComposition, 19, 24, 54);
-                buttonCompositionName.BackColor = Color.FromArgb(19, 24, 54);
+                changeButtonColor(panelNav, buttonComposition, 41, 52, 117);
+                buttonCompositionName.BackColor = Color.FromArgb(41, 52, 117);
             }
             if (panelBar.Width > 0)
             {
@@ -154,8 +154,8 @@ namespace DP_music
             openChildForm(new Record());
             if (activeForm.Text == "Record")
             {
-                changeButtonColor(panelNav, buttonRecord, 19, 24, 54);
-                buttonRecordName.BackColor = Color.FromArgb(19, 24, 54);
+                changeButtonColor(panelNav, buttonRecord, 41, 52, 117);
+                buttonRecordName.BackColor = Color.FromArgb(41, 52, 117);
             }
             if (panelBar.Width > 0)
             {
@@ -168,15 +168,12 @@ namespace DP_music
             if( user.login == "Guest")
             {
                 openChildForm(new AccountMain(this));
-                if (activeForm.Name == "Composition")
-                {
-                    changeButtonColor(panelNav, buttonAccount, 19, 24, 54);
-                    buttonAccountName.BackColor = Color.FromArgb(19, 24, 54);
-                }
-                
             }
             else
                 openChildForm(new AccountLogout(this));
+
+            changeButtonColor(panelNav, buttonAccount, 41, 52, 117);
+            buttonAccountName.BackColor = Color.FromArgb(41, 52, 117);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
@@ -227,49 +224,49 @@ namespace DP_music
         private void buttonHome_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonHome.BackColor = Color.FromArgb(41, 52, 117);
-            buttonHomeName.BackColor = Color.FromArgb(41, 52, 117);
+            buttonHome.BackColor = Color.FromArgb(63, 81, 181);
+            buttonHomeName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonGroups_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonGroups.BackColor = Color.FromArgb(41, 52, 117);
-            buttonGroupsName.BackColor = Color.FromArgb(41, 52, 117);
+            buttonGroups.BackColor = Color.FromArgb(63, 81, 181);
+            buttonGroupsName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonGenres_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonGenres.BackColor = Color.FromArgb(41, 52, 117);
-            buttonGenresName.BackColor = Color.FromArgb(41, 52, 117);
+            buttonGenres.BackColor = Color.FromArgb(63, 81, 181);
+            buttonGenresName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonComposition_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonComposition.BackColor = Color.FromArgb(41, 52, 117);
-            buttonCompositionName.BackColor = Color.FromArgb(41, 52, 117);
+            buttonComposition.BackColor = Color.FromArgb(63, 81, 181);
+            buttonCompositionName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonSettings_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonSettings.BackColor = Color.FromArgb(41, 52, 117);
+            buttonSettings.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonRecord_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonRecord.BackColor = Color.FromArgb(41, 52, 117);
-            buttonRecordName.BackColor = Color.FromArgb(41, 52, 117);
+            buttonRecord.BackColor = Color.FromArgb(63, 81, 181);
+            buttonRecordName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonAccount_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
-            buttonAccount.BackColor = Color.FromArgb(41, 52, 117);
-            buttonAccountName.BackColor = Color.FromArgb(41, 52, 117);
+            buttonAccount.BackColor = Color.FromArgb(63, 81, 181);
+            buttonAccountName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
         private void buttonHomeName_Leave(object sender, EventArgs e)

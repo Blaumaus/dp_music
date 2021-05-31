@@ -45,7 +45,7 @@ namespace DP_music.Pages
             genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
             //StaticData staticData = new StaticData();
             //List<Genre> genres = staticData.getStaticGenre();
-            
+
             int i = 0;
             int x = 0;
             int y = 0;
@@ -64,22 +64,23 @@ namespace DP_music.Pages
                 panelGenre.Controls.Add(labelName);
                 panelContent.Controls.Add(panelGenre);
                 i++;
-                x = i % 3;
-                y = i / 3;
+                x = i % 2;
+                y = i / 2;
 
             });
-            panelContent.Height = y < 1 ? 590 : 265 * (y+1) + 30 * (y + 2);
+            panelContent.Height = y < 1 ? 590 : 304 * (y + 1) + 30 * (y + 2);
             //panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
         }
 
         private Panel AddNewPanel(int x, int y)
         {
             Panel panelGenre = new Panel();
-            panelGenre.Size = new Size(236, 265);
-            panelGenre.Location = new Point(29 * (x+1) + 236 * x, 265 * y + 30 * (y+1));
+            panelGenre.Size = new Size(325, 304);
+            panelGenre.Location = new Point(78 * (x+1) + 325 * x, 304 * y + 30 * (y+1));
             //panelGenre.BackColor = Color.White;
-            panelGenre.BackColor = Color.FromArgb(82, 177, 250);
-            panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelGenre.Width, panelGenre.Height, 25, 25));
+            panelGenre.BackColor = Color.FromArgb(41, 52, 117);
+            //panelGenre.BackColor = Color.FromArgb(41, 52, 117);
+            //panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelGenre.Width, panelGenre.Height, 25, 25));
 
             return panelGenre;
         }
@@ -87,21 +88,21 @@ namespace DP_music.Pages
         private PictureBox addNewPictureBox()
         {
             PictureBox pictureBoxImg = new PictureBox();
-            pictureBoxImg.Location = new Point(18, 18);
-            pictureBoxImg.Size = new Size(200,200);
-            pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxImg.BackColor = Color.White;
+            pictureBoxImg.Location = new Point(40, 25);
+            pictureBoxImg.Size = new Size(246,206);
+            pictureBoxImg.SizeMode = PictureBoxSizeMode.StretchImage;
+            //pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;
         }
 
         private Label addNewLabel()
         {
             Label labelName = new Label();
-            labelName.Location = new Point(18, 221);
-            labelName.Font = new Font(new FontFamily("Century Gothic"), 14, FontStyle.Bold);
-            //labelName.ForeColor = Color.White;
-            labelName.ForeColor = Color.FromArgb(41, 52, 117);
-            labelName.Size = new Size(200, 25);
+            labelName.Location = new Point(40,250);
+            labelName.Font = new Font(new FontFamily("Century Gothic"), 16, FontStyle.Bold);
+            labelName.ForeColor = Color.White;
+            //labelName.ForeColor = Color.FromArgb(41, 52, 117);
+            labelName.Size = new Size(200, 27);
             return labelName;
         }
 
@@ -109,13 +110,13 @@ namespace DP_music.Pages
         {
             PictureBox pictureBoxImg = new PictureBox();
             pictureBoxImg.AccessibleName = id;
-            pictureBoxImg.Location = new Point(179, 221);
-            pictureBoxImg.Size = new Size(39,39) ;
+            pictureBoxImg.Location = new Point(247,250);
+            pictureBoxImg.Size = new Size(40, 32) ;
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.Parent = parent;
             pictureBoxImg.BackColor = Color.Transparent;
             pictureBoxImg.Cursor = Cursors.Hand;
-            pictureBoxImg.ImageLocation = Path.GetFullPath(@"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\windowsForms\DP_music\pictures\description2.png");
+            pictureBoxImg.ImageLocation = Path.GetFullPath(@"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\windowsForms\DP_music\pictures\description3.png");
             pictureBoxImg.Click += pictureBoxImg_Click;
 
             return pictureBoxImg;

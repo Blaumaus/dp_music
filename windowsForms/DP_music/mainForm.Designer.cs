@@ -68,7 +68,7 @@ namespace DP_music
             // 
             // panelBar
             // 
-            this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelBar.Controls.Add(this.buttonAccountName);
             this.panelBar.Controls.Add(this.buttonRecordName);
             this.panelBar.Controls.Add(this.buttonSettings);
@@ -107,7 +107,7 @@ namespace DP_music
             this.buttonRecordName.FlatAppearance.BorderSize = 0;
             this.buttonRecordName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRecordName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRecordName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
+            this.buttonRecordName.ForeColor = System.Drawing.Color.White;
             this.buttonRecordName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRecordName.Location = new System.Drawing.Point(0, 312);
             this.buttonRecordName.Name = "buttonRecordName";
@@ -145,7 +145,7 @@ namespace DP_music
             this.buttonCompositionName.FlatAppearance.BorderSize = 0;
             this.buttonCompositionName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCompositionName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonCompositionName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
+            this.buttonCompositionName.ForeColor = System.Drawing.Color.White;
             this.buttonCompositionName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonCompositionName.Location = new System.Drawing.Point(0, 234);
             this.buttonCompositionName.Name = "buttonCompositionName";
@@ -164,7 +164,7 @@ namespace DP_music
             this.buttonGenresName.FlatAppearance.BorderSize = 0;
             this.buttonGenresName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGenresName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonGenresName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
+            this.buttonGenresName.ForeColor = System.Drawing.Color.White;
             this.buttonGenresName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonGenresName.Location = new System.Drawing.Point(0, 156);
             this.buttonGenresName.Name = "buttonGenresName";
@@ -180,10 +180,11 @@ namespace DP_music
             // 
             // buttonGroupsName
             // 
+            this.buttonGroupsName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.buttonGroupsName.FlatAppearance.BorderSize = 0;
             this.buttonGroupsName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGroupsName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonGroupsName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
+            this.buttonGroupsName.ForeColor = System.Drawing.Color.White;
             this.buttonGroupsName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonGroupsName.Location = new System.Drawing.Point(0, 78);
             this.buttonGroupsName.Name = "buttonGroupsName";
@@ -193,7 +194,7 @@ namespace DP_music
             this.buttonGroupsName.Text = "Groups";
             this.buttonGroupsName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGroupsName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.buttonGroupsName.UseVisualStyleBackColor = true;
+            this.buttonGroupsName.UseVisualStyleBackColor = false;
             this.buttonGroupsName.Click += new System.EventHandler(this.buttonGroupsName_Click);
             this.buttonGroupsName.Leave += new System.EventHandler(this.buttonGroupsName_Leave);
             // 
@@ -202,7 +203,7 @@ namespace DP_music
             this.buttonHomeName.FlatAppearance.BorderSize = 0;
             this.buttonHomeName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHomeName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonHomeName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
+            this.buttonHomeName.ForeColor = System.Drawing.Color.White;
             this.buttonHomeName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonHomeName.Location = new System.Drawing.Point(0, 0);
             this.buttonHomeName.Name = "buttonHomeName";
@@ -242,11 +243,11 @@ namespace DP_music
             // labelProjectName
             // 
             this.labelProjectName.AutoSize = true;
-            this.labelProjectName.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelProjectName.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelProjectName.ForeColor = System.Drawing.Color.White;
-            this.labelProjectName.Location = new System.Drawing.Point(65, 18);
+            this.labelProjectName.Location = new System.Drawing.Point(63, 10);
             this.labelProjectName.Name = "labelProjectName";
-            this.labelProjectName.Size = new System.Drawing.Size(166, 40);
+            this.labelProjectName.Size = new System.Drawing.Size(199, 49);
             this.labelProjectName.TabIndex = 2;
             this.labelProjectName.Text = "DP Music";
             // 
@@ -278,7 +279,7 @@ namespace DP_music
             // panelChildForm
             // 
             this.panelChildForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelChildForm.BackColor = System.Drawing.SystemColors.Control;
+            this.panelChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
             this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelChildForm.Location = new System.Drawing.Point(197, 0);
             this.panelChildForm.Name = "panelChildForm";
@@ -287,6 +288,7 @@ namespace DP_music
             // 
             // panelHeader
             // 
+            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelHeader.Controls.Add(this.pictureBoxMenu);
             this.panelHeader.Controls.Add(this.buttonClose);
             this.panelHeader.Controls.Add(this.textBoxSearch);
@@ -301,16 +303,17 @@ namespace DP_music
             // 
             this.pictureBoxMenu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBoxMenu.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxMenu.Image")));
-            this.pictureBoxMenu.Location = new System.Drawing.Point(12, 18);
+            this.pictureBoxMenu.Location = new System.Drawing.Point(15, 18);
             this.pictureBoxMenu.Name = "pictureBoxMenu";
             this.pictureBoxMenu.Size = new System.Drawing.Size(40, 40);
+            this.pictureBoxMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxMenu.TabIndex = 5;
             this.pictureBoxMenu.TabStop = false;
             this.pictureBoxMenu.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panelBarMini
             // 
-            this.panelBarMini.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.panelBarMini.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelBarMini.Controls.Add(this.panelNav);
             this.panelBarMini.Controls.Add(this.buttonAccount);
             this.panelBarMini.Controls.Add(this.buttonRecord);
