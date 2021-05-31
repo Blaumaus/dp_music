@@ -247,9 +247,9 @@ namespace DP_music
             this.labelProjectName.ForeColor = System.Drawing.Color.White;
             this.labelProjectName.Location = new System.Drawing.Point(63, 10);
             this.labelProjectName.Name = "labelProjectName";
-            this.labelProjectName.Size = new System.Drawing.Size(199, 49);
+            this.labelProjectName.Size = new System.Drawing.Size(215, 49);
             this.labelProjectName.TabIndex = 2;
-            this.labelProjectName.Text = "DP Music";
+            this.labelProjectName.Text = "DP MUSIC";
             // 
             // textBoxSearch
             // 

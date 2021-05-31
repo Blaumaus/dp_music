@@ -75,8 +75,9 @@ namespace DP_music.SubPages.Genres
             this.buttonBands.Name = "buttonBands";
             this.buttonBands.Size = new System.Drawing.Size(322, 44);
             this.buttonBands.TabIndex = 5;
-            this.buttonBands.Text = "БЕНДИ";
+            this.buttonBands.Text = "ГУРТИ";
             this.buttonBands.UseVisualStyleBackColor = false;
+            this.buttonBands.Click += new System.EventHandler(this.buttonBands_Click);
             // 
             // textBoxDescription
             // 
@@ -103,7 +104,7 @@ namespace DP_music.SubPages.Genres
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(322, 44);
             this.buttonBack.TabIndex = 5;
-            this.buttonBack.Text = "ЖАНРИ";
+            this.buttonBack.Text = "←";
             this.buttonBack.UseVisualStyleBackColor = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 

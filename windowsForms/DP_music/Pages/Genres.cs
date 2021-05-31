@@ -15,6 +15,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using DP_music.staticData;
 using DP_music.SubPages.Genres;
+using System.Reflection;
 
 namespace DP_music.Pages
 {
@@ -39,58 +40,88 @@ namespace DP_music.Pages
             this.parent = parent;
             InitializeComponent();
         }
-        private async void Genres_Load(object sender, EventArgs e)
+
+        private async void Genres_Paint(object sender, PaintEventArgs e)
         {
             var responce = await apiHelpers.GetAllGenres();
             genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
             //StaticData staticData = new StaticData();
             //List<Genre> genres = staticData.getStaticGenre();
-
-            int i = 0;
+            
             int x = 0;
             int y = 0;
-            genres.ForEach((genre) =>
+            for(int i = 0; i < genres.Count; i++)
             {
-                Panel panelGenre = AddNewPanel(x, y);
-                PictureBox pictureBoxGenre = addNewPictureBox();
-                Label labelName = addNewLabel();
-                PictureBox pictureBoxDescription = addDescription(pictureBoxGenre, genre.id);
-                labelName.Text = genre.name.ToUpper();
+                x = i % 2;
+                y = i / 2;
 
-                string urlImage = "http://164.90.166.133/" + genre.image;
+                PictureBox pbBorder = addBorderPictureBox(x, y, genres[i].image);
+                Panel panelGenre = AddNewPanel(pbBorder);
+
+                PictureBox pictureBoxGenre = addNewPictureBox(genres[i].id);
+                Label labelName = addNewLabel();
+                PictureBox pictureBoxDescription = addDescription(pictureBoxGenre, genres[i].id);
+                labelName.Text = genres[i].name.ToUpper();
+                labelName.BackColor = Color.Transparent;
+
+                string urlImage = "http://164.90.166.133/" + genres[i].image;
                 pictureBoxGenre.ImageLocation = urlImage;
                 panelGenre.Controls.Add(pictureBoxDescription);
                 panelGenre.Controls.Add(pictureBoxGenre);
                 panelGenre.Controls.Add(labelName);
-                panelContent.Controls.Add(panelGenre);
-                i++;
-                x = i % 2;
-                y = i / 2;
-
-            });
+                pbBorder.Controls.Add(panelGenre);
+                panelContent.Controls.Add(pbBorder);
+                //i++;
+                
+            };
             panelContent.Height = y < 1 ? 590 : 304 * (y + 1) + 30 * (y + 2);
             //panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
         }
 
-        private Panel AddNewPanel(int x, int y)
+        private async void showGenres()
+        {
+            
+        }
+
+        private Panel AddNewPanel(PictureBox parent)
         {
             Panel panelGenre = new Panel();
             panelGenre.Size = new Size(325, 304);
-            panelGenre.Location = new Point(78 * (x+1) + 325 * x, 304 * y + 30 * (y+1));
+            panelGenre.Parent = parent;
+            panelGenre.Location = new Point(0, 0);
+            //panelGenre.Location = new Point(78 * (x+1) + 325 * x, 304 * y + 30 * (y+1));
             //panelGenre.BackColor = Color.White;
-            panelGenre.BackColor = Color.FromArgb(41, 52, 117);
+            panelGenre.BackColor = Color.FromArgb(150, 41, 52, 117);
             //panelGenre.BackColor = Color.FromArgb(41, 52, 117);
-            //panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelGenre.Width, panelGenre.Height, 25, 25));
+            //panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelGenre.Width, panelGenre.Height, 10, 10));
 
             return panelGenre;
         }
 
-        private PictureBox addNewPictureBox()
+        private PictureBox addBorderPictureBox(int x, int y, string path)
+        {
+            PictureBox pbBorder = new PictureBox();
+            pbBorder.Size = new Size(325, 304);
+            pbBorder.Location = new Point(78 * (x + 1) + 325 * x, 304 * y + 30 * (y + 1));
+            pbBorder.ImageLocation = "http://164.90.166.133/" + path;
+            //panelGenre.BackColor = Color.White;
+            pbBorder.SizeMode = PictureBoxSizeMode.StretchImage;
+            //panelGenre.BackColor = Color.FromArgb(41, 52, 117);
+            pbBorder.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pbBorder.Width, pbBorder.Height, 10, 10));
+
+            return pbBorder;
+        }
+
+        private PictureBox addNewPictureBox(string id)
         {
             PictureBox pictureBoxImg = new PictureBox();
+            pictureBoxImg.AccessibleName = id;
             pictureBoxImg.Location = new Point(40, 25);
             pictureBoxImg.Size = new Size(246,206);
-            pictureBoxImg.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxImg.BackColor = Color.Transparent;
+            pictureBoxImg.Cursor = Cursors.Hand;
+            pictureBoxImg.Click += pictureBoxImg_Click;
             //pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;
         }
@@ -128,7 +159,5 @@ namespace DP_music.Pages
             var genre = genres.FirstOrDefault(e => e.id == pB.AccessibleName);
             parent.openChildForm(new GenreDescription(genre, parent));
         }
-
-
     }
 }

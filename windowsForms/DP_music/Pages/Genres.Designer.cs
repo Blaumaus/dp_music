@@ -167,7 +167,7 @@ namespace DP_music.Pages
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -221,7 +221,7 @@ namespace DP_music.Pages
             this.Name = "Genres";
             this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
             this.Text = "Genres";
-            this.Load += new System.EventHandler(this.Genres_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Genres_Paint);
             this.panelContent.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

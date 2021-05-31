@@ -183,23 +183,23 @@ namespace DP_music.helpers
             return false;
         }
 
-        public static async Task<string> getFlag(string countryCode)
+        public static async Task<List<Band>> getBand(string genreId)
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.GetAsync("https://www.countryflags.io/" + countryCode.ToLower() + "/shiny/64.png"))
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Band/id?id=" + genreId))
                 {
                     using (HttpContent content = res.Content)
                     {
                         var data = await content.ReadAsStringAsync();
                         if (data != null)
                         {
-                            return data;
+                            return JsonConvert.DeserializeObject<List<Band>>(data);
                         }
                     }
                 }
             }
-            return string.Empty;
+            return new List<Band>();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace DP_music
             DoubleBuffered = true;
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-            buttonSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSearch.Width, buttonSearch.Height, 10, 10));
+            buttonSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSearch.Width, buttonSearch.Height, 8, 8));
             textBoxSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, textBoxSearch.Width, textBoxSearch.Height, 10, 10));
             openChildForm(new Home());
             panelHeader.BringToFront();
@@ -109,10 +109,10 @@ namespace DP_music
                 timerClosePanelBar.Enabled = true;
             }
         }
-        private void buttonGroups_Click(object sender, EventArgs e)
+        public void buttonGroups_Click(object sender, EventArgs e)
         {
             openChildForm(new Groups());
-            if (activeForm.Name == "Groups")
+            if (activeForm.Name == "Groups" || activeForm.Name == "bandToGenre")
             {
                 changeButtonColor(panelNav, buttonGroups, 41, 52, 117);
                 buttonGroupsName.BackColor = Color.FromArgb(41, 52, 117);
@@ -228,14 +228,14 @@ namespace DP_music
             buttonHomeName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
-        private void buttonGroups_Leave(object sender, EventArgs e)
+        public void buttonGroups_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
             buttonGroups.BackColor = Color.FromArgb(63, 81, 181);
             buttonGroupsName.BackColor = Color.FromArgb(63, 81, 181);
         }
 
-        private void buttonGenres_Leave(object sender, EventArgs e)
+        public void buttonGenres_Leave(object sender, EventArgs e)
         {
             panelNav.Visible = false;
             buttonGenres.BackColor = Color.FromArgb(63, 81, 181);
