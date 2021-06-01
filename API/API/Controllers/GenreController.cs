@@ -72,13 +72,22 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromForm]GenreDTO genreDTO)
+        public ActionResult Put(IFormCollection data)
         {
-            if (genreDTO == null)
+            if (data == null)
                 return NotFound();
             try
             {
-                await _genreService.Update(genreDTO);
+                var id= data["id"].FirstOrDefault();
+                var name = data["name"].FirstOrDefault();
+                var description = data["description"].FirstOrDefault();
+                var imageFile = data.Files.FirstOrDefault();
+                GenreDTO genreDTO = new GenreDTO();
+                genreDTO.Id = id;
+                genreDTO.Name = name;
+                genreDTO.Description = description;
+                genreDTO.File = imageFile;
+                _genreService.Update(genreDTO);
                 return Ok(genreDTO);
             }
             catch

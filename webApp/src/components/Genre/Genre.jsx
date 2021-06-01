@@ -20,7 +20,7 @@ const Genre = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        genres, ImagefileToView, disableField, isAdmin, selectedGenre,
+        genres, ImagefileToView, disableField, selectedGenre,
         handleButtonBackClick, handleGenreItemClick, user } = props
 
     const validationSchema = yup.object({

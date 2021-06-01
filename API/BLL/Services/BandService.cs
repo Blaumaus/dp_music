@@ -124,11 +124,9 @@ namespace BLL.Services
             var band = unitOfWork.Band.Get(bandDto.Id);
             if (bandDto.Name != null)
                 band.Name = bandDto.Name;
-            if (bandDto.Description != null)
                 band.Description = bandDto.Description;
             if (bandDto.FoundationDate != null)
                 band.FoundationDate = (DateTime)bandDto.FoundationDate;
-            if (bandDto.CountryCode != null)
                 band.CountryCode = bandDto.CountryCode;
 
 
@@ -141,7 +139,7 @@ namespace BLL.Services
                     if (File.Exists(filePath))
                         File.Delete(filePath);
                 }
-
+                band.Image = band.Id + ".png";
                 using (FileStream fileStream = File.Create(_contentFolder + band.Id + ".png"))
                 {
                     bandDto.File.CopyTo(fileStream);
@@ -153,11 +151,6 @@ namespace BLL.Services
             if(bandDto.GenreId != null)
             {
                 unitOfWork.Bandgenre.Delete(bandDto.Id);
-                //Bandgenre bandgenre1 = new Bandgenre
-                //{
-                //    BandId = band.Id,
-                //    GenreId = bandDto.GenreId
-                //};
                 BandgenreDto bandgenreDto = new BandgenreDto
                 {
                     BandId = band.Id,
