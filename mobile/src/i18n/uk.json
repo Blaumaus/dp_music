@@ -3,7 +3,9 @@
     "home": "Головна",
     "settings": "Налаштування",
     "logout": "Вийти",
-    "login": "Увійти"
+    "login": "Увійти",
+    "bands": "Гурти",
+    "detailedInfo": "Детальна інформація"
   },
   "languages": {
     "selectLanguage": "Виберіть мову",

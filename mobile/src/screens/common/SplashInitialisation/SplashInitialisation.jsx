@@ -6,7 +6,7 @@ import { get, set } from '../../../utils/storage'
 import LoadingScreen from '../../common/Loading'
 
 // Loading data from async storage and saving it into the redux state via initialise action
-const SplashInitialisation = ({ children, initialised, initialise, onThemeChange }) => {
+const SplashInitialisation = ({ children, initialised, initialise }) => {
   const colourTheme = useColorScheme()
 
   const load = useCallback(async () => {
@@ -14,24 +14,12 @@ const SplashInitialisation = ({ children, initialised, initialise, onThemeChange
     let theme = await get(constants.THEME)
 
     if (!theme) {
-      theme = colourTheme || constants.DEFAULT_FALLBACK_THEME
+      theme = colourTheme || Appearance.getColorScheme() || constants.DEFAULT_FALLBACK_THEME
       await set(constants.THEME, theme)
     }
 
     initialise({ token, theme })
   }, [])
-
-  const colourThemeHandler = useCallback((theme) => {
-    onThemeChange(theme)
-  })
-
-  useEffect(() => {
-    Appearance.addChangeListener(colourThemeHandler)
-
-    return () => {
-      Appearance.removeChangeListener(colourThemeHandler)
-    }
-  }, [colourThemeHandler])
 
   useEffect(() => {
     load()

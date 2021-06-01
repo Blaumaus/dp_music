@@ -4,7 +4,7 @@ import _filter from 'lodash/filter'
 import _includes from 'lodash/includes'
 import _map from 'lodash/map'
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import { useTranslation } from 'react-i18next'
 
@@ -60,16 +60,30 @@ const Main = () => {
   return (
     <MainStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
       }}
       initialRouteName="Home"
       drawerContent={props => <CustomDrawerContent t={t} theme={theme} {...props} />}
     >
-      <MainStack.Screen name="home" component={Home} />
-      <MainStack.Screen name="settings" component={Settings} />
+      <MainStack.Screen name="home" options={{ title: t(`drawer.home`) }} component={Home} />
+      <MainStack.Screen name="settings" options={{ title: t(`drawer.settings`) }} component={Settings} />
       <MainStack.Screen name="logout" component={Signout} />
-      <MainStack.Screen name="Bands" component={Bands} />
-      <MainStack.Screen name="DetailedInfo" component={DetailedInfo} />
+      <MainStack.Screen
+        name="bands"
+        options={({ navigation }) => ({
+          title: t(`drawer.bands`),
+          headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+        })}
+        component={Bands}
+      />
+      <MainStack.Screen
+        name="detailedInfo"
+        options={({ navigation }) => ({
+          title: t(`drawer.detailedInfo`),
+          headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+        })}
+        component={DetailedInfo}
+      />
     </MainStack.Navigator>
   )
 }
@@ -87,10 +101,10 @@ const Root = () => (
 )
 
 export default () => {
-  const theme = useSelector(state => state.themeReducer?.theme)
+  const theme = getTheme(useSelector(state => state.themeReducer?.theme))
 
   return (
-    <NavigationContainer theme={getTheme(theme)}>
+    <NavigationContainer theme={theme}>
       <Root />
     </NavigationContainer>
   )

@@ -12,16 +12,15 @@ import { CDN_URL } from '../../../env'
 
 const getStyles = theme => StyleSheet.create({
   container: {
-    minHeight: Dimensions.get('window').height,
+    minHeight: Dimensions.get('window').height - 80,
     backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
-    paddingTop: 40,
+    paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
   },
   image_container: {
     alignItems: 'center',
     maxHeight: 400,
-    marginBottom: 20,
   },
   image: {
     width: Dimensions.get('window').width - 40,
@@ -69,7 +68,7 @@ const DetailedInfo = ({ route, navigation }) => {
       {image && (
         <View style={styles.image_container}>
           {/* TODO: Fix image is not displaying bug. For some weird reason images in this component neither are loaded nor displayed to the user. */}
-          <Image source={{ uri: CDN_URL + data.image }} style={styles.image} resizeMode='contain' />
+          <Image source={{ uri: CDN_URL + data.image }} style={styles.image} />
         </View>
       )}
       {_map(params[type], el => (

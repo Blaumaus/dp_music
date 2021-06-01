@@ -3,7 +3,9 @@
     "home": "Главная",
     "settings": "Настройки",
     "logout": "Выйти",
-    "login": "Войти"
+    "login": "Войти",
+    "bands": "Исполнители",
+    "detailedInfo": "Детальная информация"
   },
   "languages": {
     "selectLanguage": "Выберите язык",

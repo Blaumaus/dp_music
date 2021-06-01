@@ -12,9 +12,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(authActions.initialise({ token }))
     dispatch(themeActions.changeTheme(theme))
   },
-  onThemeChange: (theme) => {
-    dispatch(themeActions.changeTheme(theme))
-  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplashInitialisation)

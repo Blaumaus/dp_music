@@ -1,7 +1,9 @@
 import React, { memo, useState, useEffect } from 'react'
 import { StyleSheet, ScrollView, Dimensions } from 'react-native'
-import { Text, Card, Button } from 'react-native-ui-lib'
+import { Text, Card, Button, View, Colors } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
+import { Flag } from 'react-native-svg-flagkit'
+import _toUpper from 'lodash/toUpper'
 import _isArray from 'lodash/isArray'
 import _values from 'lodash/values'
 import _toLower from 'lodash/toLower'
@@ -11,18 +13,18 @@ import _isEmpty from 'lodash/isEmpty'
 import _map from 'lodash/map'
 import _truncate from 'lodash/truncate'
 
-import constants from '../../redux/constants'
 import { CDN_URL } from '../../../env'
-import { getGenres } from '../../api'
+import constants from '../../redux/constants'
+import { getBands } from '../../api'
 import Loading from '../common/Loading'
 
 const getStyles = theme => StyleSheet.create({
   container: {
-    minHeight: Dimensions.get('window').height - 80,
+    minHeight: Dimensions.get('window').height,
     backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
     alignItems: 'center',
-    paddingTop: 10,
-    paddingBottom: 15,
+    paddingTop: 40,
+    paddingBottom: 30,
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -51,31 +53,44 @@ const getStyles = theme => StyleSheet.create({
   cardSection: {
     padding: 20,
     flex: 1,
+  },
+  metadata: {
+    position: 'absolute',
+    bottom: 5,
+    left: 15,
+    alignItems: 'center',
   }
 })
 
-const Home = ({ navigation, theme }) => {
+const Albums = ({ route, navigation, theme }) => {
   const styles = getStyles(theme)
   const { t } = useTranslation('common')
-  const [genres, setGenres] = useState([])
+  const { info } = route.params
+  if (_isEmpty(info)) {
+    navigation.goBack(null)
+  }
+  const { id, name } = info
+
+  const [bands, setBands] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [filterInput, setFilterInput] = useState('')
 
   const onSeatchByName = () => {
-		return _filter(genres, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
+		return _filter(bands, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
 	}
 
-  const loadGenres = async () => {
+  const loadBands = async () => {
+    setLoading(true)
     try {
-      const data = await getGenres()
+      const data = await getBands(id)
 
       if (_isArray(data)) {
-        setGenres(data)
+        setBands(data)
       } else {
-        setGenres(_values(data))
+        setBands(_values(data))
       }
     } catch (e) {
-      console.error('Error while receiving genres')
+      console.error('Error while receiving bands')
       console.error(e)
     } finally {
       setLoading(false)
@@ -83,8 +98,8 @@ const Home = ({ navigation, theme }) => {
   }
 
   useEffect(() => {
-    loadGenres()
-  }, [])
+    loadBands()
+  }, [info])
 
   if (loading) {
     return (
@@ -94,28 +109,25 @@ const Home = ({ navigation, theme }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {_isEmpty(genres) ? (
-        <Text style={styles.text}>{t('home.noGenres')}</Text>
+      {_isEmpty(bands) ? (
+        <Text style={styles.text}>{t('home.noBands', { genre: name })}</Text>
       ) : (
         <>
-          <Text style={styles.text}>{t('home.availableGenres')}</Text>
+          <Text style={styles.text}>{t('home.availableBands', { genre: name })}</Text>
           <Text style={styles.desc}>{t('home.holdForInfo')}</Text>
-          {_map(genres, genre => {
-            const { id, name, image, description } = genre
+          {_map(bands, band => {
+            const { id, name, image, description, foundationDate, countryCode } = band
             const hasImage = _includes(image, id)
 
             return (
               <Card
                 key={id}
-                height={160}
+                height={170}
                 style={styles.card}
-                onPress={() => navigation.navigate('bands', {
-                  info: genre,
-                })}
-                onLongPress={() => navigation.navigate('detailedInfo', {
-                  data: genre,
-                  type: 'genre',
-                  theme,
+                onPress={() => {}}
+                onLongPress={() => navigation.navigate('DetailedInfo', {
+                  data: band,
+                  type: 'band',
                 })}
                 borderRadius={styles.card.borderRadius}
                 backgroundColor={styles.card.backgroundColor}
@@ -130,28 +142,34 @@ const Home = ({ navigation, theme }) => {
                     imageStyle={styles.cardImage}
                   />
                 )}
-                <Card.Section
-                  content={[
-                    { text: name, text70: true, color: styles.text.color },
-                    {
-                      text: _truncate(description, {
-                        'length': hasImage ? 70 : 85,
+                <View style={styles.cardSection}>
+                  <Text text70 grey10 color={Colors.grey10}>
+                    {name}
+                  </Text>
+                  <View>
+                    <Text text80 grey10>
+                      {_truncate(description, {
+                        'length': hasImage ? 76 : 90,
                         'omission': '...',
-                      }),
-                      text80: true,
-                      color: styles.text.color,
-                    }
-                  ]}
-                  style={styles.cardSection}
-                />
+                      })}
+                    </Text>
+                  </View>
+
+                  <View row style={styles.metadata}>
+                    <Text>
+                      <Flag id={_toUpper(countryCode)} width={35} height={17} />
+                    </Text>
+                    <Text row right>| {new Date(foundationDate).getUTCFullYear()}</Text>
+                  </View>
+                </View>
               </Card>
             )
           })}
         </>
       )}
-      <Button onPress={loadGenres} label={t('home.refresh')} backgroundColor="#3366ff" />
+      <Button onPress={loadBands} label={t('home.refresh')} backgroundColor="#3366ff" />
     </ScrollView>
   )
 }
 
-export default memo(Home)
+export default memo(Albums)

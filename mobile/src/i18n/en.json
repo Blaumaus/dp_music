@@ -3,7 +3,9 @@
     "home": "Home",
     "settings": "Settings",
     "logout": "Sign out",
-    "login": "Sign in"
+    "login": "Sign in",
+    "bands": "Bands",
+    "detailedInfo": "Detailed info"
   },
   "languages": {
     "selectLanguage": "Select language",
