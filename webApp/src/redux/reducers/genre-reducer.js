@@ -68,7 +68,7 @@ export const DeleteSuccess = (genre) => ({
 
 export const getGenres = () => {
     return (dispatch) => {
-        GenreApi.getGenres().then(data => {
+        return GenreApi.getGenres().then(data => {
             const genres = Object.values(data.data);
             genres.forEach(genre => {
                 genre.image = BuildUrl.getUrl(genre.image)
@@ -85,13 +85,12 @@ export const Create = (genre) => {
 }
 export const Update = (genre) => {
     return (dispatch) => {
-        //TODO: PUT REQUEST TO SERVER IF OK THEN dispatch
+        GenreApi.update(genre);
         dispatch(UpdateSuccess(genre))
     }
 }
 export const Delete = (genre) => {
     return (dispatch) => {
-        //TODO: DELETE REQUEST TO SERVER IF OK THEN dispatch
         GenreApi.delete(genre.id);
         dispatch(DeleteSuccess(genre))
     }

@@ -25,6 +25,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import moment from 'moment';
 
 const Band = props => {
 
@@ -32,8 +33,8 @@ const Band = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        bands, file, disableField, isAdmin, selectedBand,
-        handleButtonBackClick, handleBandItemClick, buttonsback, genres } = props
+        bands, disableField,  selectedBand,
+        handleButtonBackClick, handleBandItemClick, buttonsback, genres, ImagefileToView, user } = props
 
     const today = new Date(Date.now());
     const validationSchema = yup.object({
@@ -41,7 +42,7 @@ const Band = props => {
             .required("Введіть Назву"),
         description: yup.string(),
         countryCode: yup.string().matches(/^[a-zA-Z]*$/, "Не вірний формат").length(2, "Не вірний формат"),
-        foundationDate: yup.date().max(today, 'Не може бути раніше сьогоднішньої'),
+        foundationDate: yup.date(),
         genreId: yup.string().required("Виберіть жанр"),
     });
 
@@ -68,7 +69,7 @@ const Band = props => {
                     })}
                 </Breadcrumbs>
             </div>
-            {isAdmin ? (<div>{selectedBand ?
+            {user.role === 'Admin'  ? (<div>{selectedBand ?
                 (<div className={classes.paperForm}>
 
                     <Formik className={classes.form}
@@ -81,7 +82,7 @@ const Band = props => {
                             <Form onSubmit={handleSubmit}>
 
                                 <div className={classes.upload}>
-                                    <img src={file} className={classes.avatar} />
+                                    <img src={ImagefileToView} className={classes.avatar} />
                                     <input
                                         accept="image/*"
                                         className={classes.input}
@@ -120,7 +121,6 @@ const Band = props => {
                                             <KeyboardDatePicker
                                                 disableToolbar
                                                 variant="inline"
-                                                format="MM/dd/yyyy"
                                                 margin="normal"
                                                 id="date-picker-inline"
                                                 name="foundationDate"
@@ -129,7 +129,7 @@ const Band = props => {
                                                 disabled={disableField}
                                                 label="Дата заснування"
                                                 format="dd/MM/yyyy"
-                                                value={values.foundationDate}
+                                                value={moment(values.foundationDate).isValid() ? moment(values.foundationDate) : new Date()}
                                                 InputAdornmentProps={{ position: "start" }}
                                                 onChange={handleDateChange}
                                                 error={touched.foundationDate && Boolean(errors.foundationDate)}
