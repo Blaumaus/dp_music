@@ -57,20 +57,20 @@ const languageDetector = {
 i18next
   .use(languageDetector)
   .use(initReactI18next)
-	.init({
-		interpolation: {
-			escapeValue: false,
-		},
-		whitelist,
-		resources: {
-			en: { common: en },
-			ru: { common: ru },
-			uk: { common: uk },
-		},
+  .init({
+    interpolation: {
+      escapeValue: false,
+    },
+    whitelist,
+    resources: {
+      en: { common: en },
+      ru: { common: ru },
+      uk: { common: uk },
+    },
     react: {
       useSuspense: false,
     }
-	})
+  })
 
 const EStatusBar = () => {
   const theme = useSelector(state => state.themeReducer?.theme)
