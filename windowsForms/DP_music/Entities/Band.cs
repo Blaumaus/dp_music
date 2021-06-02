@@ -13,11 +13,11 @@ namespace DP_music.Entities
         public string name;
         public string image;
         public string countryCode;
-        public string foundationData;
+        public DateTime foundationData;
         public string description;
         public string file;
 
-        public Band(string id, string genreId, string name, string image, string countryCode, string foundationData, string description, string file)
+        public Band(string id, string genreId, string name, string image, string countryCode, DateTime foundationData, string description, string file)
         {
             this.id = id;
             this.genreId = genreId;

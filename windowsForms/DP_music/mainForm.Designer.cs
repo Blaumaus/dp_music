@@ -34,7 +34,6 @@ namespace DP_music
             this.panelBar = new System.Windows.Forms.Panel();
             this.buttonAccountName = new System.Windows.Forms.Button();
             this.buttonRecordName = new System.Windows.Forms.Button();
-            //this.buttonSettings = new System.Windows.Forms.Button();
             this.buttonCompositionName = new System.Windows.Forms.Button();
             this.buttonGenresName = new System.Windows.Forms.Button();
             this.buttonGroupsName = new System.Windows.Forms.Button();
@@ -71,7 +70,6 @@ namespace DP_music
             this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelBar.Controls.Add(this.buttonAccountName);
             this.panelBar.Controls.Add(this.buttonRecordName);
-            //this.panelBar.Controls.Add(this.buttonSettings);
             this.panelBar.Controls.Add(this.buttonCompositionName);
             this.panelBar.Controls.Add(this.buttonGenresName);
             this.panelBar.Controls.Add(this.buttonGroupsName);
@@ -118,7 +116,6 @@ namespace DP_music
             this.buttonRecordName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonRecordName.UseVisualStyleBackColor = true;
             this.buttonRecordName.Click += new System.EventHandler(this.buttonRecordName_Click);
-            
             // 
             // buttonCompositionName
             // 
@@ -145,7 +142,7 @@ namespace DP_music
             this.buttonGenresName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonGenresName.ForeColor = System.Drawing.Color.White;
             this.buttonGenresName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonGenresName.Location = new System.Drawing.Point(0, 156);
+            this.buttonGenresName.Location = new System.Drawing.Point(0, 78);
             this.buttonGenresName.Name = "buttonGenresName";
             this.buttonGenresName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonGenresName.Size = new System.Drawing.Size(197, 48);
@@ -164,7 +161,7 @@ namespace DP_music
             this.buttonGroupsName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonGroupsName.ForeColor = System.Drawing.Color.White;
             this.buttonGroupsName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonGroupsName.Location = new System.Drawing.Point(0, 78);
+            this.buttonGroupsName.Location = new System.Drawing.Point(0, 156);
             this.buttonGroupsName.Name = "buttonGroupsName";
             this.buttonGroupsName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonGroupsName.Size = new System.Drawing.Size(197, 48);
@@ -346,7 +343,7 @@ namespace DP_music
             this.buttonGenres.FlatAppearance.BorderSize = 0;
             this.buttonGenres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGenres.Image = ((System.Drawing.Image)(resources.GetObject("buttonGenres.Image")));
-            this.buttonGenres.Location = new System.Drawing.Point(0, 156);
+            this.buttonGenres.Location = new System.Drawing.Point(1, 78);
             this.buttonGenres.Name = "buttonGenres";
             this.buttonGenres.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.buttonGenres.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -360,7 +357,7 @@ namespace DP_music
             this.buttonGroups.FlatAppearance.BorderSize = 0;
             this.buttonGroups.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGroups.Image = ((System.Drawing.Image)(resources.GetObject("buttonGroups.Image")));
-            this.buttonGroups.Location = new System.Drawing.Point(0, 78);
+            this.buttonGroups.Location = new System.Drawing.Point(1, 156);
             this.buttonGroups.Name = "buttonGroups";
             this.buttonGroups.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.buttonGroups.Size = new System.Drawing.Size(65, 48);

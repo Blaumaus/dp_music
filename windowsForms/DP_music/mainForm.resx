@@ -58,25 +58,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-  <data name="buttonSettings.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAB3RJTUUH5QURFxIKK1CzIwAAABl0RVh0
-        U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKsSURBVFhH7dhLiI1hGMDxcUmUe3IpsVGSZCFy
-        zy2akgUiFkouSRS5LaSUkqIsEBErzcZOypINNiLCiIVy2bjkfr/+/6f3mT7HMXPmOOdQvqd+dc77vt/z
-        PHPme7/3zDTkkUce/0M0NjWHruiHPujoWGa+C6ZgcnpdmKtLWCzZimZcwug0pm7Yjpd4gR1pLGWocVgo
-        OY7veI+Zaawn9uIDnJOv98G5lKWGYZHkGKLBGeiFo/iMaC445npvicL1NYsogGjwHZbhJL6mMT1K4v03
-        nMJg1K7JSI5o0E/nHr6k97qN6ZiGW2ksnMUw1KbJSIxosNgVjIWflMbgMrJrLqBlY1U1IilOIFtU5zEC
-        I2ETFzEKw3EO2bXXMBHVazKSYTb8tWYLnsFQjMPVNBaNjMcQnIb3YszdwRz8eZMpiQ/kBbiPKOLGaMIA
-        +LixaMyFu/CH6o/izfQA5uyAVK2d4YXohBV4gkj+CYfRF/NhsZgr9hAL4clzEF4bc49h7s5IVcsML4DH
-        1UZ4MkRSH8B70APLYZGY+52nWAmv2Q2foTHnybMZ5R+NLkxs4C0i2RtsQ3dsgMljri2vsAk2uQWvEXM+
-        U/0kC3XbjFiIQ4gkz7AGFtiJbOPlspFd8PhbDXPG3BG0u0GPsuu4iSXojf34iGzh9vAePADvycW4AWvM
-        QnkNGmmxO2wgBqX3i5C9ySvlKbQU5jS/Kt/NRkrmPVmqYCVWIWWvQpgM1WywsCmqFiZD3mDFYTK01qA7
-        2+ekfASptd1e9wZ9/EyAfzRNxaQ0Vmqt6t7gOqTVLevXprlS6t7geqTVeYO/hsnwzzc4F8/hcecOzfrp
-        ZPA1bKJ4ndf69W0e0uoqhMngvz38e8JGGzP81uw367S6Zb3fpJ3LrvVad3j9/uuQRx55/NVoaPgB5kbz
-        gHPxR0AAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="buttonSearch.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAACH

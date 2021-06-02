@@ -11,16 +11,12 @@ using System.Runtime.InteropServices;
 using DP_music.Entities;
 using DP_music.helpers;
 using DP_music.SubPages.Genres;
+using DP_music.SubPages.Bands;
 
-namespace DP_music
+namespace DP_music.Pages
 {
     public partial class Bands : Form
     {
-        public Bands()
-        {
-            InitializeComponent();
-        }
-
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
 
         private static extern IntPtr CreateRoundRectRgn(
@@ -57,7 +53,7 @@ namespace DP_music
             if (genre != null)
                 bands = await apiHelpers.getBand(genre.id);
             else
-                bands = await apiHelpers.getBand("");
+                bands = await apiHelpers.getBand("24e9696b-9a12-4967-bdaf-fe406325ab53");
             int i = 0;
             int x = 0;
             int y = 0;
@@ -65,7 +61,7 @@ namespace DP_music
             bands.ForEach((band) =>
             {
                 PictureBox pictureBoxBorder = addPictureBoxBorder(x, y, band.image);
-                PictureBox pictureBoxBand = addPictureBoxBand(band.image);
+                PictureBox pictureBoxBand = addPictureBoxBand(band.image, band.id);
 
                 Panel panelBorder = addPanelBorder(pictureBoxBorder);
                 Label labelNameBand = addLabelNameBand(x, y, band.name);
@@ -76,6 +72,8 @@ namespace DP_music
                 panelContent.Controls.Add(pictureBoxBorder);
                 panelContent.Controls.Add(pictureBoxFlag);
                 panelContent.Controls.Add(labelNameBand);
+
+                pictureBoxBand.Click += pictureBoxBand_Click;
 
                 i++;
                 x = i % 3;
@@ -96,14 +94,26 @@ namespace DP_music
             return pbBorder;
         }
 
-        private PictureBox addPictureBoxBand(string path)
+        private void pictureBoxBand_Click(object sender, EventArgs e)
+        {
+            PictureBox band = (PictureBox)sender;
+            Band currentBand = bands.FirstOrDefault(e => e.id == band.AccessibleName);
+            if(genre != null)
+                parent.openChildForm(new bandDescription(parent, currentBand, genre), parent.buttonGroups, parent.buttonGroupsName);
+            else
+                parent.openChildForm(new bandDescription(parent, currentBand), parent.buttonGroups, parent.buttonGroupsName);
+        }
+
+        private PictureBox addPictureBoxBand(string path, string bandId)
         {
             PictureBox pictureBoxImg = new PictureBox();
+            pictureBoxImg.AccessibleName = bandId;
             pictureBoxImg.Location = new Point(20, 20);
             pictureBoxImg.Size = new Size(200, 200);
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.BackColor = Color.Transparent;
             pictureBoxImg.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
+            pictureBoxImg.Cursor = Cursors.Hand;
             //pictureBoxImg.ImageLocation = "http://164.90.166.133/" + path;
 
             //pictureBoxImg.BackColor = Color.White;
@@ -139,7 +149,7 @@ namespace DP_music
             pictureBoxImg.Size = new Size(46, 27);
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.BackColor = Color.Transparent;
-            pictureBoxImg.ImageLocation = "https://www.countryflags.io/" + countryCode + "/shiny/64.png"; ;
+            pictureBoxImg.ImageLocation = "https://www.countryflags.io/" + countryCode + "/shiny/64.png";
 
             return pictureBoxImg;
         }

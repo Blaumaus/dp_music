@@ -1,5 +1,5 @@
 ﻿
-namespace DP_music
+namespace DP_music.Pages
 {
     partial class Bands
     {
