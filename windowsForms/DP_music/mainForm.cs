@@ -129,7 +129,7 @@ namespace DP_music
         }
         public void buttonGroups_Click(object sender, EventArgs e)
         {
-            openChildForm(new Groups(), buttonGroups, buttonGroupsName);
+            openChildForm(new Bands(this), buttonGroups, buttonGroupsName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
