@@ -130,9 +130,7 @@ namespace DP_music.SubPages.Genres
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            parent.buttonGroups_Leave(this, new EventArgs());
-            parent.buttonGenres_Click(this, new EventArgs());
-            parent.openChildForm(new GenreDescription(genre, parent));
+            parent.openChildForm(new GenreDescription(genre, parent), parent.buttonGenres, parent.buttonGenresName);
         }
     }
 }

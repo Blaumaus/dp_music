@@ -34,7 +34,7 @@ namespace DP_music
             this.panelBar = new System.Windows.Forms.Panel();
             this.buttonAccountName = new System.Windows.Forms.Button();
             this.buttonRecordName = new System.Windows.Forms.Button();
-            this.buttonSettings = new System.Windows.Forms.Button();
+            //this.buttonSettings = new System.Windows.Forms.Button();
             this.buttonCompositionName = new System.Windows.Forms.Button();
             this.buttonGenresName = new System.Windows.Forms.Button();
             this.buttonGroupsName = new System.Windows.Forms.Button();
@@ -71,7 +71,7 @@ namespace DP_music
             this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelBar.Controls.Add(this.buttonAccountName);
             this.panelBar.Controls.Add(this.buttonRecordName);
-            this.panelBar.Controls.Add(this.buttonSettings);
+            //this.panelBar.Controls.Add(this.buttonSettings);
             this.panelBar.Controls.Add(this.buttonCompositionName);
             this.panelBar.Controls.Add(this.buttonGenresName);
             this.panelBar.Controls.Add(this.buttonGroupsName);
@@ -100,7 +100,6 @@ namespace DP_music
             this.buttonAccountName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonAccountName.UseVisualStyleBackColor = true;
             this.buttonAccountName.Click += new System.EventHandler(this.buttonAccountName_Click);
-            this.buttonAccountName.Leave += new System.EventHandler(this.buttonAccountName_Leave);
             // 
             // buttonRecordName
             // 
@@ -119,26 +118,7 @@ namespace DP_music
             this.buttonRecordName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonRecordName.UseVisualStyleBackColor = true;
             this.buttonRecordName.Click += new System.EventHandler(this.buttonRecordName_Click);
-            this.buttonRecordName.Leave += new System.EventHandler(this.buttonRecordName_Leave);
-            // 
-            // buttonSettings
-            // 
-            this.buttonSettings.FlatAppearance.BorderSize = 0;
-            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSettings.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(150)))), ((int)(((byte)(194)))));
-            this.buttonSettings.Image = ((System.Drawing.Image)(resources.GetObject("buttonSettings.Image")));
-            this.buttonSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonSettings.Location = new System.Drawing.Point(0, 529);
-            this.buttonSettings.Name = "buttonSettings";
-            this.buttonSettings.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
-            this.buttonSettings.Size = new System.Drawing.Size(245, 48);
-            this.buttonSettings.TabIndex = 1;
-            this.buttonSettings.Text = "Settings";
-            this.buttonSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.buttonSettings.UseVisualStyleBackColor = true;
-            this.buttonSettings.Leave += new System.EventHandler(this.buttonSettings_Leave);
+            
             // 
             // buttonCompositionName
             // 
@@ -157,7 +137,6 @@ namespace DP_music
             this.buttonCompositionName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonCompositionName.UseVisualStyleBackColor = true;
             this.buttonCompositionName.Click += new System.EventHandler(this.buttonCompositionName_Click);
-            this.buttonCompositionName.Leave += new System.EventHandler(this.buttonCompositionName_Leave);
             // 
             // buttonGenresName
             // 
@@ -176,7 +155,6 @@ namespace DP_music
             this.buttonGenresName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonGenresName.UseVisualStyleBackColor = true;
             this.buttonGenresName.Click += new System.EventHandler(this.buttonGenresName_Click);
-            this.buttonGenresName.Leave += new System.EventHandler(this.buttonGenresName_Leave);
             // 
             // buttonGroupsName
             // 
@@ -196,7 +174,6 @@ namespace DP_music
             this.buttonGroupsName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonGroupsName.UseVisualStyleBackColor = false;
             this.buttonGroupsName.Click += new System.EventHandler(this.buttonGroupsName_Click);
-            this.buttonGroupsName.Leave += new System.EventHandler(this.buttonGroupsName_Leave);
             // 
             // buttonHomeName
             // 
@@ -215,7 +192,6 @@ namespace DP_music
             this.buttonHomeName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonHomeName.UseVisualStyleBackColor = true;
             this.buttonHomeName.Click += new System.EventHandler(this.buttonHomeName_Click);
-            this.buttonHomeName.Leave += new System.EventHandler(this.buttonHomeName_Leave);
             // 
             // panelNav
             // 
@@ -338,7 +314,6 @@ namespace DP_music
             this.buttonAccount.TabIndex = 1;
             this.buttonAccount.UseVisualStyleBackColor = true;
             this.buttonAccount.Click += new System.EventHandler(this.buttonAccount_Click);
-            this.buttonAccount.Leave += new System.EventHandler(this.buttonAccount_Leave);
             // 
             // buttonRecord
             // 
@@ -352,7 +327,6 @@ namespace DP_music
             this.buttonRecord.TabIndex = 1;
             this.buttonRecord.UseVisualStyleBackColor = true;
             this.buttonRecord.Click += new System.EventHandler(this.buttonRecord_Click);
-            this.buttonRecord.Leave += new System.EventHandler(this.buttonRecord_Leave);
             // 
             // buttonComposition
             // 
@@ -366,7 +340,6 @@ namespace DP_music
             this.buttonComposition.TabIndex = 1;
             this.buttonComposition.UseVisualStyleBackColor = true;
             this.buttonComposition.Click += new System.EventHandler(this.buttonComposition_Click);
-            this.buttonComposition.Leave += new System.EventHandler(this.buttonComposition_Leave);
             // 
             // buttonGenres
             // 
@@ -381,7 +354,6 @@ namespace DP_music
             this.buttonGenres.TabIndex = 1;
             this.buttonGenres.UseVisualStyleBackColor = true;
             this.buttonGenres.Click += new System.EventHandler(this.buttonGenres_Click);
-            this.buttonGenres.Leave += new System.EventHandler(this.buttonGenres_Leave);
             // 
             // buttonGroups
             // 
@@ -395,7 +367,6 @@ namespace DP_music
             this.buttonGroups.TabIndex = 1;
             this.buttonGroups.UseVisualStyleBackColor = true;
             this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
-            this.buttonGroups.Leave += new System.EventHandler(this.buttonGroups_Leave);
             // 
             // buttonHome
             // 
@@ -409,7 +380,6 @@ namespace DP_music
             this.buttonHome.TabIndex = 0;
             this.buttonHome.UseVisualStyleBackColor = true;
             this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
-            this.buttonHome.Leave += new System.EventHandler(this.buttonHome_Leave);
             // 
             // panel3
             // 
@@ -466,14 +436,13 @@ namespace DP_music
         #endregion
 
         private System.Windows.Forms.Panel panelBar;
-        private System.Windows.Forms.Button buttonCompositionName;
-        private System.Windows.Forms.Button buttonGenresName;
-        private System.Windows.Forms.Button buttonGroupsName;
-        private System.Windows.Forms.Button buttonHomeName;
-        private System.Windows.Forms.Button buttonSettings;
+        public System.Windows.Forms.Button buttonCompositionName;
+        public System.Windows.Forms.Button buttonGenresName;
+        public System.Windows.Forms.Button buttonGroupsName;
+        public System.Windows.Forms.Button buttonHomeName;
         private System.Windows.Forms.Panel panelNav;
         private System.Windows.Forms.Button buttonClose;
-        private System.Windows.Forms.Button buttonRecordName;
+        public System.Windows.Forms.Button buttonRecordName;
         private System.Windows.Forms.Label labelProjectName;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonSearch;
@@ -481,17 +450,17 @@ namespace DP_music
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Panel panelBarMini;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button buttonHome;
-        private System.Windows.Forms.Button buttonComposition;
-        private System.Windows.Forms.Button buttonGenres;
-        private System.Windows.Forms.Button buttonGroups;
+        public System.Windows.Forms.Button buttonHome;
+        public System.Windows.Forms.Button buttonComposition;
+        public System.Windows.Forms.Button buttonGenres;
+        public System.Windows.Forms.Button buttonGroups;
         private System.Windows.Forms.Timer timerOpenPanelBar;
         private System.Windows.Forms.Timer timerClosePanelBar;
         private System.Windows.Forms.PictureBox pictureBoxMenu;
-        private System.Windows.Forms.Button buttonRecord;
+        public System.Windows.Forms.Button buttonRecord;
         private System.Windows.Forms.Panel panelContent;
-        private System.Windows.Forms.Button buttonAccount;
-        private System.Windows.Forms.Button buttonAccountName;
+        public System.Windows.Forms.Button buttonAccount;
+        public System.Windows.Forms.Button buttonAccountName;
     }
 }
 

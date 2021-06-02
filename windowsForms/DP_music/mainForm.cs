@@ -33,7 +33,9 @@ namespace DP_music
             set => buttonAccountName.Text = value.ToString();
         }
 
-        public Form activeForm = null;
+        private Form activeForm = null;
+        private Button activeButton = null;
+        private Button subActiveButton = null;
 
         public mainForm()
         {
@@ -42,7 +44,7 @@ namespace DP_music
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
             buttonSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSearch.Width, buttonSearch.Height, 8, 8));
             textBoxSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, textBoxSearch.Width, textBoxSearch.Height, 10, 10));
-            openChildForm(new Home());
+            openChildForm(new Home(), buttonHome, buttonHomeName);
             panelHeader.BringToFront();
             panelBar.Size = new Size(0, panelBar.Height);
             panelChildForm.Size = panelContent.Size;
@@ -51,7 +53,7 @@ namespace DP_music
             buttonHome_Click(this, new EventArgs());
         }
 
-        public void openChildForm(Form childForm)
+        public void openChildForm(Form childForm, Button active, Button subActive)
         {
             if (activeForm != null)
             {
@@ -70,6 +72,8 @@ namespace DP_music
                 }
                 activeForm.Close();
             }
+            clickButton(active, subActive);
+
             activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
@@ -79,6 +83,25 @@ namespace DP_music
             panelChildForm.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+
+        public void clickButton(Button active, Button subActive)
+        {
+            if (activeButton != null && subActiveButton != null)
+            {
+                panelNav.Visible = false;
+                activeButton.BackColor = Color.FromArgb(63, 81, 181);
+                subActiveButton.BackColor = Color.FromArgb(63, 81, 181);
+                activeButton = active;
+                subActiveButton = subActive;
+            }
+            else
+            {
+                activeButton = buttonHome;
+                subActiveButton = buttonHomeName;
+            }
+            changeButtonColor(panelNav, activeButton, 41, 52, 117);
+            changeButtonColor(panelNav, subActiveButton, 41, 52, 117);
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -98,12 +121,7 @@ namespace DP_music
         #region btnClick
         public void buttonHome_Click(object sender, EventArgs e)
         {
-            openChildForm(new Home());
-            if(activeForm.Name == "Home")
-            {
-                changeButtonColor(panelNav, buttonHome, 41, 52, 117);
-                buttonHomeName.BackColor = Color.FromArgb(41, 52, 117);
-            }
+            openChildForm(new Home(), buttonHome, buttonHomeName);
             if(panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
@@ -111,12 +129,7 @@ namespace DP_music
         }
         public void buttonGroups_Click(object sender, EventArgs e)
         {
-            openChildForm(new Groups());
-            if (activeForm.Name == "Groups" || activeForm.Name == "bandToGenre")
-            {
-                changeButtonColor(panelNav, buttonGroups, 41, 52, 117);
-                buttonGroupsName.BackColor = Color.FromArgb(41, 52, 117);
-            }
+            openChildForm(new Groups(), buttonGroups, buttonGroupsName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
@@ -124,39 +137,24 @@ namespace DP_music
         }
         public void buttonGenres_Click(object sender, EventArgs e)
         {
-            openChildForm(new Genres(this));
-            if (activeForm.Name == "Genres")
-            {
-                changeButtonColor(panelNav, buttonGenres, 41, 52, 117);
-                buttonGenresName.BackColor = Color.FromArgb(41, 52, 117);
-            }
+            openChildForm(new Genres(this), buttonGenres, buttonGenresName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
         }
-        private void buttonComposition_Click(object sender, EventArgs e)
+        public void buttonComposition_Click(object sender, EventArgs e)
         {
-            openChildForm(new Composition());
-            if (activeForm.Name == "Composition")
-            {
-                changeButtonColor(panelNav, buttonComposition, 41, 52, 117);
-                buttonCompositionName.BackColor = Color.FromArgb(41, 52, 117);
-            }
+            openChildForm(new Composition(), buttonComposition, buttonCompositionName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
         }
 
-        private void buttonRecord_Click(object sender, EventArgs e)
+        public void buttonRecord_Click(object sender, EventArgs e)
         {
-            openChildForm(new Record());
-            if (activeForm.Text == "Record")
-            {
-                changeButtonColor(panelNav, buttonRecord, 41, 52, 117);
-                buttonRecordName.BackColor = Color.FromArgb(41, 52, 117);
-            }
+            openChildForm(new Record(), buttonRecord, buttonRecordName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
@@ -167,19 +165,14 @@ namespace DP_music
         {
             if( user.login == "Guest")
             {
-                openChildForm(new AccountMain(this));
+                openChildForm(new AccountMain(this), buttonAccount, buttonAccountName);
             }
             else
-                openChildForm(new AccountLogout(this));
-
-            changeButtonColor(panelNav, buttonAccount, 41, 52, 117);
-            buttonAccountName.BackColor = Color.FromArgb(41, 52, 117);
+                openChildForm(new AccountLogout(this), buttonAccount, buttonAccountName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
             }
-
-
         }
 
         private void buttonHomeName_Click(object sender, EventArgs e)
@@ -218,87 +211,6 @@ namespace DP_music
             timerClosePanelBar.Enabled = true;
         }
 
-        #endregion
-
-        #region btnLeave
-        private void buttonHome_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonHome.BackColor = Color.FromArgb(63, 81, 181);
-            buttonHomeName.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        public void buttonGroups_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonGroups.BackColor = Color.FromArgb(63, 81, 181);
-            buttonGroupsName.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        public void buttonGenres_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonGenres.BackColor = Color.FromArgb(63, 81, 181);
-            buttonGenresName.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        private void buttonComposition_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonComposition.BackColor = Color.FromArgb(63, 81, 181);
-            buttonCompositionName.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        private void buttonSettings_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonSettings.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        private void buttonRecord_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonRecord.BackColor = Color.FromArgb(63, 81, 181);
-            buttonRecordName.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        private void buttonAccount_Leave(object sender, EventArgs e)
-        {
-            panelNav.Visible = false;
-            buttonAccount.BackColor = Color.FromArgb(63, 81, 181);
-            buttonAccountName.BackColor = Color.FromArgb(63, 81, 181);
-        }
-
-        private void buttonHomeName_Leave(object sender, EventArgs e)
-        {
-            buttonHome_Leave(buttonHome, new EventArgs());
-        }
-
-        private void buttonGroupsName_Leave(object sender, EventArgs e)
-        {
-            buttonGroups_Leave(buttonGroups, new EventArgs());
-        }
-
-        private void buttonGenresName_Leave(object sender, EventArgs e)
-        {
-            buttonGenres_Leave(buttonGenres, new EventArgs());
-        }
-
-        private void buttonCompositionName_Leave(object sender, EventArgs e)
-        {
-            buttonComposition_Leave(buttonComposition, new EventArgs());
-        }
-
-        private void buttonRecordName_Leave(object sender, EventArgs e)
-        {
-            buttonRecord_Leave(buttonRecord, new EventArgs());
-        }
-
-        private void buttonAccountName_Leave(object sender, EventArgs e)
-        {
-            buttonAccount_Leave(buttonRecord, new EventArgs());
-
-        }
         #endregion
 
         private void timerOpenPanelBar_Tick(object sender, EventArgs e)

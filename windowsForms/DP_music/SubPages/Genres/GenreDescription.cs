@@ -39,8 +39,7 @@ namespace DP_music.SubPages.Genres
 
         private void buttonBands_Click(object sender, EventArgs e)
         {
-            parent.buttonGroups_Click(this, new EventArgs());
-            parent.openChildForm(new bandToGenre(parent, genre));
+            parent.openChildForm(new bandToGenre(parent, genre), parent.buttonGroups, parent.buttonGroupsName);
         }
     }
 }

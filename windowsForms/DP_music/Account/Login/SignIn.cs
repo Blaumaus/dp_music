@@ -69,8 +69,7 @@ namespace DP_music.Account.Login
                         user.token = loginStatus.token;
                         parent.userName.Text = user.login;
                         parent.user = user;
-                        parent.activeForm = new Home();
-                        parent.buttonHome_Click(this, new EventArgs());
+                        parent.openChildForm(new Home(), parent.buttonHome, parent.buttonHomeName);
                         this.Close();
                     }
                     else
@@ -117,8 +116,7 @@ namespace DP_music.Account.Login
             if(string.IsNullOrWhiteSpace(customTextBoxLogin.Text) && string.IsNullOrWhiteSpace(customTextBoxPassword.Text))
             {
                 AccountMain account = new AccountMain(parent);
-                parent.activeForm = account;
-                parent.buttonAccount_Click(this, new EventArgs());
+                parent.openChildForm(account, parent.buttonAccount, parent.buttonAccountName);
                 return;
             }
             //DialogResult result = MessageBox.Show("Ваші дані буде втрачено. Ви хочете вийти?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
@@ -126,8 +124,7 @@ namespace DP_music.Account.Login
             if (message.pressOk)
             {
                 AccountMain account= new AccountMain(parent);
-                parent.activeForm = account;
-                parent.buttonAccount_Click(this, new EventArgs());
+                parent.openChildForm(account, parent.buttonAccount, parent.buttonAccountName);
             }
         }
     }

@@ -157,7 +157,7 @@ namespace DP_music.Pages
         {
             PictureBox pB = (PictureBox)sender;
             var genre = genres.FirstOrDefault(e => e.id == pB.AccessibleName);
-            parent.openChildForm(new GenreDescription(genre, parent));
+            parent.openChildForm(new GenreDescription(genre, parent), parent.buttonGenres, parent.buttonGenresName);
         }
     }
 }

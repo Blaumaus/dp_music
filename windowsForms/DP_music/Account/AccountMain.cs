@@ -44,12 +44,12 @@ namespace DP_music.Account
 
         private void buttonLogIn_Click(object sender, EventArgs e)
         {
-            parent.openChildForm(new SignUp(parent));
+            parent.openChildForm(new SignUp(parent), parent.buttonAccount, parent.buttonAccountName);
         }
 
         private void buttonSignIn_Click(object sender, EventArgs e)
         {
-            parent.openChildForm(new SignIn(parent));
+            parent.openChildForm(new SignIn(parent), parent.buttonAccount, parent.buttonAccountName);
         }
     }
 }
