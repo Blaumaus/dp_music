@@ -10,11 +10,19 @@
     ],
     "android": {
       "package": "com.blaumaus.dpmusic",
-      "versionCode": 1
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/record.png"
+      },
+      "icon": "./src/assets/record.png"
     },
     "ios": {
       "bundleIdentifier": "com.blaumaus.dpmusic",
       "buildNumber": "1.0.0"
-    }
+    },
+    "icon": "./src/assets/record.png",
+    "privacy": "hidden",
+    "githubUrl": "https://github.com/Blaumaus/dp_music",
+    "orientation": "portrait"
   }
 }
