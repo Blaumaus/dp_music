@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import { ScrollView, StyleSheet, Dimensions } from 'react-native'
 import { Flag } from 'react-native-svg-flagkit'
 import _map from 'lodash/map'
+import _isObject from 'lodash/isObject'
 import { Picker, Text, View, Colors, Assets, Image, Checkbox } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
 import i18next from 'i18next'
@@ -70,7 +71,7 @@ const Settings = ({ theme, onThemeChange }) => {
               </View>
               <View row>
                 <Text style={styles.styledText} text70>
-                  {t(`languages.${item}`)}
+                  {t(`languages.${_isObject(item) ? item.value : item}`)}
                 </Text>
               </View>
             </View>

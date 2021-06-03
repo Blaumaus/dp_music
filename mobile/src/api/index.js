@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { API_URL as baseURL } from '../../env.js'
-// import { store } from '../redux/store'
-import { authActions } from '../redux/actions/auth'
-// import { getAccessToken, removeAccessToken } from '../utils/accessToken'
+import { get } from '../utils/storage'
+import constants from '../redux/constants'
 
 const api = axios.create({
   baseURL,
@@ -12,14 +11,15 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(
-  (config) => {
-    // const token = getAccessToken()
-    // config.headers['Accept'] = 'application/json'
-    // config.headers['Cookie'] = `jwtToken=${token}`
+  async (config) => {
+    const token = await get(constants.TOKEN)
+    if (token) {
+      config.headers['Cookie'] = `jwtToken=${token}`
+    }
+
     return config
   },
   error => {
-    console.log('request', error)
     return Promise.reject(error)
   }
 )
@@ -27,10 +27,6 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   response => response,
   error => {
-    // if (error.response.data.statusCode === 401) {
-    //   // removeAccessToken()
-    //   store.dispatch(authActions.logout())
-    // }
     return Promise.reject(error)
   }
 )
@@ -102,7 +98,23 @@ export const getGenres = () =>
 
 export const getBands = (genreId) =>
   api
-    .get(`/band/id?id=${genreId}`)
+    .get(`/band?genreId=${genreId}`)
+    .then(({ data }) => data)
+    .catch(error => {
+      console.error(error)
+    })
+
+export const getAlbums = (bandId) =>
+  api
+    .get(`/band?genreId=${bandId}`) /////////////
+    .then(({ data }) => data)
+    .catch(error => {
+      console.error(error)
+    })
+
+export const getSongs = (albumId) =>
+  api
+    .get(`/song?albumId=${albumId}`) /////////////
     .then(({ data }) => data)
     .catch(error => {
       console.error(error)

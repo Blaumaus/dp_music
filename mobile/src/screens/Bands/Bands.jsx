@@ -1,14 +1,12 @@
 import React, { memo, useState, useEffect } from 'react'
 import { StyleSheet, ScrollView, Dimensions } from 'react-native'
-import { Text, Card, Button, View, Colors } from 'react-native-ui-lib'
+import { Text, Card, Button, View } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
 import { Flag } from 'react-native-svg-flagkit'
 import _toUpper from 'lodash/toUpper'
 import _isArray from 'lodash/isArray'
 import _values from 'lodash/values'
-import _toLower from 'lodash/toLower'
 import _includes from 'lodash/includes'
-import _filter from 'lodash/filter'
 import _isEmpty from 'lodash/isEmpty'
 import _map from 'lodash/map'
 import _truncate from 'lodash/truncate'
@@ -25,8 +23,7 @@ const getStyles = theme => StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
   },
   text: {
     marginBottom: 5,
@@ -75,11 +72,6 @@ const Bands = ({ route, navigation, theme }) => {
 
   const [bands, setBands] = useState([])
 	const [loading, setLoading] = useState(true)
-	const [filterInput, setFilterInput] = useState('')
-
-  const onSeatchByName = () => {
-		return _filter(bands, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
-	}
 
   const loadBands = async () => {
     setLoading(true)
@@ -126,7 +118,7 @@ const Bands = ({ route, navigation, theme }) => {
                 key={id}
                 height={170}
                 style={styles.card}
-                onPress={() => {}}
+                onPress={() => navigation.navigate('albums', { info: band })}
                 onLongPress={() => navigation.navigate('detailedInfo', {
                   data: band,
                   type: 'band',

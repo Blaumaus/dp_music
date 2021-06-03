@@ -5,6 +5,8 @@
     "logout": "Вийти",
     "login": "Увійти",
     "bands": "Гурти",
+    "albums": "Альбоми",
+    "songs": "Пісні",
     "detailedInfo": "Детальна інформація"
   },
   "languages": {
@@ -40,7 +42,7 @@
   },
   "home": {
     "noGenres": "Поки що немає доступних жанрів.. :(",
-    "noBands":  "Поки що немає доступнів гуртів для жанру {{ genre }}.. :(",
+    "noBands": "Поки що немає гуртів для жанру {{ genre }}.. :(",
     "availableGenres": "Доступні жанри",
     "availableBands": "Гурти жанру {{ genre }}",
     "holdForInfo": "Зажміть для детальної інформації",
@@ -49,6 +51,14 @@
     "description": "Опис",
     "foundationDate": "Дата заснування",
     "countryCode": "Країна"
+  },
+  "albums": {
+    "noAlbums": "Поки що немає альбомів гурту {{ band }}.. :(",
+    "availableAlbums": "Альбоми гурту {{ band }}"
+  },
+  "songs": {
+    "noSongs": "Поки що немає пісень альбому {{ album }}.. :(",
+    "availableSongs": "Пісні альбому {{ album }}"
   },
   "countries": {
     "US": "Сполучені Штати Америки",

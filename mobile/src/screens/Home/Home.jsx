@@ -4,9 +4,7 @@ import { Text, Card, Button } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
 import _isArray from 'lodash/isArray'
 import _values from 'lodash/values'
-import _toLower from 'lodash/toLower'
 import _includes from 'lodash/includes'
-import _filter from 'lodash/filter'
 import _isEmpty from 'lodash/isEmpty'
 import _map from 'lodash/map'
 import _truncate from 'lodash/truncate'
@@ -23,20 +21,20 @@ const getStyles = theme => StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
   },
   text: {
     marginBottom: 5,
     fontSize: 21,
     textAlign: 'center',
-    color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
   },
   desc: {
     marginBottom: 20,
     fontSize: 16,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  themedText: {
     color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
   },
   card: {
@@ -49,7 +47,8 @@ const getStyles = theme => StyleSheet.create({
     height: '100%',
   },
   cardSection: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 10,
     flex: 1,
   }
 })
@@ -59,11 +58,6 @@ const Home = ({ navigation, theme }) => {
   const { t } = useTranslation('common')
   const [genres, setGenres] = useState([])
 	const [loading, setLoading] = useState(true)
-	const [filterInput, setFilterInput] = useState('')
-
-  const onSeatchByName = () => {
-		return _filter(genres, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
-	}
 
   const loadGenres = async () => {
     try {
@@ -95,11 +89,11 @@ const Home = ({ navigation, theme }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {_isEmpty(genres) ? (
-        <Text style={styles.text}>{t('home.noGenres')}</Text>
+        <Text style={[styles.text, styles.themedText]}>{t('home.noGenres')}</Text>
       ) : (
         <>
-          <Text style={styles.text}>{t('home.availableGenres')}</Text>
-          <Text style={styles.desc}>{t('home.holdForInfo')}</Text>
+          <Text style={[styles.text, styles.themedText]}>{t('home.availableGenres')}</Text>
+          <Text style={[styles.desc, styles.themedText]}>{t('home.holdForInfo')}</Text>
           {_map(genres, genre => {
             const { id, name, image, description } = genre
             const hasImage = _includes(image, id)
@@ -135,7 +129,7 @@ const Home = ({ navigation, theme }) => {
                     { text: name, text70: true, color: styles.text.color },
                     {
                       text: _truncate(description, {
-                        'length': hasImage ? 70 : 85,
+                        'length': hasImage ? 76 : 130,
                         'omission': '...',
                       }),
                       text80: true,
