@@ -17,7 +17,6 @@ import SignUpContainer from 'containers/SignUpContainer';
 import ProtectedRoute from 'components/ProtectedRoute';
 import NavBar from 'components/NavBar';
 
-
 const styles = () => ({
 
 });
@@ -44,7 +43,7 @@ function App() {
                 <Route exact path='/SignIn' component={SignInContainer} />
                 <Route exact path='/SignUp' component={SignUpContainer} />
                 <ProtectedRoute exact path='/Genres' component={GenreContainer} />
-                <ProtectedRoute exact path='/Bands/:genreId' component={BandContainer} />
+                <ProtectedRoute exact path='/Bands/:genreId?' component={BandContainer} />
                 <ProtectedRoute exact path='/Select/:bandId' component={SelectContainer} />
                 <ProtectedRoute exact path='/Albums/:bandId' component={AlbumContainer} />
                 <ProtectedRoute exact path='/Compositions/:bandId/:albumId?' component={CompositionContainer} />

@@ -29,6 +29,12 @@ namespace BLL.Services
 
         public async Task<IEnumerable<BandDto>> GetBand(string id)
         {
+            if (id == null)
+            {
+                var bands = await Task.Run(() => _mapper.Map<IEnumerable<Band>, IEnumerable<BandDto>>(unitOfWork.Band.GetAll()));
+                return bands;
+            }
+
             var bandsgenre = await Task.Run(() => _mapper.Map<IEnumerable<Bandgenre>, IEnumerable<BandgenreDto>>(unitOfWork.Bandgenre.GetAll()).Where(x => x.GenreId == id)); 
             
             if(bandsgenre != null)
@@ -102,6 +108,7 @@ namespace BLL.Services
 
         public async Task<BandDto> GetBandId(string id)
         {
+           
             var band = await Task.Run(() => _mapper.Map<Band, BandDto>(unitOfWork.Band.Get(id)));
             band.GenreId = id;
 

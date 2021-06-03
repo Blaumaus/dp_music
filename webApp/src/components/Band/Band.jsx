@@ -33,7 +33,7 @@ const Band = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        bands, disableField,  selectedBand,
+        bands, disableField, selectedBand,
         handleButtonBackClick, handleBandItemClick, buttonsback, genres, ImagefileToView, user } = props
 
     const today = new Date(Date.now());
@@ -69,7 +69,7 @@ const Band = props => {
                     })}
                 </Breadcrumbs>
             </div>
-            {user.role === 'Admin'  ? (<div>{selectedBand ?
+            {user.role === 'Admin' ? (<div>{selectedBand ?
                 (<div className={classes.paperForm}>
 
                     <Formik className={classes.form}
@@ -102,7 +102,7 @@ const Band = props => {
 
                                 </div>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                         <TextField
                                             onChange={handleFieldChange}
                                             name="name"
@@ -116,12 +116,11 @@ const Band = props => {
 
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 disableToolbar
                                                 variant="inline"
-                                                margin="normal"
                                                 id="date-picker-inline"
                                                 name="foundationDate"
                                                 inputVariant="outlined"
@@ -137,7 +136,7 @@ const Band = props => {
                                             />
                                         </MuiPickersUtilsProvider>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                         <TextField
                                             onChange={handleFieldChange}
                                             name="countryCode"
@@ -151,26 +150,9 @@ const Band = props => {
 
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            onChange={handleFieldChange}
-                                            name="description"
-                                            label="Опис"
-                                            value={values.description}
-                                            placeholder="Description"
-                                            variant="outlined"
-                                            multiline
-                                            disabled={disableField}
-                                            fullWidth
-                                            rows={3}
-                                            rowsMax={10}
-                                            error={touched.description && Boolean(errors.description)}
-                                            helperText={touched.description && errors.description}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
-                                            <InputLabel style={{ marginTop: '-1em' }} htmlFor="genreId">Жанр</InputLabel>
+                                    <Grid item xs={12} sm={6}>
+                                        <FormControl variant="outlined" fullWidth>
+                                            <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="genreId">Жанр</InputLabel>
                                             <Select
                                                 native
                                                 id="genreId"
@@ -186,6 +168,24 @@ const Band = props => {
                                             </Select>
                                         </FormControl>
                                     </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            onChange={handleFieldChange}
+                                            name="description"
+                                            label="Опис"
+                                            value={values.description}
+                                            placeholder="Опис"
+                                            variant="outlined"
+                                            multiline
+                                            disabled={disableField}
+                                            fullWidth
+                                            rows={3}
+                                            rowsMax={10}
+                                            error={touched.description && Boolean(errors.description)}
+                                            helperText={touched.description && errors.description}
+                                        />
+                                    </Grid>
+
                                 </Grid>
                                 <div className={classes.buttonsFormContainer}>
                                     <div className={classes.buttonSubmitContainer}>

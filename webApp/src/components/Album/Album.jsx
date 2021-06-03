@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useStyles from "../EntityPageComponents.styles"
+import useStyles from "../EntityPageComponents.styles";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Formik, Form, ErrorMessage } from 'formik'
@@ -15,7 +15,9 @@ import MainAdminMenu from 'components/MainAdminMenu/MainAdminMenu'
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const Album = props => {
 
@@ -23,8 +25,9 @@ const Album = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        albums, file, disableField, isAdmin, selectedAlbum,
-        handleButtonBackClick, handleAlbumItemClick, buttonsback } = props
+        albums, bands, disableField, selectedAlbum,
+        handleButtonBackClick, handleAlbumItemClick, buttonsback, ImagefileToView, user } = props
+
     const today = new Date(Date.now());
     const validationSchema = yup.object({
         name: yup.string()
@@ -53,7 +56,7 @@ const Album = props => {
                     })}
                 </Breadcrumbs>
             </div>
-            {isAdmin ? (<div>{selectedAlbum ?
+            {user.role === 'Admin' ? (<div>{selectedAlbum ?
                 (<div className={classes.paperForm}>
 
                     <Formik className={classes.form}
@@ -66,7 +69,7 @@ const Album = props => {
                             <Form onSubmit={handleSubmit}>
 
                                 <div className={classes.upload}>
-                                    <img src={file} className={classes.avatar} />
+                                    <img src={ImagefileToView} className={classes.avatar} />
                                     <input
                                         accept="image/*"
                                         className={classes.input}
@@ -131,7 +134,24 @@ const Album = props => {
                                         />
                                     </Grid>
                                 </Grid>
-
+                                <Grid item xs={12}>
+                                    <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
+                                        <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="genreId">Група</InputLabel>
+                                        <Select
+                                            native
+                                            id="bandId"
+                                            name="bandId"
+                                            value={values.bandId ? values.bandId : bands[0].id}
+                                            onChange={onFieldChange}
+                                            fullWidth
+                                            disabled={disableField}
+                                        >
+                                            {bands.map(band => {
+                                                return <option key={band.name} value={band.id}>{band.name}</option>
+                                            })}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
                                 <div className={classes.buttonsFormContainer}>
                                     <div className={classes.buttonSubmitContainer}>
                                         <Button

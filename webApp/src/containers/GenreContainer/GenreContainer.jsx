@@ -1,11 +1,11 @@
 import React from "react";
 import { withRouter } from 'react-router';
-import Genre from 'components/Genre'
+import Genre from 'components/Genre';
 import { connect } from "react-redux";
-import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer'
-import { getBands } from 'redux/reducers/band-reducer'
-import { getUser } from 'redux/reducers/user-reducer'
-import { compose } from 'redux'
+import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer';
+import { getBands } from 'redux/reducers/band-reducer';
+import { getUser } from 'redux/reducers/user-reducer';
+import { compose } from 'redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { message } from 'antd';
 
@@ -20,6 +20,7 @@ class GenreContainer extends React.Component {
         ImagefileToSend: null,
         errorMessageTime: 3,
     };
+
     newGenre = {
         id: null,
         name: '',
@@ -27,6 +28,7 @@ class GenreContainer extends React.Component {
         image: null,
         description: '',
     };
+
     async componentDidMount() {
         await this.props.getGenres();
         await this.props.getUser();
@@ -46,44 +48,50 @@ class GenreContainer extends React.Component {
             ImagefileToSend: event.target.files[0]
         })
     };
+
     onChange = (field, value) => {
         this.setState({
             selectedGenre: { ...this.state.selectedGenre, [field]: value }
         })
     };
+
     handleButtonBackClick = () => {
         this.setState({
             selectedGenre: null,
             disableField: false,
             ImagefileToView: null
-        })
-    }
+        });
+    };
+
     handleGenreItemClick = (genre) => {
         const { history } = this.props
-        history.push(`/Bands/${genre.id}`)
+        history.push(`/Bands/${genre.id}`);
 
-    }
+    };
+
     handleClickCreate = () => {
         this.setState({
             selectedGenre: this.newGenre,
             action: 'create'
-        })
-    }
+        });
+    };
+
     handleClickEdit = (genre) => {
         this.setState({
             selectedGenre: genre,
             action: 'update',
             ImagefileToView: genre.image
-        })
-    }
+        });
+    };
+
     handleClickDelete = (genre) => {
         this.setState({
             selectedGenre: genre,
             action: 'delete',
             disableField: true,
             ImagefileToView: genre.image
-        })
-    }
+        });
+    };
     
     error = (content) => {
         const { errorMessageTime } = this.state;
@@ -113,14 +121,17 @@ class GenreContainer extends React.Component {
                 }
                 break;
         }
+
         this.setState({
             selectedGenre: null,
             action: null,
             disableField: false,
             ImagefileToView: null,
-        })
-        this.props.getGenres().then(this.hideLoader());;
-    }
+        });
+
+        await this.props.getGenres();
+        this.hideLoader();
+    };
 
     render() {
         const { isLoading } = this.state;

@@ -1,11 +1,11 @@
 import ApiClient, { apiUrl } from '../apiClient';
 import axios from 'axios';
 
-export default class BandApi {
+export default class AlbumApi {
     static async create(band) {
         await axios({
             method: 'post',
-            url: `${apiUrl}/Band`,
+            url: `${apiUrl}/Album`,
             data: band,
             headers: { 'Content-Type': 'multipart/form-data' }
         })
@@ -13,13 +13,13 @@ export default class BandApi {
     static async update(band) {
         await axios({
             method: 'put',
-            url: `${apiUrl}/Band`,
+            url: `${apiUrl}/Album`,
             data: band,
             headers: { 'Content-Type': 'multipart/form-data' }
         })
     }
-    static async getBands(genreId) {
-        return ApiClient.get(`/Band`,
+    static async getAlbums(genreId) {
+        return ApiClient.get(`/Album`,
             {
                 params:
                 {
@@ -30,7 +30,7 @@ export default class BandApi {
     }
 
     static async delete(id) {
-        await ApiClient.delete(`/Band/${id}`)
+        await ApiClient.delete(`/Album/${id}`)
 
     }
 }
