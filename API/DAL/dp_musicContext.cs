@@ -132,6 +132,7 @@ namespace DAL
                     .HasForeignKey(d => d.GenreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Composition_fk2");
+                entity.Property(e => e.FilePath).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Genre>(entity =>
@@ -139,7 +140,6 @@ namespace DAL
                 entity.ToTable("genre");
                 entity.Property(e => e.Id).HasMaxLength(36);
                 entity.Property(e => e.Description)
-                    .IsRequired()
                     .HasMaxLength(700);
 
                 entity.Property(e => e.Image).HasMaxLength(255);

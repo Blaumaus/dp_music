@@ -1,7 +1,10 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -18,11 +21,24 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BandDto>> PostBand([FromForm] BandDto bandDto)
+        public ActionResult PostBand(IFormCollection data)
         {
             try
             {
-                await _bandService.Create(bandDto);
+                var name = data["name"].FirstOrDefault();
+                var description = data["description"].FirstOrDefault();
+                var imageFile = data.Files.FirstOrDefault();
+                var foundationDate = data["foundationDate"].FirstOrDefault();
+                var countryCode= data["countryCode"].FirstOrDefault();
+                var genreId= data["genreId"].FirstOrDefault();
+                BandDto bandDto = new BandDto();
+                bandDto.Name = name;
+                bandDto.Description = description;
+                bandDto.File = imageFile;
+                bandDto.CountryCode = countryCode;
+                bandDto.FoundationDate = Convert.ToDateTime(foundationDate);
+                bandDto.GenreId = genreId;
+                _bandService.Create(bandDto);
                 return Ok();
             }
             catch
@@ -31,12 +47,12 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("id")]
-        public async Task<ActionResult<IEnumerable<BandDto>>> Get( string id)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BandDto>>> Get(string genreId)
         {
             try
             {
-                IEnumerable<BandDto> band = await _bandService.GetBand(id);
+                IEnumerable<BandDto> band = await _bandService.GetBand(genreId);
                 if (band == null)
                     return NotFound();
                 return new ObjectResult(band);
@@ -48,13 +64,28 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromForm] BandDto bandDto)
+        public ActionResult Put(IFormCollection data)
         {
-            if (bandDto == null)
+            if (data == null)
                 return NotFound();
             try
             {
-                await _bandService.Update(bandDto);
+                var id = data["id"].FirstOrDefault();
+                var name = data["name"].FirstOrDefault();
+                var description = data["description"].FirstOrDefault();
+                var imageFile = data.Files.FirstOrDefault();
+                var foundationDate = data["foundationDate"].FirstOrDefault();
+                var countryCode = data["countryCode"].FirstOrDefault();
+                var genreId = data["genreId"].FirstOrDefault();
+                BandDto bandDto = new BandDto();
+                bandDto.Id = id;
+                bandDto.Name = name;
+                bandDto.Description = description;
+                bandDto.File = imageFile;
+                bandDto.CountryCode = countryCode;
+                bandDto.FoundationDate = Convert.ToDateTime(foundationDate);
+                bandDto.GenreId = genreId;
+                _bandService.Update(bandDto);
                 return Ok(bandDto);
             }
             catch
@@ -63,7 +94,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<BandDto>> Delete(string id)
         {
             try

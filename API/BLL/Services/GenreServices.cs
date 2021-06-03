@@ -62,7 +62,6 @@ namespace BLL.Services
             var genre = unitOfWork.Genre.Get(genreDTO.Id);
             if(genreDTO.Name != null)
                 genre.Name = genreDTO.Name;
-            if (genreDTO.Description != null)
                 genre.Description = genreDTO.Description;
 
             
@@ -73,8 +72,8 @@ namespace BLL.Services
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), genre.Image);
                     if (File.Exists(filePath))
                         File.Delete(filePath);
-                }     
-
+                }
+                genre.Image = genre.Id + ".png";
                 using (FileStream fileStream = File.Create(_contentFolder + genre.Id + ".png"))
                 {
                     genreDTO.File.CopyTo(fileStream);

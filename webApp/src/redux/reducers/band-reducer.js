@@ -1,3 +1,5 @@
+import BandApi from 'api/modules/band';
+import BuildUrl from 'helpers/BuildUrl'
 
 const CREATE_BAND = 'CREATE_BAND';
 const UPDATE_BAND = 'UPDATE_BAND';
@@ -12,7 +14,7 @@ let initialState = {
 };
 const BandReducer = (state = initialState, action) => {
     switch (action.type) {
-       
+
         case SET_BANDS: {
             return {
                 ...state,
@@ -64,47 +66,33 @@ export const DeleteSuccess = (band) => ({
     type: DELETE_BAND, band
 })
 
-//TODO: Get WITH GenreId Param
-export const getBands = () => {
+
+export const getBands = (genreId) => {
     return (dispatch) => {
-        //TODO: Get FROM API
-        dispatch(SetBandsSuccess([
-            {
-                id: 1,
-                name: 'AC/DC',
-                image: 'https://acdcfans.ru/wp-content/uploads/2020/10/800px-acdcpowerup.jpg',
-                countryCode: 'UA',
-                foundationDate:new Date('10/11/2014'),
-                description: 'This is AC/DC',
-                genreId:'15f7c520-e48d-4af7-a8ae-7dab8e798d86'
-            },
-            {
-                id: 2,
-                name: 'Skillet',
-                image: 'https://tekst-pesni.online/wp-content/uploads/2020/03/32-4.jpg',
-                countryCode: 'RU',
-                foundationDate:new Date('12/02/2020'),
-                description: 'This is Skillet',
-                genreId:'d3f0f3bd-b3d3-4b8f-8c82-9a59bf741e3b'
-            }
-        ]));
+        return BandApi.getBands(genreId).then(data => {
+            const bands = Object.values(data.data);
+            bands.forEach(band => {
+                band.image = BuildUrl.getUrl(band.image)
+            })
+            dispatch(SetBandsSuccess(bands))
+        });
     }
 }
 export const Create = (band) => {
     return (dispatch) => {
-        //TODO: POST REQUEST TO SERVER IF OK THEN dispatch
+        BandApi.create(band);
         dispatch(CreateSuccess(band))
-    }
+    };
 }
 export const Update = (band) => {
     return (dispatch) => {
-        //TODO: PUT REQUEST TO SERVER IF OK THEN dispatch
+        BandApi.update(band);
         dispatch(UpdateSuccess(band))
     }
 }
 export const Delete = (band) => {
     return (dispatch) => {
-        //TODO: DELETE REQUEST TO SERVER IF OK THEN dispatch
+        BandApi.delete(band.id);
         dispatch(DeleteSuccess(band))
     }
 }

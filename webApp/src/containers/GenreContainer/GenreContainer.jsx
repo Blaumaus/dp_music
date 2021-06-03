@@ -1,12 +1,13 @@
 import React from "react";
 import { withRouter } from 'react-router';
-import Genre from 'components/Genre'
+import Genre from 'components/Genre';
 import { connect } from "react-redux";
-import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer'
-import { getUser } from 'redux/reducers/user-reducer'
-import { compose } from 'redux'
+import { Create, Update, Delete, getGenres } from 'redux/reducers/genre-reducer';
+import { getBands } from 'redux/reducers/band-reducer';
+import { getUser } from 'redux/reducers/user-reducer';
+import { compose } from 'redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { message } from 'antd';
 
 class GenreContainer extends React.Component {
 
@@ -17,8 +18,9 @@ class GenreContainer extends React.Component {
         disableField: false,
         ImagefileToView: null,
         ImagefileToSend: null,
-        isAdmin: true,
+        errorMessageTime: 3,
     };
+
     newGenre = {
         id: null,
         name: '',
@@ -26,21 +28,16 @@ class GenreContainer extends React.Component {
         image: null,
         description: '',
     };
-    componentDidMount() {
-        this.props.getGenres();
-        this.props.getUser();
+
+    async componentDidMount() {
+        await this.props.getGenres();
+        await this.props.getUser();
         this.setState({
             ImagefileToView: null,
         })
         this.hideLoader();
     };
-    componentDidUpdate(prevProps) {
-        if (this.props.genres.length !== prevProps.genres.length) {
-            this.showLoader();
-            this.props.getGenres();
-            this.hideLoader();
-        }
-    }
+
     showLoader = () => this.setState({ isLoading: true });
 
     hideLoader = () => this.setState({ isLoading: false });
@@ -51,70 +48,97 @@ class GenreContainer extends React.Component {
             ImagefileToSend: event.target.files[0]
         })
     };
+
     onChange = (field, value) => {
         this.setState({
             selectedGenre: { ...this.state.selectedGenre, [field]: value }
         })
     };
+
     handleButtonBackClick = () => {
         this.setState({
             selectedGenre: null,
             disableField: false,
             ImagefileToView: null
-        })
-    }
+        });
+    };
+
     handleGenreItemClick = (genre) => {
         const { history } = this.props
-        history.push(`/Bands/${genre.id}`)
+        history.push(`/Bands/${genre.id}`);
 
-    }
+    };
+
     handleClickCreate = () => {
         this.setState({
             selectedGenre: this.newGenre,
             action: 'create'
-        })
-    }
+        });
+    };
+
     handleClickEdit = (genre) => {
         this.setState({
             selectedGenre: genre,
             action: 'update',
             ImagefileToView: genre.image
-        })
-    }
+        });
+    };
+
     handleClickDelete = (genre) => {
         this.setState({
             selectedGenre: genre,
             action: 'delete',
             disableField: true,
             ImagefileToView: genre.image
-        })
-    }
-    handleSubmit = () => {
+        });
+    };
+    
+    error = (content) => {
+        const { errorMessageTime } = this.state;
+        message.error(content, errorMessageTime);
+    };
+
+    handleSubmit = async () => {
+        this.showLoader();
         const formData = new FormData();
         const { selectedGenre, ImagefileToSend } = this.state;
         formData.append('file', ImagefileToSend)
         formData.set('name', selectedGenre.name)
+        formData.set('id', selectedGenre.id)
         formData.set('description', selectedGenre.description)
         switch (this.state.action) {
 
-            case 'create': this.props.Create(formData); break;
-            case 'update': this.props.Update(formData); break;
-            case 'delete': this.props.Delete(this.state.selectedGenre); break;
+            case 'create': await this.props.Create(formData); break;
+            case 'update': await this.props.Update(formData); break;
+            case 'delete':
+                await this.props.getBands(selectedGenre.id);
+                let isHasChild = this.props.bands.find(band => band.genreId === selectedGenre.id)
+                if (isHasChild) {
+                    this.error('Неможливо видалити, існують групи, які належать до цього жанру');      
+                }
+                else {
+                    await this.props.Delete(selectedGenre); 
+                }
+                break;
         }
+
         this.setState({
             selectedGenre: null,
             action: null,
             disableField: false,
-        })
+            ImagefileToView: null,
+        });
 
-    }
+        await this.props.getGenres();
+        this.hideLoader();
+    };
 
     render() {
         const { isLoading } = this.state;
         return (
             <CssBaseline>
                 {
-                    isLoading ? (<CircularProgress />) : (<Genre
+                    !isLoading && <Genre
                         handleUpload={this.handleUpload}
                         onChange={this.onChange}
                         handleClickCreate={this.handleClickCreate}
@@ -125,11 +149,10 @@ class GenreContainer extends React.Component {
                         handleGenreItemClick={this.handleGenreItemClick}
                         disableField={this.state.disableField}
                         ImagefileToView={this.state.ImagefileToView}
-                        isAdmin={this.state.isAdmin}
                         selectedGenre={this.state.selectedGenre}
                         genres={this.props.genres}
                         user={this.props.user}
-                    />)
+                    />
                 }
             </CssBaseline>
         )
@@ -139,12 +162,12 @@ class GenreContainer extends React.Component {
 const mapStateToProps = state => {
     return {
         genres: state.genrePage.genres,
-        user: state.user.user
-
+        user: state.user.user,
+        bands: state.bandPage.bands,
     };
 };
 
 export default compose(
-    connect(mapStateToProps, { Create, Update, Delete, getGenres, getUser }),
+    connect(mapStateToProps, { Create, Update, Delete, getGenres, getUser, getBands }),
     withRouter,
 )(GenreContainer);

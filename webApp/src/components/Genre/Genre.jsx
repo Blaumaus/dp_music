@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import useStyles from "../EntityPageComponents.styles"
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Formik, Form, ErrorMessage } from 'formik'
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@material-ui/core/Avatar'; 
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import styles from './Genres.module.css';
@@ -20,7 +20,7 @@ const Genre = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        genres, ImagefileToView, disableField, isAdmin, selectedGenre,
+        genres, ImagefileToView, disableField, selectedGenre,
         handleButtonBackClick, handleGenreItemClick, user } = props
 
     const validationSchema = yup.object({
@@ -91,7 +91,7 @@ const Genre = props => {
                                             onChange={onFieldChange}
                                             name="description"
                                             value={values.description}
-                                            placeholder="Description"
+                                            placeholder="Опис"
                                             variant="outlined"
                                             multiline
                                             disabled={disableField}
@@ -151,7 +151,6 @@ const Genre = props => {
                     })}
 
                 </div>)}
-
         </div >
     );
 }
