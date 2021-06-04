@@ -1,7 +1,9 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -17,7 +19,39 @@ namespace API.Controllers
             _albumService = albumService;
         }
 
+
         [HttpPost]
+        public async Task<ActionResult<AlbumDto>> Post(IFormCollection data)
+        {
+            try
+            {
+                var name = data["name"].FirstOrDefault();
+                var description = data["description"].FirstOrDefault();
+                var year = data["year"].FirstOrDefault();
+                var imageFile = data.Files.FirstOrDefault();
+                var bandId = data["bandId"].FirstOrDefault();
+
+                AlbumDto albumDto = new AlbumDto();
+                albumDto.Name = name;
+                albumDto.Description = description;
+                albumDto.File = imageFile;
+                albumDto.Year = int.Parse(year);
+                albumDto.BandId = bandId;
+
+                if (albumDto.Year == null)
+                    return BadRequest("Year null");
+                await _albumService.Create(albumDto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        //для показу на дипломі
+        [HttpPost]
+        [Route("TestApi")]
         public async Task<ActionResult<AlbumDto>> PostTest([FromForm] AlbumDto albumDto)
         {
             try
@@ -50,7 +84,40 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromForm] AlbumDto albumDto)
+        public async Task<ActionResult> Put(IFormCollection data)
+        {
+            if (data == null)
+                return NotFound();
+            try
+            {
+                var id = data["id"].FirstOrDefault();
+                var name = data["name"].FirstOrDefault();
+                var description = data["description"].FirstOrDefault();
+                var year = data["year"].FirstOrDefault();
+                var imageFile = data.Files.FirstOrDefault();
+                var bandId = data["bandId"].FirstOrDefault();
+
+                AlbumDto albumDto = new AlbumDto();
+                albumDto.Id = id;
+                albumDto.Name = name;
+                albumDto.Description = description;
+                albumDto.File = imageFile;
+                albumDto.Year = int.Parse(year);
+                albumDto.BandId = bandId;
+
+                await _albumService.Update(albumDto);
+                return Ok(albumDto);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        //для показу на дипломі
+        [HttpPut] 
+        [Route("TestApi")]
+        public async Task<ActionResult> PutTest([FromForm] AlbumDto albumDto)
         {
             if (albumDto == null)
                 return NotFound();
