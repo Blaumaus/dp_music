@@ -77,5 +77,70 @@ namespace BLL.Services
             unitOfWork.Album.Create(album);
             await unitOfWork.SaveAsync();
         }
+
+        public async Task<AlbumDto> GetAlbumId(string id)
+        {
+            var album = await Task.Run(() => _mapper.Map<Album, AlbumDto>(unitOfWork.Album.Get(id)));
+            if (album.Image != null)
+            {
+                album.Image = _contentFolder + album.Image;
+
+            }
+            else
+            {
+                album.Image = _contentFolder + "default.png";
+            }
+
+            return album;
+        }
+
+        public async Task Update(AlbumDto albumDto)
+        {
+            var album = unitOfWork.Album.Get(albumDto.Id);
+            if (albumDto.Name != null)
+                album.Name = albumDto.Name;
+            if (albumDto.BandId != null)
+                album.BandId = albumDto.BandId;
+            if (albumDto.Description != null)
+                album.Description = albumDto.Description;
+            if (albumDto.Year != null)
+                album.Year = (int)albumDto.Year;
+
+
+            if (albumDto.File != null)
+            {
+                if (album.Image != null)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), album.Image);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
+                }
+                album.Image = album.Id + ".png";
+                using (FileStream fileStream = File.Create(_contentFolder + album.Id + ".png"))
+                {
+                    albumDto.File.CopyTo(fileStream);
+                    fileStream.Flush();
+                }
+            }
+
+            unitOfWork.Album.Update(album);
+            await unitOfWork.SaveAsync();
+        }
+
+        public async Task Delete(AlbumDto albumDto)
+        {
+            //Images
+            if (albumDto.Image != _contentFolder + "default.png")
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), albumDto.Image.Replace("//", "\\"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+
+            unitOfWork.Album.Delete(albumDto.Id);
+            await unitOfWork.SaveAsync();
+        }
     }
 }

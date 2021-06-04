@@ -22,6 +22,8 @@ namespace API.Controllers
         {
             try
             {
+                if (albumDto.Year == null)
+                    return BadRequest("Year null");
                 await _albumService.Create(albumDto);
                 return Ok();
             }
@@ -40,6 +42,39 @@ namespace API.Controllers
                 if (albums == null)
                     return NotFound();
                 return new ObjectResult(albums);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put([FromForm] AlbumDto albumDto)
+        {
+            if (albumDto == null)
+                return NotFound();
+            try
+            {
+                await _albumService.Update(albumDto);
+                return Ok(albumDto);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<AlbumDto>> Delete(string id)
+        {
+            try
+            {
+                AlbumDto album = await _albumService.GetAlbumId(id);
+                if (album == null)
+                    return NotFound();
+                await _albumService.Delete(album);
+                return Ok();
             }
             catch
             {
