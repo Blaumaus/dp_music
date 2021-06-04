@@ -5,6 +5,8 @@
     "logout": "Выйти",
     "login": "Войти",
     "bands": "Исполнители",
+    "albums": "Альбомы",
+    "songs": "Песни",
     "detailedInfo": "Детальная информация"
   },
   "languages": {
@@ -40,7 +42,7 @@
   },
   "home": {
     "noGenres": "Пока что нет доступных жанров.. :(",
-    "noBands":  "Пока что нет доступных исполнителей для жанра {{ genre }}.. :(",
+    "noBands": "Пока что нет доступных исполнителей для жанра {{ genre }}.. :(",
     "availableGenres": "Доступные жанры",
     "availableBands": "Группы жанра {{ genre }}",
     "holdForInfo": "Удерживайте для детальной информации",
@@ -49,6 +51,14 @@
     "description": "Описание",
     "foundationDate": "Foundation date",
     "countryCode": "Country"
+  },
+  "albums": {
+    "noAlbums": "Пока что нет альбомов для группы {{ band }}.. :(",
+    "availableAlbums": "Альбомы группы {{ band }}"
+  },
+  "songs": {
+    "noSongs": "Пока что нет песен из альбома {{ album }}.. :(",
+    "availableSongs": "Песни альбома {{ album }}"
   },
   "countries": {
     "US": "Соединённые Штаты Америки",

@@ -14,6 +14,8 @@ import Signout from '../components/common/Signout'
 import DetailedInfo from '../screens/common/DetailedInfo'
 import Home from '../screens/Home'
 import Bands from '../screens/Bands'
+import Albums from '../screens/Albums'
+import Songs from '../screens/Songs'
 import Settings from '../screens/Settings'
 import Signin from '../screens/auth/Signin'
 import Signup from '../screens/auth/Signup'
@@ -71,11 +73,27 @@ const Main = () => {
       <MainStack.Screen
         name="bands"
         options={({ navigation }) => ({
-          title: t(`drawer.bands`),
+          title: t('drawer.bands'),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
         })}
         component={Bands}
       />
+      <MainStack.Screen
+        name="albums"
+        options={({ navigation }) => ({
+          title: t('drawer.albums'),
+          headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+        })}
+        component={Albums}
+      />
+      {/* <MainStack.Screen
+        name="songs"
+        options={({ navigation }) => ({
+          title: t('drawer.songs'),
+          headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+        })}
+        component={Songs}
+      /> */}
       <MainStack.Screen
         name="detailedInfo"
         options={({ navigation }) => ({

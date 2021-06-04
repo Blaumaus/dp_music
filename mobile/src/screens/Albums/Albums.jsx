@@ -1,44 +1,41 @@
 import React, { memo, useState, useEffect } from 'react'
 import { StyleSheet, ScrollView, Dimensions } from 'react-native'
-import { Text, Card, Button, View, Colors } from 'react-native-ui-lib'
+import { Text, Card, Button, View } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
-import { Flag } from 'react-native-svg-flagkit'
 import _toUpper from 'lodash/toUpper'
 import _isArray from 'lodash/isArray'
 import _values from 'lodash/values'
-import _toLower from 'lodash/toLower'
 import _includes from 'lodash/includes'
-import _filter from 'lodash/filter'
 import _isEmpty from 'lodash/isEmpty'
 import _map from 'lodash/map'
 import _truncate from 'lodash/truncate'
 
 import { CDN_URL } from '../../../env'
 import constants from '../../redux/constants'
-import { getBands } from '../../api'
+import { getAlbums } from '../../api'
 import Loading from '../common/Loading'
 
 const getStyles = theme => StyleSheet.create({
   container: {
-    minHeight: Dimensions.get('window').height,
+    minHeight: Dimensions.get('window').height - 80,
     backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
     alignItems: 'center',
-    paddingTop: 40,
+    paddingTop: 10,
     paddingBottom: 30,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
   },
   text: {
     marginBottom: 5,
     fontSize: 21,
     textAlign: 'center',
-    color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
   },
   desc: {
     marginBottom: 20,
     fontSize: 16,
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  themedText: {
     color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
   },
   card: {
@@ -51,7 +48,8 @@ const getStyles = theme => StyleSheet.create({
     height: '100%',
   },
   cardSection: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 10,
     flex: 1,
   },
   metadata: {
@@ -71,26 +69,21 @@ const Albums = ({ route, navigation, theme }) => {
   }
   const { id, name } = info
 
-  const [bands, setBands] = useState([])
+  const [albums, setAlbums] = useState([])
 	const [loading, setLoading] = useState(true)
-	const [filterInput, setFilterInput] = useState('')
 
-  const onSeatchByName = () => {
-		return _filter(bands, ({ name }) => _includes(_toLower(name), _toLower(filterInput)))
-	}
-
-  const loadBands = async () => {
+  const loadAlbums = async () => {
     setLoading(true)
     try {
-      const data = await getBands(id)
+      const data = await getAlbums(id)
 
       if (_isArray(data)) {
-        setBands(data)
+        setAlbums(data)
       } else {
-        setBands(_values(data))
+        setAlbums(_values(data))
       }
     } catch (e) {
-      console.error('Error while receiving bands')
+      console.error('Error while loading albums')
       console.error(e)
     } finally {
       setLoading(false)
@@ -98,7 +91,7 @@ const Albums = ({ route, navigation, theme }) => {
   }
 
   useEffect(() => {
-    loadBands()
+    loadAlbums()
   }, [info])
 
   if (loading) {
@@ -109,14 +102,14 @@ const Albums = ({ route, navigation, theme }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {_isEmpty(bands) ? (
-        <Text style={styles.text}>{t('home.noBands', { genre: name })}</Text>
+      {_isEmpty(albums) ? (
+        <Text style={[styles.text, styles.themedText]}>{t('albums.noAlbums', { band: name })}</Text>
       ) : (
         <>
-          <Text style={styles.text}>{t('home.availableBands', { genre: name })}</Text>
-          <Text style={styles.desc}>{t('home.holdForInfo')}</Text>
-          {_map(bands, band => {
-            const { id, name, image, description, foundationDate, countryCode } = band
+          <Text style={[styles.text, styles.themedText]}>{t('albums.availableAlbums', { band: name })}</Text>
+          <Text style={[styles.desc, styles.themedText]}>{t('home.holdForInfo')}</Text>
+          {_map(albums, album => {
+            const { id, name, image, description, foundationDate } = album
             const hasImage = _includes(image, id)
 
             return (
@@ -126,8 +119,8 @@ const Albums = ({ route, navigation, theme }) => {
                 style={styles.card}
                 onPress={() => {}}
                 onLongPress={() => navigation.navigate('DetailedInfo', {
-                  data: band,
-                  type: 'band',
+                  data: album,
+                  type: 'album',
                 })}
                 borderRadius={styles.card.borderRadius}
                 backgroundColor={styles.card.backgroundColor}
@@ -143,23 +136,20 @@ const Albums = ({ route, navigation, theme }) => {
                   />
                 )}
                 <View style={styles.cardSection}>
-                  <Text text70 grey10 color={Colors.grey10}>
+                  <Text style={styles.themedText} text70>
                     {name}
                   </Text>
                   <View>
-                    <Text text80 grey10>
+                    <Text style={styles.themedText} text80>
                       {_truncate(description, {
-                        'length': hasImage ? 76 : 90,
+                        'length': hasImage ? 76 : 130,
                         'omission': '...',
                       })}
                     </Text>
                   </View>
 
-                  <View row style={styles.metadata}>
-                    <Text>
-                      <Flag id={_toUpper(countryCode)} width={35} height={17} />
-                    </Text>
-                    <Text row right>| {new Date(foundationDate).getUTCFullYear()}</Text>
+                  <View style={styles.metadata} row>
+                    <Text style={styles.themedText}>{new Date(foundationDate).getUTCFullYear()}</Text>
                   </View>
                 </View>
               </Card>
@@ -167,7 +157,7 @@ const Albums = ({ route, navigation, theme }) => {
           })}
         </>
       )}
-      <Button onPress={loadBands} label={t('home.refresh')} backgroundColor="#3366ff" />
+      <Button onPress={loadAlbums} label={t('home.refresh')} backgroundColor="#3366ff" />
     </ScrollView>
   )
 }

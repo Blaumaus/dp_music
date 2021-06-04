@@ -5,6 +5,8 @@
     "logout": "Sign out",
     "login": "Sign in",
     "bands": "Bands",
+    "albums": "Albums",
+    "songs": "Songs",
     "detailedInfo": "Detailed info"
   },
   "languages": {
@@ -39,7 +41,7 @@
   },
   "home": {
     "noGenres": "There are currently no genres available.. :(",
-    "noBands":  "There are no bands available for the genre {{ genre }}.. :(",
+    "noBands": "There are no bands for genre {{ genre }} yet.. :(",
     "availableGenres": "Available genres",
     "availableBands": "Bands of genre {{ genre }}",
     "holdForInfo": "Hold for detailed information",
@@ -48,6 +50,14 @@
     "description": "Description",
     "foundationDate": "Foundation date",
     "countryCode": "Country"
+  },
+  "albums": {
+    "noAlbums": "There are no albums for band {{ band }} yet.. :(",
+    "availableAlbums": "Albums of {{ band }}"
+  },
+  "songs": {
+    "noSongs": "There are no songs of album {{ album }} yet.. :(",
+    "availableSongs": "Songs of album {{ album }}"
   },
   "countries": {
     "US": "The United States of America",

@@ -44,7 +44,7 @@ const getStyles = theme => StyleSheet.create({
 const params = {
   genre: ['name', 'description'],
   band: ['name', 'description', 'foundationDate', 'countryCode'],
-  album: [],
+  album: ['name', 'description'],
 }
 
 const DetailedInfo = ({ route, navigation }) => {

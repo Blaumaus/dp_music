@@ -1,2 +1,3 @@
-import Albums from './Albums.container'
-export default Albums
+import Songs from './Songs.container'
+
+export default Songs
