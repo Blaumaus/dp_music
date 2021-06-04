@@ -126,14 +126,14 @@ const Home = ({ navigation, theme }) => {
                 )}
                 <Card.Section
                   content={[
-                    { text: name, text70: true, color: styles.text.color },
+                    { text: name, text70: true, color: styles.themedText.color },
                     {
                       text: _truncate(description, {
-                        'length': hasImage ? 76 : 130,
+                        'length': hasImage ? 90 : 130,
                         'omission': '...',
                       }),
                       text80: true,
-                      color: styles.text.color,
+                      color: styles.themedText.color,
                     }
                   ]}
                   style={styles.cardSection}

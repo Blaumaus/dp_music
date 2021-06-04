@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import constants from '../redux/constants'
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { DefaultTheme } from '@react-navigation/native';
 
 const getStyles = theme => StyleSheet.create({
   container: {
@@ -15,6 +15,7 @@ const getStyles = theme => StyleSheet.create({
 
 export const getTheme = theme => ({
   ...DefaultTheme,
+  dark: theme === 'dark',
   colors: {
     ...DefaultTheme.colors,
     primary: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,

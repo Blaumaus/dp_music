@@ -104,7 +104,7 @@ const Bands = ({ route, navigation, theme }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {_isEmpty(bands) ? (
-        <Text style={styles.text}>{t('home.noBands', { genre: name })}</Text>
+        <Text style={[styles.text, styles.themedText]}>{t('home.noBands', { genre: name })}</Text>
       ) : (
         <>
           <Text style={[styles.text, styles.themedText]}>{t('home.availableBands', { genre: name })}</Text>
