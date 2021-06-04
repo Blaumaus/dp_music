@@ -1,6 +1,7 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -23,6 +24,22 @@ namespace API.Controllers
             {
                 await _albumService.Create(albumDto);
                 return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<AlbumDto>>> Get(string bandId)
+        {
+            try
+            {
+                IEnumerable<AlbumDto> albums = await _albumService.GetAlbum(bandId);
+                if (albums == null)
+                    return NotFound();
+                return new ObjectResult(albums);
             }
             catch
             {

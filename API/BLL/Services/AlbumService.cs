@@ -27,9 +27,30 @@ namespace BLL.Services
             _contentFolder = config["Images"];
         }
 
-        public Task<IEnumerable<AlbumDto>> GetAlbum(string id)
+        public async Task<IEnumerable<AlbumDto>> GetAlbum(string id)
         {
-            throw new NotImplementedException();
+            if(id == null)
+            {
+                var albumAll = await Task.Run(() => _mapper.Map<IEnumerable<Album>, IEnumerable<AlbumDto>>(unitOfWork.Album.GetAll()));
+                foreach (var album in albumAll)
+                {
+                    if (album.Image != null)
+                        album.Image = _contentFolder + album.Image;
+                    else
+                        album.Image = _contentFolder + "default.png";
+                }
+                return albumAll;
+            }
+
+            var albums = await Task.Run(() => _mapper.Map<IEnumerable<Album>, IEnumerable<AlbumDto>>(unitOfWork.Album.GetAll()).Where(e => e.BandId == id));
+            foreach (var album in albums)
+            {
+                if (album.Image != null)
+                    album.Image = _contentFolder + album.Image;
+                else
+                    album.Image = _contentFolder + "default.png";
+            }
+            return albums;
         }
 
         public async Task Create(AlbumDto albumDto)

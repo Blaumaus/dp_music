@@ -8,5 +8,8 @@ namespace BLL.Interfaces
     {
         Task<IEnumerable<AlbumDto>> GetAlbum(string id);
         Task Create(AlbumDto albumDto);
+        Task<AlbumDto> GetAlbumId(string id);
+        Task Update(AlbumDto albumDto);
+        Task Delete(AlbumDto albumDto);
     }
 }
