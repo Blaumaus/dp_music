@@ -25,12 +25,16 @@ class AlbumContainer extends React.Component {
             },
             {
                 name: 'Групи',
-                link: `/Bands/${this.props.match.params.bandId}`
+                link: `/Bands/${this.props.match.params.genreId}`
             },
             {
                 name: 'Вибір',
-                link: `/Select/${this.props.match.params.bandId}`
-            }
+                link: `/Select/${this.props.match.params.bandId}/${this.props.match.params.genreId}`
+            },
+            {
+                name: 'Альбоми',
+                link: `#`
+            },
         ]
     };
     newAlbum = {
@@ -44,8 +48,8 @@ class AlbumContainer extends React.Component {
     async componentDidMount() {
 
         const { bandId } = this.props.match.params
-        this.props.getAlbums(bandId);
         await this.props.getUser();
+        await this.props.getAlbums(bandId);
         await this.props.getBands(null);
         this.setState({
             ImagefileToView: null,
@@ -58,10 +62,13 @@ class AlbumContainer extends React.Component {
     hideLoader = () => this.setState({ isLoading: false });
 
     handleUpload = event => {
-        this.setState({
-            ImagefileToView: URL.createObjectURL(event.target.files[0]),
-            ImagefileToSend: event.target.files[0]
-        })
+        if (event.target.files[0]) {
+            this.setState({
+                ImagefileToView: URL.createObjectURL(event.target.files[0]),
+                ImagefileToSend: event.target.files[0]
+            })
+        }
+
     };
 
     onChange = (field, value) => {
@@ -118,7 +125,7 @@ class AlbumContainer extends React.Component {
         formData.append('file', ImagefileToSend);
         formData.set('id', selectedAlbum.id);
         formData.set('name', selectedAlbum.name);
-        formData.set('year', selectedAlbum.description);
+        formData.set('year', selectedAlbum.year);
         formData.set('bandId', selectedAlbum.bandId);
         formData.set('description', selectedAlbum.description);
         
@@ -136,7 +143,7 @@ class AlbumContainer extends React.Component {
             ImagefileToView: null,
         })
         const { bandId } = this.props.match.params
-        this.props.getBands(bandId).then(this.hideLoader());
+        this.props.getAlbums(bandId).then(this.hideLoader());
     }
 
     render() {

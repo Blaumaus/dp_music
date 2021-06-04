@@ -19,6 +19,12 @@ class GenreContainer extends React.Component {
         ImagefileToView: null,
         ImagefileToSend: null,
         errorMessageTime: 3,
+        buttonsback: [
+            {
+                name: 'Жанри',
+                link: '/Genres'
+            }
+        ]
     };
 
     newGenre = {
@@ -43,10 +49,12 @@ class GenreContainer extends React.Component {
     hideLoader = () => this.setState({ isLoading: false });
 
     handleUpload = event => {
-        this.setState({
-            ImagefileToView: URL.createObjectURL(event.target.files[0]),
-            ImagefileToSend: event.target.files[0]
-        })
+        if (event.target.files[0]) {
+            this.setState({
+                ImagefileToView: URL.createObjectURL(event.target.files[0]),
+                ImagefileToSend: event.target.files[0]
+            })
+        }
     };
 
     onChange = (field, value) => {
@@ -152,6 +160,7 @@ class GenreContainer extends React.Component {
                         selectedGenre={this.state.selectedGenre}
                         genres={this.props.genres}
                         user={this.props.user}
+                        buttonsback={this.state.buttonsback}
                     />
                 }
             </CssBaseline>

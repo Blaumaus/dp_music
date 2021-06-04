@@ -14,7 +14,7 @@ let initialState = {
 };
 const AlbumReducer = (state = initialState, action) => {
     switch (action.type) {
-       
+
         case SET_ALBUMS: {
             return {
                 ...state,
@@ -66,46 +66,37 @@ export const DeleteSuccess = (album) => ({
     type: DELETE_ALBUM, album
 })
 
-//TODO: Get WITH GenreId Param
 export const getAlbums = (bandId) => {
     return (dispatch) => {
-        //TODO: Get FROM API
-        dispatch(SetAlbumsSuccess([
-            {
-                id: 1,
-                name: 'Unleashed',
-                image: 'https://upload.wikimedia.org/wikipedia/ru/8/8c/SkilletUnleasedCover.jpg',
-                year: 2016,
-                description: 'This is Unleashed Album Skillet group',
-                bandId:'5bf962ef-684d-40e4-94c9-d2b8c4306f39'
-            },
-            {
-                id: 2,
-                name: 'Back in Black',
-                image: 'https://342031.selcdn.ru/rusplt/images/25072020/1595670438055-upload.jpeg',
-                year: 1980,
-                description: 'This is Back in Black Album AC/DC group',
-                bandId:'9903807b-ba7a-4d49-81ce-37ef19d36fa0'
-            }
-        ]));
+        return AlbumApi.getAlbums(bandId).then(data => {
+            const albums = Object.values(data.data);
+            albums.forEach(album => {
+                album.image = BuildUrl.getUrl(album.image)
+            })
+            dispatch(SetAlbumsSuccess(albums))
+        });
     }
 }
 export const Create = (album) => {
     return (dispatch) => {
-        //TODO: POST REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(CreateSuccess(album))
+        return AlbumApi.create(album).then(
+            dispatch(CreateSuccess(album))
+        );
+
     }
 }
 export const Update = (album) => {
     return (dispatch) => {
-        //TODO: PUT REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(UpdateSuccess(album))
+        return AlbumApi.update(album).then(
+            dispatch(UpdateSuccess(album))
+        );
     }
 }
 export const Delete = (album) => {
     return (dispatch) => {
-        //TODO: DELETE REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(DeleteSuccess(album))
+        return AlbumApi.delete(album).then(
+            dispatch(DeleteSuccess(album))
+        );
     }
 }
 export default AlbumReducer;

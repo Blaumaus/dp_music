@@ -80,20 +80,23 @@ export const getBands = (genreId) => {
 }
 export const Create = (band) => {
     return (dispatch) => {
-        BandApi.create(band);
-        dispatch(CreateSuccess(band))
+        return BandApi.create(band).then(
+            dispatch(CreateSuccess(band))
+        );
     };
 }
 export const Update = (band) => {
     return (dispatch) => {
-        BandApi.update(band);
-        dispatch(UpdateSuccess(band))
+        return BandApi.update(band).then(
+            dispatch(UpdateSuccess(band))
+        );
     }
 }
 export const Delete = (band) => {
     return (dispatch) => {
-        BandApi.delete(band.id);
-        dispatch(DeleteSuccess(band))
+        return BandApi.delete(band.id).then(
+            dispatch(DeleteSuccess(band))
+        );       
     }
 }
 export default BandReducer;

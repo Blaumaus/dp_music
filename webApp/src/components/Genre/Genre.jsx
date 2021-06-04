@@ -6,13 +6,15 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Avatar from '@material-ui/core/Avatar'; 
+import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import styles from './Genres.module.css';
 import GenreCard from 'components/EntityCard/EntityCard';
 import MainAdminMenu from 'components/MainAdminMenu/MainAdminMenu'
-
+import { Link } from 'react-router-dom';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const Genre = props => {
 
@@ -21,7 +23,7 @@ const Genre = props => {
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
         genres, ImagefileToView, disableField, selectedGenre,
-        handleButtonBackClick, handleGenreItemClick, user } = props
+        handleButtonBackClick, handleGenreItemClick, user, buttonsback } = props
 
     const validationSchema = yup.object({
         name: yup.string()
@@ -39,6 +41,15 @@ const Genre = props => {
     return (
         <div>
             <CssBaseline />
+            <div className={classes.buttonsBackContainer}>
+                <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
+                    {buttonsback.map(button => {
+                        return <Button key={button.name} component={Link} to={button.link}>
+                            {button.name}
+                        </Button>
+                    })}
+                </Breadcrumbs>
+            </div>
             {user.role === 'Admin' ? (<div>{selectedGenre ?
                 (<div className={classes.paperForm}>
 

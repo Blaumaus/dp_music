@@ -15,7 +15,6 @@ const { Text, Title } = Typography;
 const SignUp = props => {
   const classes = useStyles();
 
-
   const {
     user,
     isValidatingUserName,

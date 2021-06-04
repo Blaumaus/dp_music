@@ -23,7 +23,11 @@ class BandContainer extends React.Component {
             {
                 name: 'Жанри',
                 link: '/Genres'
-            }
+            },
+            {
+                name: 'Групи',
+                link: `/Bands/${this.props.match.params.genreId}`
+            },
         ]
     };
 
@@ -38,7 +42,9 @@ class BandContainer extends React.Component {
     };
 
     async componentDidMount() {
-        const { genreId } = this.props.match.params
+        let { genreId } = this.props.match.params
+        if (!genreId)
+            genreId = null
         await this.props.getUser();
         await this.props.getBands(genreId);
         await this.props.getGenres();
@@ -54,10 +60,12 @@ class BandContainer extends React.Component {
 
 
     handleUpload = event => {
-        this.setState({
-            ImagefileToView: URL.createObjectURL(event.target.files[0]),
-            ImagefileToSend: event.target.files[0]
-        })
+        if (event.target.files[0]) {
+            this.setState({
+                ImagefileToView: URL.createObjectURL(event.target.files[0]),
+                ImagefileToSend: event.target.files[0]
+            })
+        }
     };
 
     onChange = (field, value) => {
@@ -76,8 +84,9 @@ class BandContainer extends React.Component {
     };
 
     handleBandItemClick = (band) => {
+        let { genreId } = this.props.match.params
         const { history } = this.props
-        history.push(`/Select/${band.id}`)
+        history.push(`/Select/${band.id}/${genreId}`)
 
     };
 

@@ -79,20 +79,26 @@ export const getGenres = () => {
 }
 export const Create = (genre) => {
     return (dispatch) => {
-        GenreApi.create(genre);
-        dispatch(CreateSuccess(genre))
+        return GenreApi.create(genre).then(
+            dispatch(CreateSuccess(genre))
+        );
+        
     }
 }
 export const Update = (genre) => {
     return (dispatch) => {
-        GenreApi.update(genre);
-        dispatch(UpdateSuccess(genre))
+        return GenreApi.update(genre).then(
+            dispatch(UpdateSuccess(genre))
+        );
+       
     }
 }
 export const Delete = (genre) => {
     return (dispatch) => {
-        GenreApi.delete(genre.id);
-        dispatch(DeleteSuccess(genre))
+        return GenreApi.delete(genre.id).then(
+            dispatch(DeleteSuccess(genre))
+        );
+        
     }
 }
 
