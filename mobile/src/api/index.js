@@ -106,7 +106,7 @@ export const getBands = (genreId) =>
 
 export const getAlbums = (bandId) =>
   api
-    .get(`/band?genreId=${bandId}`) /////////////
+    .get(`/album?bandId=${bandId}`)
     .then(({ data }) => data)
     .catch(error => {
       console.error(error)
