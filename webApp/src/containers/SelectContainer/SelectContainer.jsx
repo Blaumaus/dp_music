@@ -7,13 +7,17 @@ class SelectContainer extends React.Component {
     state = {
         buttonsback: [
             {
-                name: 'Жанри',
+                name: 'Усі Жанри',
                 link: '/Genres'
             },
             {
                 name: 'Групи',
-                link: `/Bands/${this.props.match.params.bandId}`
-            }
+                link: `/Bands/${this.props.match.params.genreId}`
+            },
+            {
+                name: 'Вибір',
+                link: `#`
+            },
         ]
     };
 
@@ -28,8 +32,8 @@ class SelectContainer extends React.Component {
     }
     handleAlbumClick = () => {
         const { history } = this.props
-        const { bandId } = this.props.match.params
-        history.push(`/Albums/${bandId}`)
+        const { bandId , genreId} = this.props.match.params
+        history.push(`/Albums/${bandId}/${genreId}`)
     }
 
     handleButtonBackClick = () => {

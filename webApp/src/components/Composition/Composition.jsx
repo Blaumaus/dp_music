@@ -63,196 +63,200 @@ const Composition = props => {
         onChange(fieldName, fieldValue);
     };
     return (
-        <div>
-            <CssBaseline />
-            <div className={classes.buttonsBackContainer}>
-                <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
-                    {buttonsback.map(button => {
-                        return <Button component={Link} to={button.link}>
-                            {button.name}
-                        </Button>
-                    })}
-                </Breadcrumbs>
-            </div>
-            {user.role === 'Admin' ? (<div>{selectedComposition ?
-                (<div className={classes.paperForm}>
+        <CssBaseline>
+            <div style={{ padding: '1em' }}>
+                <div className={classes.buttonsBackContainer}>
+                    <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
+                        {buttonsback.map(button => {
+                            return <Button component={Link} to={button.link}>
+                                {button.name}
+                            </Button>
+                        })}
+                    </Breadcrumbs>
+                </div>
+                {user.role === 'Admin' ? (<div>{selectedComposition ?
+                    (<div className={classes.paperForm}>
 
-                    <Formik className={classes.form}
-                        initialValues={{ ...selectedComposition }}
-                        validationSchema={validationSchema}
-                        onSubmit={handleSubmit}
-                        enableReinitialize={true}
-                    >
-                        {({ handleSubmit, values, touched, errors }) => (
-                            <Form onSubmit={handleSubmit}>
+                        <Formik className={classes.form}
+                            initialValues={{ ...selectedComposition }}
+                            validationSchema={validationSchema}
+                            onSubmit={handleSubmit}
+                            enableReinitialize={true}
+                        >
+                            {({ handleSubmit, values, touched, errors }) => (
+                                <Form onSubmit={handleSubmit}>
 
+                                    <div>
+                                        <AudioPlayer
+                                            width='auto'
+                                            elevation={1}
+                                            variation="primary"
+                                            download={true}
+                                            order="standart"
+                                            preload="auto"
+                                            autoplay={autoplay}
+                                            src={compositionFile}
+                                            loop={true}
+                                        />
+                                        <input
+                                            accept="audio/*"
+                                            className={classes.input}
+                                            id="icon-button-file"
+                                            multiple
+                                            type="file"
+                                            name="composition"
+                                            onChange={handleUpload}
+                                            disabled={disableField}
+
+                                        />
+                                        <label htmlFor="icon-button-file">
+                                            <div className={classes.addCompositionButton}>
+                                                <MusicNoteIcon className={classes.addCompositionButton} color="primary" />
+                                            </div>
+                                        </label>
+
+                                    </div>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                onChange={handleFieldChange}
+                                                name="name"
+                                                variant="outlined"
+                                                value={values.name}
+                                                label="Назва"
+                                                disabled={disableField}
+                                                fullWidth
+                                                error={touched.name && Boolean(errors.name)}
+                                                helperText={touched.name && errors.name}
+
+                                            />
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                onChange={handleFieldChange}
+                                                name="description"
+                                                label="Опис"
+                                                value={values.description}
+                                                placeholder="Опис"
+                                                variant="outlined"
+                                                multiline
+                                                disabled={disableField}
+                                                fullWidth
+                                                rows={3}
+                                                rowsMax={10}
+                                                error={touched.description && Boolean(errors.description)}
+                                                helperText={touched.description && errors.description}
+                                            />
+                                        </Grid>
+
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                onChange={handleFieldChange}
+                                                name="lyrics"
+                                                label="Текст"
+                                                value={values.lyrics}
+                                                placeholder="Текст"
+                                                variant="outlined"
+                                                multiline
+                                                disabled={disableField}
+                                                fullWidth
+                                                rows={3}
+                                                rowsMax={10}
+                                                error={touched.lyrics && Boolean(errors.lyrics)}
+                                                helperText={touched.lyrics && errors.lyrics}
+                                            />
+                                        </Grid>
+
+                                    </Grid>
+                                    <div className={classes.buttonsFormContainer}>
+                                        <div className={classes.buttonSubmitContainer}>
+                                            <Button
+                                                type="submit"
+                                                fullWidth
+                                                variant="contained"
+                                                color="primary"
+                                                className={classes.submit}
+                                            >
+                                                Вікуська
+                               </Button>
+                                        </div>
+                                        <div className={classes.buttonBackContainer}>
+                                            <Button variant="contained" fullWidth className={classes.buttonBack} onClick={handleButtonBackClick}>
+                                                Назад
+                               </Button>
+                                        </div>
+                                    </div>
+                                </Form>
+
+                            )}
+                        </Formik>
+                    </div>)
+                    : (
+                        <MainAdminMenu
+                            items={compositions}
+                            onClickCreate={handleClickCreate}
+                            onClickEdit={handleClickEdit}
+                            onClickDelete={handleClickDelete}
+                            onClickItem={handleCompositionItemClick}
+                        />
+                    )
+                }
+                </div>) : (
+                    <div>
+                        {!isLoading &&
+                            <div className={classes.audioPlayer}>
+                                <div className={classes.audioPlayerCompositionName}>
+                                    <Typography variant="h5">
+                                        {compositionToPlay.name}
+                                    </Typography>
+                                </div>
                                 <div>
                                     <AudioPlayer
                                         elevation={1}
-                                        width="100%"
+                                        width='auto'
                                         variation="primary"
                                         download={true}
                                         order="standart"
                                         preload="auto"
                                         autoplay={autoplay}
-                                        src={compositionFile}
+                                        src={compositionToPlay.compositionFile}
                                         loop={true}
                                     />
-                                    <input
-                                        accept="audio/*"
-                                        className={classes.input}
-                                        id="icon-button-file"
-                                        multiple
-                                        type="file"
-                                        name="composition"
-                                        onChange={handleUpload}
-                                        disabled={disableField}
-
-                                    />
-                                    <label htmlFor="icon-button-file">
-                                        <div className={classes.addCompositionButton}>
-                                            <MusicNoteIcon className={classes.addCompositionButton} color="primary" />
-                                        </div>
-                                    </label>
 
                                 </div>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            onChange={handleFieldChange}
-                                            name="name"
-                                            variant="outlined"
-                                            value={values.name}
-                                            label="Назва"
-                                            disabled={disableField}
-                                            fullWidth
-                                            error={touched.name && Boolean(errors.name)}
-                                            helperText={touched.name && errors.name}
-
-                                        />
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            onChange={handleFieldChange}
-                                            name="description"
-                                            label="Опис"
-                                            value={values.description}
-                                            placeholder="Опис"
-                                            variant="outlined"
-                                            multiline
-                                            disabled={disableField}
-                                            fullWidth
-                                            rows={3}
-                                            rowsMax={10}
-                                            error={touched.description && Boolean(errors.description)}
-                                            helperText={touched.description && errors.description}
-                                        />
-                                    </Grid>
-
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            onChange={handleFieldChange}
-                                            name="lyrics"
-                                            label="Текст"
-                                            value={values.lyrics}
-                                            placeholder="Текст"
-                                            variant="outlined"
-                                            multiline
-                                            disabled={disableField}
-                                            fullWidth
-                                            rows={3}
-                                            rowsMax={10}
-                                            error={touched.lyrics && Boolean(errors.lyrics)}
-                                            helperText={touched.lyrics && errors.lyrics}
-                                        />
-                                    </Grid>
-
-                                </Grid>
-                                <div className={classes.buttonsFormContainer}>
-                                    <div className={classes.buttonSubmitContainer}>
-                                        <Button
-                                            type="submit"
-                                            fullWidth
-                                            variant="contained"
-                                            color="primary"
-                                            className={classes.submit}
-                                        >
-                                            Вікуська
-                                </Button>
-                                    </div>
-                                    <div className={classes.buttonBackContainer}>
-                                        <Button variant="contained" fullWidth className={classes.buttonBack} onClick={handleButtonBackClick}>
-                                            Назад
-                                </Button>
-                                    </div>
-                                </div>
-                            </Form>
-
-                        )}
-                    </Formik>
-                </div>)
-                : (
-                    <MainAdminMenu
-                        items={compositions}
-                        onClickCreate={handleClickCreate}
-                        onClickEdit={handleClickEdit}
-                        onClickDelete={handleClickDelete}
-                        onClickItem={handleCompositionItemClick}
-                    />
-                )
-            }
-            </div>) : (
-                <div>
-                    {!isLoading &&
-                        <div className={classes.audioPlayer}>
-                            <div className={classes.audioPlayerCompositionName}>
-                                <Typography variant="h5">
-                                    {compositionToPlay.name}
-                                </Typography>
                             </div>
-                            <AudioPlayer
-                                elevation={1}
-                                width="100%"
-                                variation="primary"
-                                download={true}
-                                order="standart"
-                                preload="auto"
-                                autoplay={autoplay}
-                                src={compositionToPlay.compositionFile}
-                                loop={true}
-                            />
-
-                        </div>
-                    }
-                    <Grid container item xs={12} sm={9} className={classes.compositonsActionsContainer}>
-                        <SortByAlphaIcon onClick={handleSortAlphabetically} color="secondary" className={classes.compositonsActions} />
-                        <SortIcon color="secondary" className={classes.compositonsActions} />
-                    </Grid>
-
-
-                    {compositions.map(composition => {
-                        return <Grid container className={classes.audioPlayerCompositionName} key={composition.id}>
-                            <Grid item xs={12} sm={9} >
-                                <Button className={classes.listItem} variant="outlined" fullWidth onClick={() => { onCompositionClick(composition) }}>{composition.name}  </Button>
-                            </Grid>
-                            <Grid item xs={4} sm={1} className={classes.compositionIcons}>
-                                <AddCircleOutlineIcon className={classes.addToPlaylistIcon} color="primary" />
-                            </Grid>
-                            <Grid item xs={4} sm={1} className={classes.compositionIcons}>
-                                <ThumbUpAltIcon className={classes.addToPlaylistIcon} color="primary" />
-                            </Grid>
-                            <Grid item xs={4} sm={1} className={classes.compositionIcons}>
-                                <ThumbDownIcon className={classes.addToPlaylistIcon} color="primary" />
-                            </Grid>
-
+                        }
+                        <Grid container item xs={12} sm={9} className={classes.compositonsActionsContainer}>
+                            <SortByAlphaIcon onClick={handleSortAlphabetically} color="secondary" className={classes.compositonsActions} />
+                            <SortIcon color="secondary" className={classes.compositonsActions} />
                         </Grid>
-                    })}
 
-                </div>)
-            }
 
-        </div >
+                        {compositions.map(composition => {
+                            return <Grid container className={classes.compositionName} key={composition.id}>
+                                <Grid item xs={12} sm={9} >
+                                    <Button className={classes.listItem} variant="outlined" fullWidth onClick={() => { onCompositionClick(composition) }}>{composition.name}  </Button>
+                                </Grid>
+                                <Grid item xs={4} sm={1} className={classes.compositionIcons}>
+                                    <AddCircleOutlineIcon className={classes.addToPlaylistIcon} color="primary" />
+                                </Grid>
+                                <Grid item xs={4} sm={1} className={classes.compositionIcons}>
+                                    <ThumbUpAltIcon className={classes.addToPlaylistIcon} color="primary" />
+                                </Grid>
+                                <Grid item xs={4} sm={1} className={classes.compositionIcons}>
+                                    <ThumbDownIcon className={classes.addToPlaylistIcon} color="primary" />
+                                </Grid>
+
+                            </Grid>
+                        })}
+
+                    </div>)
+                }
+
+            </div >
+        </CssBaseline>
+
     );
 }
 export default Composition;

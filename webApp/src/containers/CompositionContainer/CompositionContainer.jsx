@@ -70,10 +70,13 @@ class CompositionContainer extends React.Component {
         this.hideLoader();
     };
     handleUpload = event => {
-        this.setState({
-            ImagefileToView: URL.createObjectURL(event.target.files[0]),
-            ImagefileToSend: event.target.files[0]
-        })
+        if (event.target.files[0]) {
+            this.setState({
+                ImagefileToView: URL.createObjectURL(event.target.files[0]),
+                ImagefileToSend: event.target.files[0]
+            })
+        }
+
     };
 
     onChange = (field, value) => {
@@ -191,7 +194,7 @@ const mapStateToProps = state => {
         compositions: state.compositionPage.compositions,
         bands: state.bandPage.bands,
         albums: state.albumPage.albums,
-        user: state.user.user, 
+        user: state.user.user,
         genres: state.genrePage.genres
     };
 };

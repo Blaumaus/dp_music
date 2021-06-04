@@ -32,10 +32,9 @@ const Album = props => {
     const validationSchema = yup.object({
         name: yup.string()
             .required("Введіть Назву"),
-        year: yup.number()
-            .min(1970).max(today.getFullYear()),
+        year: yup.number().required('Введіть рік виходу')
+            .min(1900,'Рік повинен бути не менше 1900').max(today.getFullYear(),'Рік повинен не більший ніж поточний'),
         description: yup.string(),
-
     });
 
     const onFieldChange = (event) => {
@@ -50,7 +49,7 @@ const Album = props => {
             <div className={classes.buttonsBackContainer}>
                 <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
                     {buttonsback.map(button => {
-                        return <Button component={Link} to={button.link}>
+                        return <Button key={button.name} component={Link} to={button.link}>
                             {button.name}
                         </Button>
                     })}

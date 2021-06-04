@@ -8,6 +8,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import moment from 'moment';
 
 const styles = (theme) => ({
   root: {
@@ -48,6 +49,9 @@ const DialogContent = withStyles((theme) => ({
 
 export default function CustomizedDialogs(props) {
   const [open, setOpen] = React.useState(false);
+  const foundationDate = moment(props.foundationDate).format('YYYY-MM-DD');
+  const description = props.description;
+  const countryCode = props.countryCode;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,11 +71,15 @@ export default function CustomizedDialogs(props) {
         </DialogTitle>
         <DialogContent dividers>
           {props.foundationDate ? (<Typography gutterBottom>
-            Дата створення: {props.foundationDate.toLocaleDateString('en-GB')}
+            Дата створення: {foundationDate}
           </Typography>) : ('')}
-          <Typography gutterBottom>
-            {props.description}
-          </Typography>
+          {countryCode ? (<Typography gutterBottom>
+            Країна: {countryCode}
+          </Typography>) : ('')}
+          {description ? (<Typography gutterBottom>
+            Опис: {description}
+          </Typography>) : ('')}
+
         </DialogContent>
       </Dialog>
     </div>

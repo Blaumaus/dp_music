@@ -2,28 +2,28 @@ import ApiClient, { apiUrl } from '../apiClient';
 import axios from 'axios';
 
 export default class AlbumApi {
-    static async create(band) {
+    static async create(album) {
         await axios({
             method: 'post',
             url: `${apiUrl}/Album`,
-            data: band,
+            data: album,
             headers: { 'Content-Type': 'multipart/form-data' }
         })
     }
-    static async update(band) {
+    static async update(album) {
         await axios({
             method: 'put',
             url: `${apiUrl}/Album`,
-            data: band,
+            data: album,
             headers: { 'Content-Type': 'multipart/form-data' }
         })
     }
-    static async getAlbums(genreId) {
+    static async getAlbums(bandId) {
         return ApiClient.get(`/Album`,
             {
                 params:
                 {
-                    genreId
+                    bandId
                 }
             }
         );
