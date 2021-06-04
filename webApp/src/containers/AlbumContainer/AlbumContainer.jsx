@@ -84,6 +84,7 @@ class AlbumContainer extends React.Component {
         history.push(`/Compositions/${bandId}/${album.id}`)
 
     }
+
     handleClickCreate = () => {
         this.setState({
             selectedAlbum: this.newAlbum,
@@ -98,6 +99,7 @@ class AlbumContainer extends React.Component {
             ImagefileToView: album.image
         })
     }
+
     handleClickDelete = (album) => {
         this.setState({
             selectedAlbum: album,
@@ -113,11 +115,14 @@ class AlbumContainer extends React.Component {
 
         const formData = new FormData();
         const { ImagefileToSend } = this.state;
-        formData.append('file', ImagefileToSend)
-        formData.set('id', selectedAlbum.id)
-        formData.set('name', selectedAlbum.name)
-        formData.set('year', selectedAlbum.description)
-        formData.set('bandId', selectedAlbum.genreId)
+        formData.append('file', ImagefileToSend);
+        formData.set('id', selectedAlbum.id);
+        formData.set('name', selectedAlbum.name);
+        formData.set('year', selectedAlbum.description);
+        formData.set('bandId', selectedAlbum.bandId);
+        formData.set('description', selectedAlbum.description);
+        
+
         switch (this.state.action) {
 
             case 'create': await this.props.Create(formData); break;
@@ -151,7 +156,6 @@ class AlbumContainer extends React.Component {
                         handleAlbumItemClick={this.handleAlbumItemClick}
                         disableField={this.state.disableField}
                         ImagefileToView={this.state.ImagefileToView}
-                        isAdmin={this.state.isAdmin}
                         selectedAlbum={this.state.selectedAlbum}
                         albums={this.props.albums}
                         bands={this.props.bands}

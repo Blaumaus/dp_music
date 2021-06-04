@@ -104,7 +104,8 @@ const useStyles = makeStyles((theme) => ({
     compositionIcons: {
         display: 'grid',
         'justify-items': 'center',
-        'align-items': 'center'
+        'align-items': 'center',
+        'cursor': 'pointer'
     },
     addCompositionButton: {
         marginTop: theme.spacing(1),
@@ -113,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translate(-50%, 0)',
         margin: theme.spacing(0.5),
         width: '4em',
+        'cursor': 'pointer'
     },
     buttonsBackContainer: {
         display: 'flex',

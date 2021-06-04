@@ -44,12 +44,15 @@ const Composition = props => {
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
         compositions, compositionFile, disableField, isAdmin, selectedComposition,
-        handleButtonBackClick, handleCompositionItemClick, onPlayed, handleSortAlphabetically, buttonsback } = props
+        handleButtonBackClick, handleCompositionItemClick, handleSortAlphabetically, buttonsback,
+        bands, genres, albums, user } = props
 
     const today = new Date(Date.now());
     const validationSchema = yup.object({
         name: yup.string()
             .required("Введіть Назву"),
+        year: yup.number()
+            .min(1970).max(today.getFullYear()),
         description: yup.string(),
 
     });
@@ -71,7 +74,7 @@ const Composition = props => {
                     })}
                 </Breadcrumbs>
             </div>
-            {isAdmin ? (<div>{selectedComposition ?
+            {user.role === 'Admin' ? (<div>{selectedComposition ?
                 (<div className={classes.paperForm}>
 
                     <Formik className={classes.form}
@@ -135,7 +138,7 @@ const Composition = props => {
                                             name="description"
                                             label="Опис"
                                             value={values.description}
-                                            placeholder="Description"
+                                            placeholder="Опис"
                                             variant="outlined"
                                             multiline
                                             disabled={disableField}
@@ -144,6 +147,24 @@ const Composition = props => {
                                             rowsMax={10}
                                             error={touched.description && Boolean(errors.description)}
                                             helperText={touched.description && errors.description}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            onChange={handleFieldChange}
+                                            name="lyrics"
+                                            label="Текст"
+                                            value={values.lyrics}
+                                            placeholder="Текст"
+                                            variant="outlined"
+                                            multiline
+                                            disabled={disableField}
+                                            fullWidth
+                                            rows={3}
+                                            rowsMax={10}
+                                            error={touched.lyrics && Boolean(errors.lyrics)}
+                                            helperText={touched.lyrics && errors.lyrics}
                                         />
                                     </Grid>
 
@@ -157,7 +178,7 @@ const Composition = props => {
                                             color="primary"
                                             className={classes.submit}
                                         >
-                                            Підтвердити
+                                            Вікуська
                                 </Button>
                                     </div>
                                     <div className={classes.buttonBackContainer}>
