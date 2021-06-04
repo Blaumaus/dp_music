@@ -43,6 +43,8 @@ namespace DAL
                     .IsRequired()
                     .HasMaxLength(40);
 
+                entity.Property(e => e.Image).HasMaxLength(255);
+
                 entity.HasOne(d => d.Band)
                     .WithMany(p => p.Album)
                     .HasForeignKey(d => d.BandId)

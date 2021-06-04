@@ -58,6 +58,7 @@ namespace API
             services.AddTransient<IUserValidationService, UserValidationService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBandService, BandService>();
+            services.AddTransient<IAlbumService, AlbumService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(options =>
