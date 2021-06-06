@@ -127,7 +127,7 @@ const Albums = ({ route, navigation, theme }) => {
                 key={id}
                 height={170}
                 style={styles.card}
-                onPress={() => {}}
+                onPress={() => navigation.navigate('songs', { band: info, album })}
                 onLongPress={() => navigation.navigate('detailedInfo', {
                   data: album,
                   type: 'album',

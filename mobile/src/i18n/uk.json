@@ -60,7 +60,9 @@
   },
   "songs": {
     "noSongs": "Поки що немає пісень альбому {{ album }}.. :(",
-    "availableSongs": "Пісні альбому {{ album }}"
+    "noSongsBand": "Поки що немає пісень гурту {{ band }}.. :(",
+    "availableSongs": "Пісні альбому {{ album }}",
+    "availableSongsBand": "Пісні гурту {{ band }}"
   },
   "countries": {
     "AM": "Арменія",

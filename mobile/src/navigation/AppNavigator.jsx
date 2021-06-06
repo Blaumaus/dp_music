@@ -87,14 +87,14 @@ const Main = () => {
         })}
         component={Albums}
       />
-      {/* <MainStack.Screen
+      <MainStack.Screen
         name="songs"
         options={({ navigation }) => ({
           title: t('drawer.songs'),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
         })}
         component={Songs}
-      /> */}
+      />
       <MainStack.Screen
         name="detailedInfo"
         options={({ navigation }) => ({

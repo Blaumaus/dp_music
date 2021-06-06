@@ -112,9 +112,9 @@ export const getAlbums = (bandId) =>
       console.error(error)
     })
 
-export const getSongs = (albumId) =>
+export const getSongs = (albumId, bandId) =>
   api
-    .get(`/song?albumId=${albumId}`) /////////////
+    .get(`/song?albumId=${albumId}&bandId={bandId}`) /////////////
     .then(({ data }) => data)
     .catch(error => {
       console.error(error)

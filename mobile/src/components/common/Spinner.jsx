@@ -1,6 +1,6 @@
 import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
-export default () => (
-  <ActivityIndicator size='large' color="#3366ff" />
+export default ({ size = 'large', style = {} }) => (
+  <ActivityIndicator style={style} size={size} color='#3366ff' />
 )

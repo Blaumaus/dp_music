@@ -53,13 +53,15 @@
     "countryCode": "Country"
   },
   "albums": {
-    "noAlbums": "There are no albums for band {{ band }} yet.. :(",
+    "noAlbums": "There are no albums of band {{ band }} yet.. :(",
     "availableAlbums": "Albums of {{ band }}",
     "goToTracks": "Show all songs"
   },
   "songs": {
     "noSongs": "There are no songs of album {{ album }} yet.. :(",
-    "availableSongs": "Songs of album {{ album }}"
+    "noSongsBand": "There are no songs of band {{ band }} yet.. :(",
+    "availableSongs": "Songs of album {{ album }}",
+    "availableSongsBand": "Songs of band {{ band }}"
   },
   "countries": {
     "AM": "Armenia",
