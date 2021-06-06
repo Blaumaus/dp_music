@@ -21,6 +21,8 @@ namespace BLL.Services
             CreateMap<Band, IEnumerable<BandDto>>();
             CreateMap<Album, AlbumDto>();
             CreateMap<AlbumDto, Album>();
+            CreateMap<Composition, CompositionDto>();
+            CreateMap<CompositionDto, Composition>();
         }
     }
 }
