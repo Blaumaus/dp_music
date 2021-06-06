@@ -54,14 +54,14 @@ const getStyles = theme => StyleSheet.create({
     marginHorizontal: 14,
   },
   card: {
-    backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK_2 : constants.BACKGROUND_LIGHT,
+    backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
     flex: 1,
     height: 60,
     width: Dimensions.get('window').width - 40,
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: theme === 'dark' ? Colors.grey70 : Colors.dark70,
+    borderColor: theme === 'dark' ? Colors.grey30 : Colors.dark70,
   },
 })
 
