@@ -46,6 +46,7 @@ class CompositionContainer extends React.Component {
             }
         ]
     };
+
     newComposition = {
         name: '',
         compositionFile: null,
@@ -68,7 +69,7 @@ class CompositionContainer extends React.Component {
         await this.props.getGenres();
         await this.props.getBands(genreId);
         await this.props.getAlbums(bandId);
-        await this.props.getCompositions(bandId, albumId);
+        await this.props.getCompositions(albumId, bandId);
 
         this.setState({
             compositionfileToView: null,
@@ -125,6 +126,7 @@ class CompositionContainer extends React.Component {
     }
 
     handleClickEdit = (composition) => {
+        debugger;
         this.setState({
             selectedComposition: composition,
             action: 'update',
@@ -147,29 +149,30 @@ class CompositionContainer extends React.Component {
         this.hideLoader();
     }
 
-    handleSubmit = () => {
+    handleSubmit = async() => {
+        this.showLoader();
         const { selectedComposition } = this.state;
-        if(!selectedComposition.albumId){
+        
+        if(selectedComposition.albumId==='undefined'){
             selectedComposition.albumId=this.props.albums[0].id;
         }
-        debugger;
         const formData = new FormData();
         const { compositionfileToSend } = this.state;
         formData.append('compositionFile', compositionfileToSend)
         formData.set('id', selectedComposition.id)
         formData.set('name', selectedComposition.name)
-        formData.set('year', selectedComposition.description)
+        formData.set('year', selectedComposition.year)
         formData.set('genreId', selectedComposition.genreId)
         formData.set('bandId', selectedComposition.bandId)
-        formData.set('albumdId', selectedComposition.albumId)
+        formData.set('albumId', selectedComposition.albumId)
         formData.set('description', selectedComposition.description);
         formData.set('lyrics', selectedComposition.lyrics);
 
         switch (this.state.action) {
 
-            case 'create': this.props.Create(formData); break;
-            case 'update': this.props.Update(formData); break;
-            case 'delete': this.props.Delete(selectedComposition); break;
+            case 'create': await this.props.Create(formData); break;
+            case 'update': await this.props.Update(formData); break;
+            case 'delete': await this.props.Delete(selectedComposition); break;
         }
 
         this.setState({
@@ -179,7 +182,7 @@ class CompositionContainer extends React.Component {
             compositionFileToView: null,
         })
         const { bandId, albumId } = this.props.match.params;
-        this.props.getCompositions(bandId, albumId).then(this.hideLoader());
+        this.props.getCompositions(albumId, bandId).then(this.hideLoader());
     }
 
     handleCompositionItemClick = () => { }
@@ -189,7 +192,7 @@ class CompositionContainer extends React.Component {
         return (
             <CssBaseline>
                 {
-                    !isLoading && this.props.compositions.length > 0 ? (<Composition
+                    !isLoading && <Composition
                         handleUpload={this.handleUpload}
                         onChange={this.onChange}
                         handleClickCreate={this.handleClickCreate}
@@ -212,7 +215,6 @@ class CompositionContainer extends React.Component {
                         onChangeBandSelector={this.onChangeBandSelector}
                         disableAlbumSelector={this.state.disableAlbumSelector}
                     />
-                    ) : (<div style={arrayEmpty}>Композицій ще не додано</div>)
                 }
             </CssBaseline>
         )

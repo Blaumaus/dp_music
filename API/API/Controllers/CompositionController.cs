@@ -30,7 +30,7 @@ namespace API.Controllers
                 var musicFile = data.Files.FirstOrDefault();
                 var bandId = data["bandId"].FirstOrDefault();
                 var albumId = data["albumId"].FirstOrDefault();
-                var genreId = data["ganreId"].FirstOrDefault();
+                var genreId = data["genreId"].FirstOrDefault();
                 var lyrics = data["lyrics"].FirstOrDefault();
 
                 CompositionDto composition = new CompositionDto();
@@ -106,8 +106,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        [Route("TestApi")]
-        public async Task<ActionResult> PutTest(IFormCollection data)
+        public async Task<ActionResult> Put(IFormCollection data)
         {
             if (data == null)
                 return NotFound();
@@ -120,7 +119,7 @@ namespace API.Controllers
                 var musicFile = data.Files.FirstOrDefault();
                 var bandId = data["bandId"].FirstOrDefault();
                 var albumId = data["albumId"].FirstOrDefault();
-                var genreId = data["ganreId"].FirstOrDefault();
+                var genreId = data["genreId"].FirstOrDefault();
                 var lyrics = data["lyrics"].FirstOrDefault();
 
                 CompositionDto composition = new CompositionDto();
