@@ -27,12 +27,12 @@ class SelectContainer extends React.Component {
 
     handleAllCompositionClick = () => {
         const { history } = this.props
-        const { bandId } = this.props.match.params
-        history.push(`/Compositions/${bandId}`)
+        const { bandId, albumId, genreId } = this.props.match.params
+        history.push(`/Compositions/${bandId}/${albumId}/${genreId}`)
     }
     handleAlbumClick = () => {
         const { history } = this.props
-        const { bandId , genreId} = this.props.match.params
+        const { bandId, genreId } = this.props.match.params
         history.push(`/Albums/${bandId}/${genreId}`)
     }
 

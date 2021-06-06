@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react'
-import { StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native'
 import { Text, Card, Button, View } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
 import _toUpper from 'lodash/toUpper'
@@ -54,9 +54,14 @@ const getStyles = theme => StyleSheet.create({
   },
   metadata: {
     position: 'absolute',
-    bottom: 5,
-    left: 15,
+    bottom: 8,
+    left: 18,
     alignItems: 'center',
+  },
+  link: {
+    color: '#3366ff',
+    fontSize: 18,
+    marginBottom: 5,
   }
 })
 
@@ -107,9 +112,14 @@ const Albums = ({ route, navigation, theme }) => {
       ) : (
         <>
           <Text style={[styles.text, styles.themedText]}>{t('albums.availableAlbums', { band: name })}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('songs', { band: info, album: null })}>
+            <Text style={styles.link}>
+              {t('albums.goToTracks')}
+					  </Text>
+          </TouchableOpacity>
           <Text style={[styles.desc, styles.themedText]}>{t('home.holdForInfo')}</Text>
           {_map(albums, album => {
-            const { id, name, image, description, foundationDate } = album
+            const { id, name, image, description, year } = album
             const hasImage = _includes(image, id)
 
             return (
@@ -117,8 +127,8 @@ const Albums = ({ route, navigation, theme }) => {
                 key={id}
                 height={170}
                 style={styles.card}
-                onPress={() => {}}
-                onLongPress={() => navigation.navigate('DetailedInfo', {
+                onPress={() => navigation.navigate('songs', { band: info, album })}
+                onLongPress={() => navigation.navigate('detailedInfo', {
                   data: album,
                   type: 'album',
                 })}
@@ -142,14 +152,14 @@ const Albums = ({ route, navigation, theme }) => {
                   <View>
                     <Text style={styles.themedText} text80>
                       {_truncate(description, {
-                        'length': hasImage ? 76 : 130,
+                        'length': hasImage ? 66 : 130,
                         'omission': '...',
                       })}
                     </Text>
                   </View>
 
                   <View style={styles.metadata} row>
-                    <Text style={styles.themedText}>{new Date(foundationDate).getUTCFullYear()}</Text>
+                    <Text style={styles.themedText}>{new Date(year).getUTCFullYear()}</Text>
                   </View>
                 </View>
               </Card>

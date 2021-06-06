@@ -36,7 +36,7 @@ const CustomDrawerContent = ({ navigation, t, theme, ...props }) => {
           label={t(`drawer.${el}`)}
           onPress={() => navigation.navigate(el)}
           labelStyle={styles.text}
-          // focused={??? === el}
+        // focused={??? === el}
         />
       ))}
     </DrawerContentScrollView>
@@ -66,6 +66,7 @@ const Main = () => {
       }}
       initialRouteName="Home"
       drawerContent={props => <CustomDrawerContent t={t} theme={theme} {...props} />}
+      drawerType="front"
     >
       <MainStack.Screen name="home" options={{ title: t(`drawer.home`) }} component={Home} />
       <MainStack.Screen name="settings" options={{ title: t(`drawer.settings`) }} component={Settings} />
@@ -86,14 +87,14 @@ const Main = () => {
         })}
         component={Albums}
       />
-      {/* <MainStack.Screen
+      <MainStack.Screen
         name="songs"
         options={({ navigation }) => ({
           title: t('drawer.songs'),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
         })}
         component={Songs}
-      /> */}
+      />
       <MainStack.Screen
         name="detailedInfo"
         options={({ navigation }) => ({

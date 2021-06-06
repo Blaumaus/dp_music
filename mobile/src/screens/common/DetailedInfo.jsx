@@ -14,9 +14,8 @@ const getStyles = theme => StyleSheet.create({
   container: {
     minHeight: Dimensions.get('window').height - 80,
     backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT,
-    paddingTop: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   image_container: {
     alignItems: 'center',
@@ -24,6 +23,7 @@ const getStyles = theme => StyleSheet.create({
   },
   image: {
     width: Dimensions.get('window').width - 40,
+    height: 400,
     borderRadius: 10,
   },
   col_name: {
@@ -44,7 +44,7 @@ const getStyles = theme => StyleSheet.create({
 const params = {
   genre: ['name', 'description'],
   band: ['name', 'description', 'foundationDate', 'countryCode'],
-  album: ['name', 'description'],
+  album: ['name', 'description', 'year'],
 }
 
 const DetailedInfo = ({ route, navigation }) => {
@@ -57,8 +57,8 @@ const DetailedInfo = ({ route, navigation }) => {
   const { image } = data
 
   const getTextRepesentation = (el) => {
-    if (el === 'countryCode') return t(`countries.${data[el]}`)
-    if (el === 'foundationDate') return new Date(data[el]).getUTCFullYear()
+    if (el === 'countryCode') return t(`countries.${_toUpper(data[el])}`)
+    if (el === 'foundationDate' || el === 'year') return new Date(data[el]).getUTCFullYear()
     
     return data[el]
   }
@@ -67,8 +67,7 @@ const DetailedInfo = ({ route, navigation }) => {
     <ScrollView contentContainerStyle={styles.container}>
       {image && (
         <View style={styles.image_container}>
-          {/* TODO: Fix image is not displaying bug. For some weird reason images in this component neither are loaded nor displayed to the user. */}
-          <Image source={{ uri: CDN_URL + data.image }} style={styles.image} />
+          <Image source={{ uri: CDN_URL + image }} style={styles.image} />
         </View>
       )}
       {_map(params[type], el => (
