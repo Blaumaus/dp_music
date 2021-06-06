@@ -27,7 +27,7 @@ namespace API.Controllers
                 var name = data["name"].FirstOrDefault();
                 var description = data["description"].FirstOrDefault();
                 var year = data["year"].FirstOrDefault();
-                var imageFile = data.Files.FirstOrDefault();
+                var musicFile = data.Files.FirstOrDefault();
                 var bandId = data["bandId"].FirstOrDefault();
                 var albumId = data["albumId"].FirstOrDefault();
                 var genreId = data["ganreId"].FirstOrDefault();
@@ -36,7 +36,7 @@ namespace API.Controllers
                 CompositionDto composition = new CompositionDto();
                 composition.Name = name;
                 composition.Description = description;
-                composition.File = imageFile;
+                composition.File = musicFile;
                 composition.Year = int.Parse(year);
                 composition.BandId = bandId;
                 composition.AlbumId = albumId;
@@ -117,7 +117,7 @@ namespace API.Controllers
                 var name = data["name"].FirstOrDefault();
                 var description = data["description"].FirstOrDefault();
                 var year = data["year"].FirstOrDefault();
-                var imageFile = data.Files.FirstOrDefault();
+                var musicFile = data.Files.FirstOrDefault();
                 var bandId = data["bandId"].FirstOrDefault();
                 var albumId = data["albumId"].FirstOrDefault();
                 var genreId = data["ganreId"].FirstOrDefault();
@@ -127,7 +127,7 @@ namespace API.Controllers
                 composition.Id = id;
                 composition.Name = name;
                 composition.Description = description;
-                composition.File = imageFile;
+                composition.File = musicFile;
                 composition.Year = int.Parse(year);
                 composition.BandId = bandId;
                 composition.AlbumId = albumId;
