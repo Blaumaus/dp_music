@@ -299,7 +299,7 @@ const Composition = props => {
                                         order="standart"
                                         preload="auto"
                                         autoplay={autoplay}
-                                        src={compositionToPlay.compositionFile}
+                                        src={compositionToPlay.filePath}
                                         loop={true}
                                     />
 
