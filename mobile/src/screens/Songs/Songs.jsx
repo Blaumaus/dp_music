@@ -153,32 +153,19 @@ const Songs = ({ route, navigation, theme }) => {
     if (!_isEmpty(activeSong)) {
       stopSound()
       const { filePath } = activeSong
-      loadSound(filePath)
+      loadSound(CDN_URL + filePath)
     }
   }, [activeSong])
 
   const loadSongs = async () => {
     setLoading(true)
     try {
-      // const data = await getSongs(albumId, bandId)
-
-      // if (_isArray(data)) {
-      //   setSongs(data)
-      // } else {
-      //   setSongs(_values(data))
-      // }
-      setSongs([
-        { id: 'abcdef1', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
-        { id: 'abcdef2', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
-        { id: 'abcdef3', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
-        { id: 'abcdef4', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
-        { id: 'abcdef5', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
-        { id: 'abcdef6', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
-        { id: 'abcdef7', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
-        { id: 'abcdef8', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
-        { id: 'abcdef9', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
-        { id: 'abcdef10', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
-      ])
+      const data = await getSongs(albumId || '', bandId || '')
+      if (_isArray(data)) {
+        setSongs(data)
+      } else {
+        setSongs(_values(data))
+      }
     } catch (e) {
       console.error('Error while loading songs')
       console.error(e)
@@ -215,6 +202,10 @@ const Songs = ({ route, navigation, theme }) => {
         activeBackgroundColor={Colors.dark60}
         activeOpacity={0.3}
         onPress={onPress}
+        onLongPress={() => navigation.navigate('detailedInfo', {
+          data: item,
+          type: 'composition',
+        })}
         style={styles.card}
       >
         <Text text70 style={[styles.themedText, id === activeSong.id && styles.activeText]}>{name}</Text>
@@ -229,7 +220,7 @@ const Songs = ({ route, navigation, theme }) => {
       ) : (
         <>
           <Text style={[styles.text, styles.themedText]}>{albumName ? t('songs.availableSongs', { album: albumName }) : t('songs.availableSongsBand', { band: bandName })}</Text>
-          {/* <Text style={[styles.desc, styles.themedText]}>{t('home.holdForInfo')}</Text> */}
+          <Text style={[styles.desc, styles.themedText]}>{t('home.holdForInfo')}</Text>
           {!_isEmpty(activeSong) && (
             <Player
               onTogglePlay={onTogglePlay}

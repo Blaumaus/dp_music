@@ -51,7 +51,9 @@
     "description": "Описание",
     "foundationDate": "Foundation date",
     "year": "Год выпуска",
-    "countryCode": "Country"
+    "countryCode": "Country",
+    "lyrics": "Текст песни",
+    "absent": "[Отсутствует]"
   },
   "albums": {
     "noAlbums": "Пока что нет альбомов для группы {{ band }}.. :(",

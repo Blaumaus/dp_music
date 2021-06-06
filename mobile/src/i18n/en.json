@@ -50,7 +50,9 @@
     "description": "Description",
     "foundationDate": "Foundation date",
     "year": "Release year",
-    "countryCode": "Country"
+    "countryCode": "Country",
+    "lyrics": "Lyrics",
+    "absent": "[Absent]"
   },
   "albums": {
     "noAlbums": "There are no albums of band {{ band }} yet.. :(",

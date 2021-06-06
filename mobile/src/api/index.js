@@ -114,8 +114,9 @@ export const getAlbums = (bandId) =>
 
 export const getSongs = (albumId, bandId) =>
   api
-    .get(`/song?albumId=${albumId}&bandId={bandId}`) /////////////
+    .get(`/composition?albumId=${albumId}&bandId=${bandId}`)
     .then(({ data }) => data)
     .catch(error => {
       console.error(error)
+      return []
     })

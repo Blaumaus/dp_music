@@ -159,7 +159,7 @@ const Albums = ({ route, navigation, theme }) => {
                   </View>
 
                   <View style={styles.metadata} row>
-                    <Text style={styles.themedText}>{new Date(year).getUTCFullYear()}</Text>
+                    <Text style={styles.themedText}>{year}</Text>
                   </View>
                 </View>
               </Card>

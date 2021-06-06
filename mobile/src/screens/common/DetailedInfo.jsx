@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Flag } from 'react-native-svg-flagkit'
 import _isEmpty from 'lodash/isEmpty'
+import _trim from 'lodash/trim'
 import _toUpper from 'lodash/toUpper'
 import _map from 'lodash/map'
 
@@ -46,6 +47,7 @@ const params = {
   genre: ['name', 'description'],
   band: ['name', 'description', 'foundationDate', 'countryCode'],
   album: ['name', 'description', 'year'],
+  composition: ['name', 'description', 'year', 'lyrics'],
 }
 
 const DetailedInfo = ({ route, navigation }) => {
@@ -59,8 +61,11 @@ const DetailedInfo = ({ route, navigation }) => {
   const { image } = data
 
   const getTextRepesentation = (el) => {
+    if (_isEmpty(_trim(data[el]))) {
+      return t('home.absent')
+    }
     if (el === 'countryCode') return t(`countries.${_toUpper(data[el])}`)
-    if (el === 'foundationDate' || el === 'year') return new Date(data[el]).getUTCFullYear()
+    if (el === 'foundationDate') return new Date(data[el]).getUTCFullYear()
     
     return data[el]
   }

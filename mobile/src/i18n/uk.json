@@ -51,7 +51,9 @@
     "description": "Опис",
     "foundationDate": "Дата заснування",
     "year": "Рік випуску",
-    "countryCode": "Країна"
+    "countryCode": "Країна",
+    "lyrics": "Текст пісні",
+    "absent": "[Відсутній]"
   },
   "albums": {
     "noAlbums": "Поки що немає альбомів гурту {{ band }}.. :(",
