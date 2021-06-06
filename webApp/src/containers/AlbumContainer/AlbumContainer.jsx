@@ -87,8 +87,8 @@ class AlbumContainer extends React.Component {
 
     handleAlbumItemClick = (album) => {
         const { history } = this.props
-        const { bandId } = this.props.match.params
-        history.push(`/Compositions/${bandId}/${album.id}`)
+        const { bandId, genreId } = this.props.match.params
+        history.push(`/Compositions/${bandId}/${album.id}/${genreId}`)
 
     }
 
@@ -128,7 +128,7 @@ class AlbumContainer extends React.Component {
         formData.set('year', selectedAlbum.year);
         formData.set('bandId', selectedAlbum.bandId);
         formData.set('description', selectedAlbum.description);
-        
+
 
         switch (this.state.action) {
 

@@ -46,7 +46,7 @@ function App() {
                 <ProtectedRoute exact path='/Bands/:genreId?' component={BandContainer} />
                 <ProtectedRoute exact path='/Select/:bandId/:genreId' component={SelectContainer} />
                 <ProtectedRoute exact path='/Albums/:bandId/:genreId' component={AlbumContainer} />
-                <ProtectedRoute exact path='/Compositions/:bandId/:albumId?' component={CompositionContainer} />
+                <ProtectedRoute exact path='/Compositions/:bandId/:albumId?/:genreId' component={CompositionContainer} />
                 <ProtectedRoute exact path='/*' />
             </Switch>
         </div>

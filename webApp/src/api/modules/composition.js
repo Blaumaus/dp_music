@@ -2,28 +2,29 @@ import ApiClient, { apiUrl } from '../apiClient';
 import axios from 'axios';
 
 export default class CompositionApi {
-    static async create(band) {
+    static async create(composition) {
         await axios({
             method: 'post',
             url: `${apiUrl}/Composition`,
-            data: band,
+            data: composition,
             headers: { 'Content-Type': 'multipart/form-data' }
         })
     }
-    static async update(band) {
+    static async update(composition) {
         await axios({
             method: 'put',
             url: `${apiUrl}/Composition`,
-            data: band,
+            data: composition,
             headers: { 'Content-Type': 'multipart/form-data' }
         })
     }
-    static async getAlbums(genreId) {
+    static async getCompositions(bandId, albumId) {
         return ApiClient.get(`/Composition`,
             {
                 params:
                 {
-                    genreId
+                    bandId,
+                    albumId
                 }
             }
         );
