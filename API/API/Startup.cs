@@ -60,6 +60,7 @@ namespace API
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBandService, BandService>();
             services.AddTransient<IAlbumService, AlbumService>();
+            services.AddTransient<ICompositionService, CompositionService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.ConfigureApplicationCookie(options => {
                 options.Cookie.SameSite = SameSiteMode.Lax;
