@@ -21,7 +21,9 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const Composition = props => {
     const classes = useStyles()
@@ -43,16 +45,16 @@ const Composition = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        compositions, compositionFile, disableField, isAdmin, selectedComposition,
+        compositions, compositionfileToView, disableField, selectedComposition,
         handleButtonBackClick, handleCompositionItemClick, handleSortAlphabetically, buttonsback,
-        bands, genres, albums, user } = props
+        bands, genres, albums, user, onChangeGenreSelector, onChangeBandSelector } = props
 
     const today = new Date(Date.now());
     const validationSchema = yup.object({
         name: yup.string()
             .required("Введіть Назву"),
-        year: yup.number()
-            .min(1970).max(today.getFullYear()),
+        year: yup.number().required('Введіть рік виходу')
+            .min(1900, 'Рік повинен бути не менше 1900').max(today.getFullYear(), 'Рік повинен не більший ніж поточний'),
         description: yup.string(),
 
     });
@@ -62,6 +64,19 @@ const Composition = props => {
         const fieldValue = event.target.value;
         onChange(fieldName, fieldValue);
     };
+
+    const handleGenreSelectorValueChange = (event) => {
+        const fieldName = event.target.name;
+        const fieldValue = event.target.value;
+        onChangeGenreSelector(fieldName, fieldValue)
+    }
+
+    const handleBandSelectorValueChange = (event) => {
+        const fieldName = event.target.name;
+        const fieldValue = event.target.value;
+        onChangeBandSelector(fieldName, fieldValue)
+    }
+
     return (
         <CssBaseline>
             <div style={{ padding: '1em' }}>
@@ -95,7 +110,7 @@ const Composition = props => {
                                             order="standart"
                                             preload="auto"
                                             autoplay={autoplay}
-                                            src={compositionFile}
+                                            src={compositionfileToView}
                                             loop={true}
                                         />
                                         <input
@@ -117,7 +132,7 @@ const Composition = props => {
 
                                     </div>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} sm={6}>
                                             <TextField
                                                 onChange={handleFieldChange}
                                                 name="name"
@@ -128,28 +143,76 @@ const Composition = props => {
                                                 fullWidth
                                                 error={touched.name && Boolean(errors.name)}
                                                 helperText={touched.name && errors.name}
-
                                             />
                                         </Grid>
-
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} sm={6}>
                                             <TextField
                                                 onChange={handleFieldChange}
-                                                name="description"
-                                                label="Опис"
-                                                value={values.description}
-                                                placeholder="Опис"
+                                                name="year"
                                                 variant="outlined"
-                                                multiline
+                                                value={values.year}
+                                                label="Рік випуску"
                                                 disabled={disableField}
                                                 fullWidth
-                                                rows={3}
-                                                rowsMax={10}
-                                                error={touched.description && Boolean(errors.description)}
-                                                helperText={touched.description && errors.description}
+                                                error={touched.year && Boolean(errors.year)}
+                                                helperText={touched.year && errors.year}
+
                                             />
                                         </Grid>
-
+                                        <Grid item xs={12} sm={4}>
+                                            <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
+                                                <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="genreId">Жанр</InputLabel>
+                                                <Select
+                                                    native
+                                                    id="genreId"
+                                                    name="genreId"
+                                                    value={values.genreId ? values.genreId : genres[0].id}
+                                                    onChange={handleGenreSelectorValueChange}
+                                                    fullWidth
+                                                    disabled={disableField}
+                                                >
+                                                    {genres.map(genre => {
+                                                        return <option key={genre.name} value={genre.id}>{genre.name}</option>
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12} sm={4}>
+                                            <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
+                                                <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="bandId">Група</InputLabel>
+                                                <Select
+                                                    native
+                                                    id="bandId"
+                                                    name="bandId"
+                                                    value={values.bandId ? values.bandId : bands[0].id}
+                                                    onChange={handleBandSelectorValueChange}
+                                                    fullWidth
+                                                    disabled={disableField}
+                                                >
+                                                    {bands.map(band => {
+                                                        return <option key={band.name} value={band.id}>{band.name}</option>
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12} sm={4}>
+                                            <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
+                                                <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="albumId">Альбом</InputLabel>
+                                                <Select
+                                                    native
+                                                    id="albumId"
+                                                    name="albumId"
+                                                    value={values.albumId ? values.albumId : albums[0].id}
+                                                    onChange={handleFieldChange}
+                                                    fullWidth
+                                                    disabled={disableField}
+                                                >
+                                                    {albums.map(album => {
+                                                        return <option key={album.name} value={album.id}>{album.name}</option>
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
                                         <Grid item xs={12}>
                                             <TextField
                                                 onChange={handleFieldChange}
@@ -167,7 +230,23 @@ const Composition = props => {
                                                 helperText={touched.lyrics && errors.lyrics}
                                             />
                                         </Grid>
-
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                onChange={handleFieldChange}
+                                                name="description"
+                                                label="Опис"
+                                                value={values.description}
+                                                placeholder="Опис"
+                                                variant="outlined"
+                                                multiline
+                                                disabled={disableField}
+                                                fullWidth
+                                                rows={3}
+                                                rowsMax={10}
+                                                error={touched.description && Boolean(errors.description)}
+                                                helperText={touched.description && errors.description}
+                                            />
+                                        </Grid>
                                     </Grid>
                                     <div className={classes.buttonsFormContainer}>
                                         <div className={classes.buttonSubmitContainer}>
@@ -178,7 +257,7 @@ const Composition = props => {
                                                 color="primary"
                                                 className={classes.submit}
                                             >
-                                                Вікуська
+                                                Підтвердити
                                </Button>
                                         </div>
                                         <div className={classes.buttonBackContainer}>

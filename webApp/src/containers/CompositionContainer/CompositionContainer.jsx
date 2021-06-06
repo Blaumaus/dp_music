@@ -24,8 +24,9 @@ class CompositionContainer extends React.Component {
         selectedComposition: null,
         action: null,
         disableField: false,
-        ImagefileToView: null,
-        ImagefileToSend: null,
+        disableAlbumSelector: false,
+        compositionfileToView: null,
+        compositionfileToSend: null,
         buttonsback: [
             {
                 name: 'Жанри',
@@ -33,22 +34,28 @@ class CompositionContainer extends React.Component {
             },
             {
                 name: 'Групи',
-                link: `/Bands/${this.props.match.params.bandId}`
+                link: `/Bands/${this.props.match.params.genreId}`
             },
             {
                 name: 'Вибір',
-                link: `/Select/${this.props.match.params.bandId}`
+                link: `/Select/${this.props.match.params.bandId}/${this.props.match.params.genreId}`
+            },
+            {
+                name: 'Композиції',
+                link: `#`
             }
         ]
     };
     newComposition = {
         name: '',
-        compositionFile: '',
+        compositionFile: null,
         description: '',
-        genreId: null,
-        bandId: null,
-        albumId: null,
-        lyrics: null
+        genreId: this.props.match.params.genreId,
+        bandId: this.props.match.params.bandId,
+        albumId: this.props.match.params.albumId,
+        lyrics: '',
+        year: '',
+        filePath: ''
     };
 
     showLoader = () => this.setState({ isLoading: true });
@@ -56,24 +63,25 @@ class CompositionContainer extends React.Component {
     hideLoader = () => this.setState({ isLoading: false });
 
     async componentDidMount() {
-        const { bandId, albumId } = this.props.match.params
+        const { bandId, albumId, genreId } = this.props.match.params
         await this.props.getUser();
         await this.props.getGenres();
-        await this.props.getBands(null);
-        await this.props.getAlbums(null);
+        await this.props.getBands(genreId);
+        await this.props.getAlbums(bandId);
         await this.props.getCompositions(bandId, albumId);
 
         this.setState({
-            ImagefileToView: null,
+            compositionfileToView: null,
         })
 
         this.hideLoader();
     };
+
     handleUpload = event => {
         if (event.target.files[0]) {
             this.setState({
-                ImagefileToView: URL.createObjectURL(event.target.files[0]),
-                ImagefileToSend: event.target.files[0]
+                compositionfileToView: URL.createObjectURL(event.target.files[0]),
+                compositionfileToSend: event.target.files[0]
             })
         }
 
@@ -85,11 +93,27 @@ class CompositionContainer extends React.Component {
         })
     };
 
+    onChangeGenreSelector = async (field, value) => {
+        await this.props.getBands(value);
+        this.setState({
+            selectedComposition: { ...this.state.selectedComposition, [field]: value },
+            disableAlbumSelector: true
+        })
+        await this.props.getAlbums(this.props.bands[0].id);
+    };
+
+    onChangeBandSelector = async (field, value) => {
+        await this.props.getAlbums(value);
+        this.setState({
+            selectedComposition: { ...this.state.selectedComposition, [field]: value }
+        })
+    };
+
     handleButtonBackClick = () => {
         this.setState({
             selectedComposition: null,
             disableField: false,
-            compositionFile: null
+            compositionfileToView: null
         })
     };
 
@@ -104,7 +128,7 @@ class CompositionContainer extends React.Component {
         this.setState({
             selectedComposition: composition,
             action: 'update',
-            ImagefileToView: composition.image
+            compositionfileToView: composition.filePath
         })
     }
 
@@ -113,7 +137,7 @@ class CompositionContainer extends React.Component {
             selectedComposition: composition,
             action: 'delete',
             disableField: true,
-            ImagefileToView: composition.image
+            compositionfileToView: composition.filePath
         })
     }
 
@@ -125,16 +149,19 @@ class CompositionContainer extends React.Component {
 
     handleSubmit = () => {
         const { selectedComposition } = this.state;
-
+        if(!selectedComposition.albumId){
+            selectedComposition.albumId=this.props.albums[0].id;
+        }
+        debugger;
         const formData = new FormData();
-        const { ImagefileToSend } = this.state;
-        formData.append('file', ImagefileToSend)
+        const { compositionfileToSend } = this.state;
+        formData.append('compositionFile', compositionfileToSend)
         formData.set('id', selectedComposition.id)
         formData.set('name', selectedComposition.name)
         formData.set('year', selectedComposition.description)
         formData.set('genreId', selectedComposition.genreId)
         formData.set('bandId', selectedComposition.bandId)
-        formData.set('albumd', selectedComposition.albumId)
+        formData.set('albumdId', selectedComposition.albumId)
         formData.set('description', selectedComposition.description);
         formData.set('lyrics', selectedComposition.lyrics);
 
@@ -149,7 +176,7 @@ class CompositionContainer extends React.Component {
             selectedComposition: null,
             action: null,
             disableField: false,
-            ImagefileToView: null,
+            compositionFileToView: null,
         })
         const { bandId, albumId } = this.props.match.params;
         this.props.getCompositions(bandId, albumId).then(this.hideLoader());
@@ -172,7 +199,7 @@ class CompositionContainer extends React.Component {
                         handleButtonBackClick={this.handleButtonBackClick}
                         handleCompositionItemClick={this.handleCompositionItemClick}
                         disableField={this.state.disableField}
-                        ImagefileToView={this.state.ImagefileToView}
+                        compositionfileToView={this.state.compositionfileToView}
                         user={this.props.user}
                         selectedComposition={this.state.selectedComposition}
                         compositions={this.props.compositions}
@@ -181,6 +208,9 @@ class CompositionContainer extends React.Component {
                         albums={this.props.albums}
                         handleSortAlphabetically={this.handleSortAlphabetically}
                         buttonsback={this.state.buttonsback}
+                        onChangeGenreSelector={this.onChangeGenreSelector}
+                        onChangeBandSelector={this.onChangeBandSelector}
+                        disableAlbumSelector={this.state.disableAlbumSelector}
                     />
                     ) : (<div style={arrayEmpty}>Композицій ще не додано</div>)
                 }

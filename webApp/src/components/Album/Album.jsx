@@ -135,7 +135,7 @@ const Album = props => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
-                                        <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="genreId">Група</InputLabel>
+                                        <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="bandId">Група</InputLabel>
                                         <Select
                                             native
                                             id="bandId"
