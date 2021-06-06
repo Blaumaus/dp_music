@@ -81,19 +81,100 @@ namespace BLL.Services
             await unitOfWork.SaveAsync();
         }
 
-        public Task<CompositionDto> GetCompositionId(string id)
+        public async Task<CompositionDto> GetCompositionId(string id)
         {
-            throw new NotImplementedException();
+            var composition = await Task.Run(() => _mapper.Map<Composition, CompositionDto>(unitOfWork.Composition.Get(id)));
+            if (composition.FilePath != null)
+            {
+                composition.FilePath = _contentFolder + composition.FilePath;
+
+            }
+            else
+                throw new Exception("not specified Composition!");
+
+            return composition;
         }
 
-        public Task Update(CompositionDto compositionDto)
+        public async Task Update(CompositionDto compositionDto)
         {
-            throw new NotImplementedException();
+            var composition = unitOfWork.Composition.Get(compositionDto.Id);
+            if (compositionDto.Name != null)
+                composition.Name = compositionDto.Name;
+            if (compositionDto.BandId != null)
+                composition.BandId = compositionDto.BandId;
+            if (compositionDto.Description != null)
+                composition.Description = compositionDto.Description;
+            if (compositionDto.Year != null)
+                composition.Year = (int)compositionDto.Year;
+            if (compositionDto.AlbumId != null)
+                composition.AlbumId = compositionDto.AlbumId;
+            if (compositionDto.GenreId != null)
+                composition.GenreId = compositionDto.GenreId;
+            if (compositionDto.Lyrics != null)
+                composition.Lyrics = compositionDto.Lyrics;
+
+
+            if (compositionDto.File != null)
+            {
+                if (composition.FilePath != null)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), _contentFolder.Replace("//", "\\"), composition.FilePath);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
+                }
+                composition.FilePath = composition.Id + ".mp3";
+                using (FileStream fileStream = File.Create(_contentFolder + composition.Id + ".mp3"))
+                {
+                    compositionDto.File.CopyTo(fileStream);
+                    fileStream.Flush();
+                }
+            }
+
+            unitOfWork.Composition.Update(composition);
+            await unitOfWork.SaveAsync();
         }
 
-        public Task Delete(CompositionDto compositionDto)
+        public async Task Delete(CompositionDto compositionDto)
         {
-            throw new NotImplementedException();
+            //Music
+            if (compositionDto.FilePath != null)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), compositionDto.FilePath.Replace("//", "\\"));
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+
+            unitOfWork.Composition.Delete(compositionDto.Id);
+            await unitOfWork.SaveAsync();
+        }
+
+        public async Task<IEnumerable<CompositionDto>> GetAllComposition(string genreId)
+        {
+            if (genreId != null)
+            {
+                var compositionGenre = await Task.Run(() => _mapper.Map<IEnumerable<Composition>, IEnumerable<CompositionDto>>(unitOfWork.Composition.GetAll())
+                .Where(x => x.GenreId == genreId));
+                foreach (var composition in compositionGenre)
+                {
+                    if (composition.FilePath != null)
+                        composition.FilePath = _contentFolder + composition.FilePath;
+                    else
+                        throw new Exception("Composition not found!");
+                }
+                return compositionGenre;
+            }
+
+            var compositionAll = await Task.Run(() => _mapper.Map<IEnumerable<Composition>, IEnumerable<CompositionDto>>(unitOfWork.Composition.GetAll()));
+            foreach (var composition in compositionAll)
+            {
+                if (composition.FilePath != null)
+                    composition.FilePath = _contentFolder + composition.FilePath;
+                else
+                    throw new Exception("Composition not found!");
+            }
+            return compositionAll;
         }
     }
 }
