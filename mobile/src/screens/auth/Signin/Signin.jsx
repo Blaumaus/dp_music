@@ -62,7 +62,7 @@ export default function ({ navigation, login: _login, authorised, theme }) {
           <TextField
             title={t('auth.login')}
             containerStyle={styles.mt10}
-            placeholder="you@example.com"
+            placeholder="username74"
             value={username}
             autoCapitalize="none"
             autoCompleteType="off"

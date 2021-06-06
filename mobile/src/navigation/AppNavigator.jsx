@@ -8,7 +8,7 @@ import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import { useTranslation } from 'react-i18next'
 
-import { drawerWhitelist } from '../redux/constants'
+import constants, { drawerWhitelist } from '../redux/constants'
 import getStyles, { getTheme } from './styles'
 import Signout from '../components/common/Signout'
 import DetailedInfo from '../screens/common/DetailedInfo'
@@ -58,6 +58,7 @@ const Auth = () => (
 const Main = () => {
   const { t } = useTranslation('common')
   const theme = useSelector(state => state.themeReducer?.theme)
+  const headerTintColor = theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK
 
   return (
     <MainStack.Navigator
@@ -68,14 +69,26 @@ const Main = () => {
       drawerContent={props => <CustomDrawerContent t={t} theme={theme} {...props} />}
       drawerType="front"
     >
-      <MainStack.Screen name="home" options={{ title: t(`drawer.home`) }} component={Home} />
-      <MainStack.Screen name="settings" options={{ title: t(`drawer.settings`) }} component={Settings} />
-      <MainStack.Screen name="logout" component={Signout} />
+      <MainStack.Screen
+        name="home"
+        options={{ title: t(`drawer.home`), headerTintColor }}
+        component={Home}
+      />
+      <MainStack.Screen
+        name="settings"
+        options={{ title: t(`drawer.settings`), headerTintColor }}
+        component={Settings}
+      />
+      <MainStack.Screen
+        name="logout"
+        component={Signout}
+      />
       <MainStack.Screen
         name="bands"
         options={({ navigation }) => ({
           title: t('drawer.bands'),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+          headerTintColor,
         })}
         component={Bands}
       />
@@ -84,6 +97,7 @@ const Main = () => {
         options={({ navigation }) => ({
           title: t('drawer.albums'),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+          headerTintColor,
         })}
         component={Albums}
       />
@@ -92,6 +106,7 @@ const Main = () => {
         options={({ navigation }) => ({
           title: t('drawer.songs'),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+          headerTintColor,
         })}
         component={Songs}
       />
@@ -100,6 +115,7 @@ const Main = () => {
         options={({ navigation }) => ({
           title: t(`drawer.detailedInfo`),
           headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack()} />,
+          headerTintColor,
         })}
         component={DetailedInfo}
       />

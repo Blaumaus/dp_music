@@ -126,13 +126,13 @@ const Player = ({
 }
 
 Player.propTypes = {
-  theme: PropTypes.oneOf(['dark', 'white']).isRequired,
-  isLoaded: PropTypes.bool.isRequired,
+  theme: PropTypes.oneOf(['dark', 'light']).isRequired,
+  isLoaded: PropTypes.bool,
   isLooping: PropTypes.bool,
   isPlaying: PropTypes.bool,
   positionMillis: PropTypes.number,
   durationMillis: PropTypes.number,
-  isBuffering: PropTypes.bool.isRequired,
+  isBuffering: PropTypes.bool,
   name: PropTypes.string,
   bandName: PropTypes.string,
   onTogglePlay: PropTypes.func,
@@ -154,6 +154,8 @@ Player.defaultProps = {
   durationMillis: 100,
   isPlaying: true,
   isLooping: false,
+  isBuffering: true,
+  isLoaded: false,
 }
 
 export default memo(Player)

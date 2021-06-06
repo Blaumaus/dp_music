@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { StyleSheet, ScrollView, Dimensions } from 'react-native'
 import { View, Text, Image } from 'react-native-ui-lib'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Flag } from 'react-native-svg-flagkit'
 import _isEmpty from 'lodash/isEmpty'
@@ -49,7 +50,8 @@ const params = {
 
 const DetailedInfo = ({ route, navigation }) => {
   const { t } = useTranslation('common')
-  const { data, type, theme } = route.params
+  const theme = useSelector(state => state.themeReducer?.theme)
+  const { data, type } = route.params
   const styles = getStyles(theme)
   if (_isEmpty(data) || !type) {
     navigation.goBack(null)
