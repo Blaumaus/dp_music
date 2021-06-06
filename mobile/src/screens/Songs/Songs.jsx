@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react'
-import { StyleSheet, ScrollView, Dimensions, FlatList, SafeAreaView, Image } from 'react-native'
+import { StyleSheet, Dimensions, FlatList, SafeAreaView, Image } from 'react-native'
 import { Text, Button, View, BorderRadiuses, ListItem, Colors } from 'react-native-ui-lib'
 import { useTranslation } from 'react-i18next'
 import { Audio } from 'expo-av'
@@ -43,9 +43,6 @@ const getStyles = theme => StyleSheet.create({
   },
   activeText: {
     color: '#3366ff',
-  },
-  rowText: {
-
   },
   image: {
     width: 54,
@@ -173,6 +170,14 @@ const Songs = ({ route, navigation, theme }) => {
       setSongs([
         { id: 'abcdef1', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
         { id: 'abcdef2', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
+        { id: 'abcdef3', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
+        { id: 'abcdef4', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
+        { id: 'abcdef5', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
+        { id: 'abcdef6', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
+        { id: 'abcdef7', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
+        { id: 'abcdef8', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
+        { id: 'abcdef9', name: 'Twista ft. Faith Evans - Hope', filePath: 'https://minty.club/artist/twista/hope-feat-faith-evans/twista-hope-feat-faith-evans.mp3' },
+        { id: 'abcdef10', name: '2Pac - Dear Mama', filePath: 'https://www.naijafinix.com.ng/wp-content/uploads/2020/10/2Pac-%E2%80%93-Dear-Mama-via-Naijafinix.com_.mp3' },
       ])
     } catch (e) {
       console.error('Error while loading songs')
@@ -212,13 +217,13 @@ const Songs = ({ route, navigation, theme }) => {
         onPress={onPress}
         style={styles.card}
       >
-        <Text text70 style={[styles.rowText, styles.themedText, id === activeSong.id && styles.activeText]}>{name}</Text>
+        <Text text70 style={[styles.themedText, id === activeSong.id && styles.activeText]}>{name}</Text>
       </ListItem>
     )
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       {_isEmpty(songs) ? (
         <Text style={[styles.text, styles.themedText]}>{albumName ? t('songs.noSongs', { album: albumName }) : t('songs.noSongsBand', { band: bandName })}</Text>
       ) : (
@@ -233,10 +238,11 @@ const Songs = ({ route, navigation, theme }) => {
               onTogglePrev={onTogglePrev}
               onToggleStop={stopSound}
               name={activeSong.name}
+              bandName={bandName}
               {...playbackStatus}
             />
           )}
-          <SafeAreaView style={{ flex: 1 }}>
+          <SafeAreaView style={{ flex: 1, marginBottom: 10 }}>
             <FlatList
               data={songs}
               renderItem={renderRow}
@@ -246,7 +252,7 @@ const Songs = ({ route, navigation, theme }) => {
         </>
       )}
       <Button onPress={loadSongs} label={t('home.refresh')} backgroundColor='#3366ff' />
-    </ScrollView>
+    </View>
   )
 }
 

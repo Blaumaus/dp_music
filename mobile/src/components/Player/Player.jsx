@@ -19,6 +19,7 @@ const getStyles = theme => StyleSheet.create({
     borderRadius: 10,
     backgroundColor: theme === 'dark' ? constants.BACKGROUND_DARK_2 : constants.BACKGROUND_LIGHT,
     width: Dimensions.get('window').width - 40,
+    height: 140,
   },
   cardSection: {
     paddingHorizontal: 20,
@@ -36,7 +37,9 @@ const getStyles = theme => StyleSheet.create({
     fontSize: 18,
   },
   songAuthor: { // would be useful if it's been implemented on the backend side
-
+    textAlign: 'center',
+    fontSize: 16,
+    opacity: 0.65,
   },
   themedText: {
     color: theme === 'dark' ? constants.TEXT_LIGHT : constants.TEXT_DARK,
@@ -67,14 +70,13 @@ const getStyles = theme => StyleSheet.create({
 
 // todo: add mute functionality
 const Player = ({
-  theme, name, isPlaying, positionMillis, durationMillis, onTogglePlay, onToggleLoop,
+  theme, name, bandName, isPlaying, positionMillis, durationMillis, onTogglePlay, onToggleLoop,
   onToggleNext, onToggleStop, onTogglePrev, isLoaded, isBuffering, isLooping, // isMuted,
 }) => {
   const styles = getStyles(theme)
 
   return (
     <Card
-      height={160}
       style={styles.card}
       borderRadius={styles.card.borderRadius}
       backgroundColor={styles.card.backgroundColor}
@@ -86,6 +88,7 @@ const Player = ({
           <Spinner style={styles.spinner} size='small' />
         )}
         <Text style={[styles.songTitle, styles.themedText]}>{name}</Text>
+        <Text style={[styles.songAuthor, styles.themedText]}>{bandName}</Text>
         <View style={styles.progressBar}>
           <ProgressBar
             progress={(positionMillis / durationMillis) * 100}
@@ -131,6 +134,7 @@ Player.propTypes = {
   durationMillis: PropTypes.number,
   isBuffering: PropTypes.bool.isRequired,
   name: PropTypes.string,
+  bandName: PropTypes.string,
   onTogglePlay: PropTypes.func,
   onToggleLoop: PropTypes.func,
   onToggleNext: PropTypes.func,
@@ -140,6 +144,7 @@ Player.propTypes = {
 
 Player.defaultProps = {
   name: '',
+  bandName: '',
   onTogglePlay: () => { },
   onToggleLoop: () => { },
   onToggleNext: () => { },
