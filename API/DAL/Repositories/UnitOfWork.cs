@@ -12,6 +12,7 @@ namespace DAL.Repositories
         private BandRepository bandRepository;
         private BandgenreRepository bandgenreRepository;
         private AlbumRepository albumRepository;
+        private CompositionRepository compositionRepository;
 
         public UnitOfWork(dp_musicContext context)
         {
@@ -21,6 +22,7 @@ namespace DAL.Repositories
             bandRepository = new BandRepository(db);
             bandgenreRepository = new BandgenreRepository(db);
             albumRepository = new AlbumRepository(db);
+            compositionRepository = new CompositionRepository(db);
         }
 
         public IRepository<Album> Album
@@ -53,7 +55,15 @@ namespace DAL.Repositories
             }
         }
 
-        public IRepository<Composition> Composition => throw new NotImplementedException();
+        public IRepository<Composition> Composition
+        {
+            get
+            {
+                if (compositionRepository == null)
+                    compositionRepository = new CompositionRepository(db);
+                return compositionRepository;
+            }
+        }
 
         public IRepository<Genre> Genre
         {
