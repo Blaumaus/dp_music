@@ -5,6 +5,6 @@ export default class UserApi {
     static getUser() {
         return ApiClient.get('/User').then(response => {
             return response.data.data;       
-        });
+        }).catch(_ => ({}));
     }
 }
