@@ -17,7 +17,6 @@ class AlbumContainer extends React.Component {
         disableField: false,
         ImagefileToView: null,
         ImagefileToSend: null,
-        isAdmin: true,
         buttonsback: [
             {
                 name: 'Жанри',

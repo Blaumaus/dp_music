@@ -18,20 +18,22 @@ export default class CompositionApi {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
     }
-    static async getCompositions(bandId, albumId) {
+    static async getCompositions(albumId, bandId) {
+        if (albumId === 'undefined')
+            albumId = null;
         return ApiClient.get(`/Composition`,
             {
                 params:
                 {
-                    bandId,
-                    albumId
+                    albumId,
+                    bandId
                 }
             }
         );
     }
 
     static async delete(id) {
-        await ApiClient.delete(`/Composition${id}`)
+        await ApiClient.delete(`/Composition/${id}`)
 
     }
 }
