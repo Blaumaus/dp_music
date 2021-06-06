@@ -94,7 +94,7 @@ export const Update = (album) => {
 }
 export const Delete = (album) => {
     return (dispatch) => {
-        return AlbumApi.delete(album).then(
+        return AlbumApi.delete(album.id).then(
             dispatch(DeleteSuccess(album))
         );
     }

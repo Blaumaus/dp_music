@@ -13,7 +13,7 @@ const MainAdminMenu = props => {
                          </Button>
             {!props.items.length ? (<div className={classes.arrayEmpty}>Список пустий</div>) : (<div>{props.items.map(item => {
                 return <Grid container spacing={3} key={item.id} className={classes.root}>
-                    <Grid item xs={12} sm={8} >
+                    <Grid item xs={12} sm={8}  >
                         <Button className={classes.listItem} variant="outlined" fullWidth onClick={()=>{props.onClickItem(item)}} >{item.name}  </Button>
                     </Grid>
                     <Grid item xs={6} sm={2} >
