@@ -29,7 +29,7 @@ export default class CompositionApi {
                     bandId
                 }
             }
-        );
+        ).catch(_ => ({}));
     }
 
     static async delete(id) {

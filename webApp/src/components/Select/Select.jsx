@@ -24,7 +24,7 @@ const Select = props => {
             <div className={classes.buttonsBackContainer}>
                 <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
                     {buttonsback.map(button => {
-                        return <Button component={Link} to={button.link}>
+                        return <Button  key={button.name} component={Link} to={button.link}>
                             {button.name}
                         </Button>
                     })}
