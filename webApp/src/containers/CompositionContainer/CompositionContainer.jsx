@@ -10,13 +10,6 @@ import { getGenres } from 'redux/reducers/genre-reducer';
 import { getUser } from 'redux/reducers/user-reducer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-const arrayEmpty = {
-    marginLeft: '8%',
-    marginTop: '4%',
-    display: 'flex',
-    fontSize: '2em'
-}
-
 class CompositionContainer extends React.Component {
 
     state = {
@@ -24,7 +17,6 @@ class CompositionContainer extends React.Component {
         selectedComposition: null,
         action: null,
         disableField: false,
-        disableAlbumSelector: false,
         compositionfileToView: null,
         compositionfileToSend: null,
         buttonsback: [
@@ -49,7 +41,7 @@ class CompositionContainer extends React.Component {
 
     newComposition = {
         name: '',
-        compositionFile: null,
+        compositionFile: '',
         description: '',
         genreId: this.props.match.params.genreId,
         bandId: this.props.match.params.bandId,
@@ -98,7 +90,6 @@ class CompositionContainer extends React.Component {
         await this.props.getBands(value);
         this.setState({
             selectedComposition: { ...this.state.selectedComposition, [field]: value },
-            disableAlbumSelector: true
         })
         await this.props.getAlbums(this.props.bands[0].id);
     };
@@ -126,12 +117,12 @@ class CompositionContainer extends React.Component {
     }
 
     handleClickEdit = (composition) => {
-        debugger;
         this.setState({
             selectedComposition: composition,
             action: 'update',
             compositionfileToView: composition.filePath
         })
+        console.log(composition);
     }
 
     handleClickDelete = (composition) => {
@@ -149,12 +140,12 @@ class CompositionContainer extends React.Component {
         this.hideLoader();
     }
 
-    handleSubmit = async() => {
+    handleSubmit = async () => {
         this.showLoader();
         const { selectedComposition } = this.state;
-        
-        if(selectedComposition.albumId==='undefined'){
-            selectedComposition.albumId=this.props.albums[0].id;
+
+        if (selectedComposition.albumId === 'undefined') {
+            selectedComposition.albumId = this.props.albums[0].id;
         }
         const formData = new FormData();
         const { compositionfileToSend } = this.state;
@@ -173,13 +164,14 @@ class CompositionContainer extends React.Component {
             case 'create': await this.props.Create(formData); break;
             case 'update': await this.props.Update(formData); break;
             case 'delete': await this.props.Delete(selectedComposition); break;
+            default: alert('Сталась помилка'); break;
         }
 
         this.setState({
             selectedComposition: null,
             action: null,
             disableField: false,
-            compositionFileToView: null,
+            compositionfileToView: null,
         })
         const { bandId, albumId } = this.props.match.params;
         this.props.getCompositions(albumId, bandId).then(this.hideLoader());
@@ -192,7 +184,7 @@ class CompositionContainer extends React.Component {
         return (
             <CssBaseline>
                 {
-                    !isLoading && <Composition
+                    !isLoading &&  <Composition
                         handleUpload={this.handleUpload}
                         onChange={this.onChange}
                         handleClickCreate={this.handleClickCreate}

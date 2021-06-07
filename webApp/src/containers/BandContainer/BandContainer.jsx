@@ -8,7 +8,8 @@ import { getUser } from 'redux/reducers/user-reducer';
 import { compose } from 'redux';
 import moment from 'moment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import { message } from 'antd';
+import { getAlbums } from 'redux/reducers/album-reducer'
 
 class BandContainer extends React.Component {
 
@@ -19,6 +20,7 @@ class BandContainer extends React.Component {
         disableField: false,
         ImagefileToView: null,
         ImagefileToSend: null,
+        errorMessageTime: 3,
         buttonsback: [
             {
                 name: 'Жанри',
@@ -114,6 +116,11 @@ class BandContainer extends React.Component {
         })
     };
 
+    error = (content) => {
+        const { errorMessageTime } = this.state;
+        message.error(content, errorMessageTime);
+    };
+
     handleSubmit = async () => {
         this.showLoader();
         const { selectedBand } = this.state;
@@ -137,7 +144,17 @@ class BandContainer extends React.Component {
 
             case 'create': await this.props.Create(formData); break;
             case 'update': await this.props.Update(formData); break;
-            case 'delete': await this.props.Delete(selectedBand); break;
+            case 'delete':
+                await this.props.getAlbums(selectedBand.id);
+                let isHasChild = this.props.albums.find(album => album.bandId === selectedBand.id)
+                if (isHasChild) {
+                    this.error('Неможливо видалити, існують альбоми, які належать до цієї групи');
+                }
+                else {
+                    await this.props.Delete(selectedBand);
+                }
+                break;
+                default: alert('Сталась помилка'); break;
         };
 
         this.setState({
@@ -184,10 +201,11 @@ const mapStateToProps = state => {
     return {
         bands: state.bandPage.bands,
         genres: state.genrePage.genres,
-        user: state.user.user
+        albums: state.albumPage.albums,
+        user: state.user.user,
     };
 };
 export default compose(
-    connect(mapStateToProps, { Create, Update, Delete, getBands, getGenres, getUser }),
+    connect(mapStateToProps, { Create, Update, Delete, getBands, getGenres, getUser, getAlbums }),
     withRouter,
 )(BandContainer);

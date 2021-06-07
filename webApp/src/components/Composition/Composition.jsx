@@ -7,8 +7,6 @@ import * as yup from 'yup';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import MainAdminMenu from 'components/MainAdminMenu/MainAdminMenu'
 import AudioPlayer from 'material-ui-audio-player';
 import Typography from '@material-ui/core/Typography';
@@ -26,12 +24,19 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 const Composition = props => {
+    const arrayEmpty = {
+        marginLeft: '8%',
+        marginTop: '4%',
+        display: 'flex',
+        fontSize: '2em'
+    }
     const classes = useStyles()
     const [compositionToPlay, setCompositonToPlay] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [autoplay, setAutoplay] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true);
         setCompositonToPlay(compositions[0])
         setIsLoading(false)
     }, []);
@@ -83,7 +88,7 @@ const Composition = props => {
                 <div className={classes.buttonsBackContainer}>
                     <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
                         {buttonsback.map(button => {
-                            return <Button component={Link} to={button.link}>
+                            return <Button key={button.name} component={Link} to={button.link}>
                                 {button.name}
                             </Button>
                         })}
@@ -283,7 +288,7 @@ const Composition = props => {
                 }
                 </div>) : (
                     <div>
-                        {!isLoading &&
+                        {!isLoading && compositionToPlay !== undefined &&
                             <div className={classes.audioPlayer}>
                                 <div className={classes.audioPlayerCompositionName}>
                                     <Typography variant="h5">
@@ -306,11 +311,15 @@ const Composition = props => {
                                 </div>
                             </div>
                         }
-                        <Grid container item xs={12} sm={9} className={classes.compositonsActionsContainer}>
-                            <SortByAlphaIcon onClick={handleSortAlphabetically} color="secondary" className={classes.compositonsActions} />
-                            <SortIcon color="secondary" className={classes.compositonsActions} />
-                        </Grid>
 
+                        {!isLoading && compositionToPlay !== undefined ? ( <Grid container item xs={12} sm={9} className={classes.compositonsActionsContainer}>
+                                <SortByAlphaIcon onClick={handleSortAlphabetically} color="secondary" className={classes.compositonsActions} />
+                                <SortIcon color="secondary" className={classes.compositonsActions} />
+                            </Grid>): (
+                            <div style={arrayEmpty}>Композицій ще не додано</div>
+                           )
+                           
+                        }
 
                         {compositions.map(composition => {
                             return <Grid container className={classes.compositionName} key={composition.id}>

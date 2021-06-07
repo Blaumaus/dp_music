@@ -7,6 +7,8 @@ import { getBands } from 'redux/reducers/band-reducer'
 import { getUser } from 'redux/reducers/user-reducer'
 import { compose } from 'redux'
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { getCompositions } from 'redux/reducers/composition-reducer'
+import { message } from 'antd';
 
 class AlbumContainer extends React.Component {
 
@@ -17,6 +19,7 @@ class AlbumContainer extends React.Component {
         disableField: false,
         ImagefileToView: null,
         ImagefileToSend: null,
+        errorMessageTime: 3,
         buttonsback: [
             {
                 name: 'Жанри',
@@ -40,7 +43,7 @@ class AlbumContainer extends React.Component {
         name: '',
         image: '',
         file: null,
-        Year: '',
+        year: '',
         description: '',
         bandId: this.props.match.params.bandId
     };
@@ -115,6 +118,11 @@ class AlbumContainer extends React.Component {
         })
     }
 
+    error = (content) => {
+        const { errorMessageTime } = this.state;
+        message.error(content, errorMessageTime);
+    };
+
     handleSubmit = async () => {
         this.showLoader();
         const { selectedAlbum } = this.state;
@@ -133,7 +141,17 @@ class AlbumContainer extends React.Component {
 
             case 'create': await this.props.Create(formData); break;
             case 'update': await this.props.Update(formData); break;
-            case 'delete': await this.props.Delete(selectedAlbum); break;
+            case 'delete':
+                await this.props.getCompositions(selectedAlbum.id, this.props.match.params.bandId);
+                let isHasChild = this.props.compositions.find(composition => composition.albumId === selectedAlbum.id)
+                if (isHasChild) {
+                    this.error('Неможливо видалити, існують композиції, які належать до цього альбома');
+                }
+                else {
+                    await this.props.Delete(selectedAlbum);
+                }
+                break;
+                default: alert('Сталась помилка'); break;
         }
         this.setState({
             selectedAlbum: null,
@@ -178,11 +196,12 @@ const mapStateToProps = state => {
     return {
         bands: state.bandPage.bands,
         albums: state.albumPage.albums,
-        user: state.user.user
+        user: state.user.user,
+        compositions: state.compositionPage.compositions
     };
 };
 
 export default compose(
-    connect(mapStateToProps, { Create, Update, Delete, getAlbums, getBands, getUser }),
+    connect(mapStateToProps, { Create, Update, Delete, getAlbums, getBands, getUser, getCompositions }),
     withRouter,
 )(AlbumContainer);

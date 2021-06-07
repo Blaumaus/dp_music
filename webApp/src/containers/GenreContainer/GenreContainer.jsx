@@ -100,7 +100,7 @@ class GenreContainer extends React.Component {
             ImagefileToView: genre.image
         });
     };
-    
+
     error = (content) => {
         const { errorMessageTime } = this.state;
         message.error(content, errorMessageTime);
@@ -122,12 +122,13 @@ class GenreContainer extends React.Component {
                 await this.props.getBands(selectedGenre.id);
                 let isHasChild = this.props.bands.find(band => band.genreId === selectedGenre.id)
                 if (isHasChild) {
-                    this.error('Неможливо видалити, існують групи, які належать до цього жанру');      
+                    this.error('Неможливо видалити, існують групи, які належать до цього жанру');
                 }
                 else {
-                    await this.props.Delete(selectedGenre); 
+                    await this.props.Delete(selectedGenre);
                 }
                 break;
+            default: alert('Сталась помилка'); break;
         }
 
         this.setState({
