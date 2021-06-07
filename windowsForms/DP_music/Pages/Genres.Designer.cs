@@ -32,6 +32,7 @@ namespace DP_music.Pages
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Genres));
             this.labelGenres = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.labelEmptyGanres = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,7 +45,7 @@ namespace DP_music.Pages
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelEmptyGanres = new System.Windows.Forms.Label();
+            this.panelHeader = new System.Windows.Forms.Panel();
             this.panelContent.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -55,6 +56,7 @@ namespace DP_music.Pages
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelHeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelGenres
@@ -63,7 +65,7 @@ namespace DP_music.Pages
             this.labelGenres.BackColor = System.Drawing.Color.Transparent;
             this.labelGenres.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelGenres.ForeColor = System.Drawing.Color.White;
-            this.labelGenres.Location = new System.Drawing.Point(374, 16);
+            this.labelGenres.Location = new System.Drawing.Point(378, 17);
             this.labelGenres.Name = "labelGenres";
             this.labelGenres.Size = new System.Drawing.Size(139, 40);
             this.labelGenres.TabIndex = 1;
@@ -71,6 +73,7 @@ namespace DP_music.Pages
             // 
             // panelContent
             // 
+            this.panelContent.AutoScroll = true;
             this.panelContent.BackColor = System.Drawing.Color.White;
             this.panelContent.Controls.Add(this.labelEmptyGanres);
             this.panelContent.Controls.Add(this.panel3);
@@ -78,8 +81,20 @@ namespace DP_music.Pages
             this.panelContent.Controls.Add(this.panel1);
             this.panelContent.Location = new System.Drawing.Point(0, 70);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(884, 440);
+            this.panelContent.Size = new System.Drawing.Size(905, 440);
             this.panelContent.TabIndex = 1;
+            // 
+            // labelEmptyGanres
+            // 
+            this.labelEmptyGanres.AutoSize = true;
+            this.labelEmptyGanres.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelEmptyGanres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.labelEmptyGanres.Location = new System.Drawing.Point(43, 0);
+            this.labelEmptyGanres.Name = "labelEmptyGanres";
+            this.labelEmptyGanres.Size = new System.Drawing.Size(809, 37);
+            this.labelEmptyGanres.TabIndex = 5;
+            this.labelEmptyGanres.Text = "НА ЖАЛЬ, В ЦЮ КАТЕГОРІЮ ЩЕ НІЧОГО НЕ ДОДАНО:(";
+            this.labelEmptyGanres.Visible = false;
             // 
             // panel3
             // 
@@ -210,26 +225,23 @@ namespace DP_music.Pages
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // labelEmptyGanres
+            // panelHeader
             // 
-            this.labelEmptyGanres.AutoSize = true;
-            this.labelEmptyGanres.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelEmptyGanres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
-            this.labelEmptyGanres.Location = new System.Drawing.Point(43, 0);
-            this.labelEmptyGanres.Name = "labelEmptyGanres";
-            this.labelEmptyGanres.Size = new System.Drawing.Size(809, 37);
-            this.labelEmptyGanres.TabIndex = 5;
-            this.labelEmptyGanres.Text = "НА ЖАЛЬ, В ЦЮ КАТЕГОРІЮ ЩЕ НІЧОГО НЕ ДОДАНО:(";
-            this.labelEmptyGanres.Visible = false;
+            this.panelHeader.AutoSize = true;
+            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.panelHeader.Controls.Add(this.labelGenres);
+            this.panelHeader.Location = new System.Drawing.Point(0, 0);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(905, 70);
+            this.panelHeader.TabIndex = 2;
             // 
             // Genres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
-            this.ClientSize = new System.Drawing.Size(885, 510);
-            this.Controls.Add(this.labelGenres);
+            this.ClientSize = new System.Drawing.Size(905, 510);
+            this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelContent);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Genres";
@@ -250,6 +262,8 @@ namespace DP_music.Pages
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,5 +285,6 @@ namespace DP_music.Pages
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelEmptyGanres;
+        private System.Windows.Forms.Panel panelHeader;
     }
 }

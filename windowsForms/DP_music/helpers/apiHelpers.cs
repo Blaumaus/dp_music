@@ -202,7 +202,7 @@ namespace DP_music.helpers
             return false;
         }
 
-        public static async Task<List<Band>> getBand(string genreId)
+        public static async Task<List<Band>> getBand(string genreId="")
         {
             using (HttpClient client = new HttpClient())
             {
@@ -219,6 +219,25 @@ namespace DP_music.helpers
                 }
             }
             return new List<Band>();
+        }
+
+        public static async Task<List<Album>> getAlbums(string bandId="")
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Album?bandId=" + bandId))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            return JsonConvert.DeserializeObject<List<Album>>(data);
+                        }
+                    }
+                }
+            }
+            return new List<Album>();
         }
     }
 }

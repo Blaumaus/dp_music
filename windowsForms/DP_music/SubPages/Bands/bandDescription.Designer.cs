@@ -110,6 +110,7 @@ namespace DP_music.SubPages.Bands
             this.buttonAlbums.TabIndex = 10;
             this.buttonAlbums.Text = "АЛЬБОМИ";
             this.buttonAlbums.UseVisualStyleBackColor = false;
+            this.buttonAlbums.Click += new System.EventHandler(this.buttonAlbums_Click);
             // 
             // pictureBoxImage
             // 

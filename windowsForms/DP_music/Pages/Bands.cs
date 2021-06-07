@@ -54,7 +54,8 @@ namespace DP_music.Pages
             if (genre != null)
                 bands = await apiHelpers.getBand(genre.id);
             else
-                bands = await apiHelpers.getBand("24e9696b-9a12-4967-bdaf-fe406325ab53");
+                //Повертає всі групи, але без айді жанрів
+                bands = await apiHelpers.getBand("8158cc6f-aebb-418d-9b0a-e0acc3f443a3");
             if (bands != null)
             {
                 int i = 0;

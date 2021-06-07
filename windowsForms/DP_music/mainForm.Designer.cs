@@ -34,7 +34,7 @@ namespace DP_music
             this.panelBar = new System.Windows.Forms.Panel();
             this.buttonAccountName = new System.Windows.Forms.Button();
             this.buttonRecordName = new System.Windows.Forms.Button();
-            this.buttonCompositionName = new System.Windows.Forms.Button();
+            this.buttonAlbumsName = new System.Windows.Forms.Button();
             this.buttonGenresName = new System.Windows.Forms.Button();
             this.buttonGroupsName = new System.Windows.Forms.Button();
             this.buttonHomeName = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@ namespace DP_music
             this.panelBarMini = new System.Windows.Forms.Panel();
             this.buttonAccount = new System.Windows.Forms.Button();
             this.buttonRecord = new System.Windows.Forms.Button();
-            this.buttonComposition = new System.Windows.Forms.Button();
+            this.buttonAlbums = new System.Windows.Forms.Button();
             this.buttonGenres = new System.Windows.Forms.Button();
             this.buttonGroups = new System.Windows.Forms.Button();
             this.buttonHome = new System.Windows.Forms.Button();
@@ -68,7 +68,7 @@ namespace DP_music
             this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelBar.Controls.Add(this.buttonAccountName);
             this.panelBar.Controls.Add(this.buttonRecordName);
-            this.panelBar.Controls.Add(this.buttonCompositionName);
+            this.panelBar.Controls.Add(this.buttonAlbumsName);
             this.panelBar.Controls.Add(this.buttonGenresName);
             this.panelBar.Controls.Add(this.buttonGroupsName);
             this.panelBar.Controls.Add(this.buttonHomeName);
@@ -115,23 +115,23 @@ namespace DP_music
             this.buttonRecordName.UseVisualStyleBackColor = true;
             this.buttonRecordName.Click += new System.EventHandler(this.buttonRecordName_Click);
             // 
-            // buttonCompositionName
+            // buttonAlbumsName
             // 
-            this.buttonCompositionName.FlatAppearance.BorderSize = 0;
-            this.buttonCompositionName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCompositionName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonCompositionName.ForeColor = System.Drawing.Color.White;
-            this.buttonCompositionName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonCompositionName.Location = new System.Drawing.Point(0, 234);
-            this.buttonCompositionName.Name = "buttonCompositionName";
-            this.buttonCompositionName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
-            this.buttonCompositionName.Size = new System.Drawing.Size(197, 48);
-            this.buttonCompositionName.TabIndex = 1;
-            this.buttonCompositionName.Text = "АЛЬБОМИ";
-            this.buttonCompositionName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCompositionName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.buttonCompositionName.UseVisualStyleBackColor = true;
-            this.buttonCompositionName.Click += new System.EventHandler(this.buttonCompositionName_Click);
+            this.buttonAlbumsName.FlatAppearance.BorderSize = 0;
+            this.buttonAlbumsName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAlbumsName.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonAlbumsName.ForeColor = System.Drawing.Color.White;
+            this.buttonAlbumsName.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonAlbumsName.Location = new System.Drawing.Point(0, 234);
+            this.buttonAlbumsName.Name = "buttonAlbumsName";
+            this.buttonAlbumsName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
+            this.buttonAlbumsName.Size = new System.Drawing.Size(197, 48);
+            this.buttonAlbumsName.TabIndex = 1;
+            this.buttonAlbumsName.Text = "АЛЬБОМИ";
+            this.buttonAlbumsName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonAlbumsName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.buttonAlbumsName.UseVisualStyleBackColor = true;
+            this.buttonAlbumsName.Click += new System.EventHandler(this.buttonAlbumsName_Click);
             // 
             // buttonGenresName
             // 
@@ -262,7 +262,7 @@ namespace DP_music
             this.panelBarMini.Controls.Add(this.panelNav);
             this.panelBarMini.Controls.Add(this.buttonAccount);
             this.panelBarMini.Controls.Add(this.buttonRecord);
-            this.panelBarMini.Controls.Add(this.buttonComposition);
+            this.panelBarMini.Controls.Add(this.buttonAlbums);
             this.panelBarMini.Controls.Add(this.buttonGenres);
             this.panelBarMini.Controls.Add(this.buttonGroups);
             this.panelBarMini.Controls.Add(this.buttonHome);
@@ -297,18 +297,18 @@ namespace DP_music
             this.buttonRecord.UseVisualStyleBackColor = true;
             this.buttonRecord.Click += new System.EventHandler(this.buttonRecord_Click);
             // 
-            // buttonComposition
+            // buttonAlbums
             // 
-            this.buttonComposition.FlatAppearance.BorderSize = 0;
-            this.buttonComposition.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonComposition.Image = ((System.Drawing.Image)(resources.GetObject("buttonComposition.Image")));
-            this.buttonComposition.Location = new System.Drawing.Point(0, 234);
-            this.buttonComposition.Name = "buttonComposition";
-            this.buttonComposition.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.buttonComposition.Size = new System.Drawing.Size(65, 48);
-            this.buttonComposition.TabIndex = 1;
-            this.buttonComposition.UseVisualStyleBackColor = true;
-            this.buttonComposition.Click += new System.EventHandler(this.buttonComposition_Click);
+            this.buttonAlbums.FlatAppearance.BorderSize = 0;
+            this.buttonAlbums.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAlbums.Image = ((System.Drawing.Image)(resources.GetObject("buttonAlbums.Image")));
+            this.buttonAlbums.Location = new System.Drawing.Point(0, 234);
+            this.buttonAlbums.Name = "buttonAlbums";
+            this.buttonAlbums.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.buttonAlbums.Size = new System.Drawing.Size(65, 48);
+            this.buttonAlbums.TabIndex = 1;
+            this.buttonAlbums.UseVisualStyleBackColor = true;
+            this.buttonAlbums.Click += new System.EventHandler(this.buttonAlbums_Click);
             // 
             // buttonGenres
             // 
@@ -405,7 +405,7 @@ namespace DP_music
         #endregion
 
         private System.Windows.Forms.Panel panelBar;
-        public System.Windows.Forms.Button buttonCompositionName;
+        public System.Windows.Forms.Button buttonAlbumsName;
         public System.Windows.Forms.Button buttonGenresName;
         public System.Windows.Forms.Button buttonGroupsName;
         public System.Windows.Forms.Button buttonHomeName;
@@ -418,7 +418,7 @@ namespace DP_music
         private System.Windows.Forms.Panel panelBarMini;
         private System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.Button buttonHome;
-        public System.Windows.Forms.Button buttonComposition;
+        public System.Windows.Forms.Button buttonAlbums;
         public System.Windows.Forms.Button buttonGenres;
         public System.Windows.Forms.Button buttonGroups;
         private System.Windows.Forms.Timer timerOpenPanelBar;

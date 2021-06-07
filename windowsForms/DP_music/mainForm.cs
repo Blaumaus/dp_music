@@ -141,9 +141,9 @@ namespace DP_music
                 timerClosePanelBar.Enabled = true;
             }
         }
-        public void buttonComposition_Click(object sender, EventArgs e)
+        public void buttonAlbums_Click(object sender, EventArgs e)
         {
-            openChildForm(new Composition(), buttonComposition, buttonCompositionName);
+            openChildForm(new Albums(this), buttonAlbums, buttonAlbumsName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;
@@ -191,9 +191,9 @@ namespace DP_music
             timerClosePanelBar.Enabled = true;
         }
 
-        private void buttonCompositionName_Click(object sender, EventArgs e)
+        private void buttonAlbumsName_Click(object sender, EventArgs e)
         {
-            buttonComposition_Click(buttonComposition, new EventArgs());
+            buttonAlbums_Click(buttonAlbums, new EventArgs());
             timerClosePanelBar.Enabled = true;
         }
 

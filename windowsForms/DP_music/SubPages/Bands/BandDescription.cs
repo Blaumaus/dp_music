@@ -55,5 +55,11 @@ namespace DP_music.SubPages.Bands
             else
                 parent.openChildForm(new Pages.Bands(parent), parent.buttonGroups, parent.buttonGroupsName);
         }
+
+        private void buttonAlbums_Click(object sender, EventArgs e)
+        {
+            parent.openChildForm(new Pages.Albums(parent, band, genre), parent.buttonAlbums, parent.buttonAlbumsName);
+
+        }
     }
 }

@@ -49,8 +49,6 @@ namespace DP_music.Pages
             if (responce != null)
             {
                 genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
-                //StaticData staticData = new StaticData();
-                //List<Genre> genres = staticData.getStaticGenre();
             
                 int x = 0;
                 int y = 0;
@@ -68,23 +66,13 @@ namespace DP_music.Pages
                     labelName.Text = genres[i].name.ToUpper();
                     labelName.BackColor = Color.Transparent;
 
-                    //using (WebClient wClient = new WebClient())
-                    //using (Stream imageUrl = wClient.OpenRead(url + genres[i].image))
-                    //{
-                    //    var image = new Bitmap(imageUrl, true);
-                    //    pictureBoxGenre.Image = image;
-                    //}
                     pictureBoxGenre.ImageLocation = url + genres[i].image;
                     panelGenre.Controls.Add(pictureBoxDescription);
                     panelGenre.Controls.Add(pictureBoxGenre);
                     panelGenre.Controls.Add(labelName);
                     pbBorder.Controls.Add(panelGenre);
                     panelContent.Controls.Add(pbBorder);
-                    //i++;
-
                 };
-                panelContent.Height = y < 1 ? 590 : 304 * (y + 1) + 30 * (y + 2);
-                //panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
             }
             else
             {
