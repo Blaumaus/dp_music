@@ -31,6 +31,7 @@ namespace DP_music.Pages
         public mainForm parent;
         public Genre genre = null;
         private List<Band> bands;
+        private string url = "http://164.90.166.133:7402/";
 
         public Bands(mainForm parent)
         {
@@ -54,31 +55,39 @@ namespace DP_music.Pages
                 bands = await apiHelpers.getBand(genre.id);
             else
                 bands = await apiHelpers.getBand("24e9696b-9a12-4967-bdaf-fe406325ab53");
-            int i = 0;
-            int x = 0;
-            int y = 0;
-
-            bands.ForEach((band) =>
+            if (bands != null)
             {
-                PictureBox pictureBoxBorder = addPictureBoxBorder(x, y, band.image);
-                PictureBox pictureBoxBand = addPictureBoxBand(band.image, band.id);
+                int i = 0;
+                int x = 0;
+                int y = 0;
 
-                Panel panelBorder = addPanelBorder(pictureBoxBorder);
-                Label labelNameBand = addLabelNameBand(x, y, band.name);
-                PictureBox pictureBoxFlag = pictureBoxCountryFlag(x, y, band.countryCode);
+                bands.ForEach((band) =>
+                {
+                    PictureBox pictureBoxBorder = addPictureBoxBorder(x, y, band.image);
+                    PictureBox pictureBoxBand = addPictureBoxBand(band.image, band.id);
 
-                panelBorder.Controls.Add(pictureBoxBand);
-                pictureBoxBorder.Controls.Add(panelBorder);
-                panelContent.Controls.Add(pictureBoxBorder);
-                panelContent.Controls.Add(pictureBoxFlag);
-                panelContent.Controls.Add(labelNameBand);
+                    Panel panelBorder = addPanelBorder(pictureBoxBorder);
+                    Label labelNameBand = addLabelNameBand(x, y, band.name);
+                    PictureBox pictureBoxFlag = pictureBoxCountryFlag(x, y, band.countryCode);
 
-                pictureBoxBand.Click += pictureBoxBand_Click;
+                    panelBorder.Controls.Add(pictureBoxBand);
+                    pictureBoxBorder.Controls.Add(panelBorder);
+                    panelContent.Controls.Add(pictureBoxBorder);
+                    panelContent.Controls.Add(pictureBoxFlag);
+                    panelContent.Controls.Add(labelNameBand);
 
-                i++;
-                x = i % 3;
-                y = i / 3;
-            });
+                    pictureBoxBand.Click += pictureBoxBand_Click;
+
+                    i++;
+                    x = i % 3;
+                    y = i / 3;
+                });
+            }
+            else
+            {
+                labelEmptyBands.Visible = true;
+                labelEmptyBands.Location = new Point((panelContent.Width - labelEmptyBands.Width) / 2, (panelContent.Height - labelEmptyBands.Height) / 2);
+            }
         }
 
         private PictureBox addPictureBoxBorder(int x, int y, string path)
@@ -86,8 +95,8 @@ namespace DP_music.Pages
             PictureBox pbBorder = new PictureBox();
             pbBorder.Size = new Size(240, 240);
             pbBorder.Location = new Point(41 * (x + 1) + 240 * x, 240 * y + 30 * (y + 1));
-            pbBorder.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
-            //pbBorder.ImageLocation = " http://164.90.166.133/" + path;
+            //pbBorder.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
+            pbBorder.ImageLocation = url + path;
             pbBorder.SizeMode = PictureBoxSizeMode.StretchImage;
             pbBorder.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pbBorder.Width, pbBorder.Height, 15, 15));
 
@@ -112,9 +121,9 @@ namespace DP_music.Pages
             pictureBoxImg.Size = new Size(200, 200);
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.BackColor = Color.Transparent;
-            pictureBoxImg.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
+            //pictureBoxImg.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
             pictureBoxImg.Cursor = Cursors.Hand;
-            //pictureBoxImg.ImageLocation = "http://164.90.166.133/" + path;
+            pictureBoxImg.ImageLocation = url + path;
 
             //pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;

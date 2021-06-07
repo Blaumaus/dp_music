@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using DP_music.staticData;
 using DP_music.SubPages.Genres;
 using System.Reflection;
+using System.Net;
 
 namespace DP_music.Pages
 {
@@ -34,6 +35,7 @@ namespace DP_music.Pages
 
         private List<Genre> genres;
         private mainForm parent;
+        private string url = "http://164.90.166.133:7402/";
 
         public Genres(mainForm parent)
         {
@@ -44,43 +46,52 @@ namespace DP_music.Pages
         private async void Genres_Paint(object sender, PaintEventArgs e)
         {
             var responce = await apiHelpers.GetAllGenres();
-            genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
-            //StaticData staticData = new StaticData();
-            //List<Genre> genres = staticData.getStaticGenre();
-            
-            int x = 0;
-            int y = 0;
-            for(int i = 0; i < genres.Count; i++)
+            if (responce != null)
             {
-                x = i % 2;
-                y = i / 2;
-
-                PictureBox pbBorder = addBorderPictureBox(x, y, genres[i].image);
-                Panel panelGenre = AddNewPanel(pbBorder);
-
-                PictureBox pictureBoxGenre = addNewPictureBox(genres[i].id);
-                Label labelName = addNewLabel();
-                PictureBox pictureBoxDescription = addDescription(pictureBoxGenre, genres[i].id);
-                labelName.Text = genres[i].name.ToUpper();
-                labelName.BackColor = Color.Transparent;
-
-                string urlImage = "http://164.90.166.133/" + genres[i].image;
-                pictureBoxGenre.ImageLocation = urlImage;
-                panelGenre.Controls.Add(pictureBoxDescription);
-                panelGenre.Controls.Add(pictureBoxGenre);
-                panelGenre.Controls.Add(labelName);
-                pbBorder.Controls.Add(panelGenre);
-                panelContent.Controls.Add(pbBorder);
-                //i++;
-                
-            };
-            panelContent.Height = y < 1 ? 590 : 304 * (y + 1) + 30 * (y + 2);
-            //panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
-        }
-
-        private async void showGenres()
-        {
+                genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
+                //StaticData staticData = new StaticData();
+                //List<Genre> genres = staticData.getStaticGenre();
             
+                int x = 0;
+                int y = 0;
+                for(int i = 0; i < genres.Count; i++)
+                {
+                    x = i % 2;
+                    y = i / 2;
+
+                    PictureBox pbBorder = addBorderPictureBox(x, y, genres[i].image);
+                    Panel panelGenre = AddNewPanel(pbBorder);
+
+                    PictureBox pictureBoxGenre = addNewPictureBox(genres[i].id);
+                    Label labelName = addNewLabel();
+                    PictureBox pictureBoxDescription = addDescription(pictureBoxGenre, genres[i].id);
+                    labelName.Text = genres[i].name.ToUpper();
+                    labelName.BackColor = Color.Transparent;
+
+                    //using (WebClient wClient = new WebClient())
+                    //using (Stream imageUrl = wClient.OpenRead(url + genres[i].image))
+                    //{
+                    //    var image = new Bitmap(imageUrl, true);
+                    //    pictureBoxGenre.Image = image;
+                    //}
+                    pictureBoxGenre.ImageLocation = url + genres[i].image;
+                    panelGenre.Controls.Add(pictureBoxDescription);
+                    panelGenre.Controls.Add(pictureBoxGenre);
+                    panelGenre.Controls.Add(labelName);
+                    pbBorder.Controls.Add(panelGenre);
+                    panelContent.Controls.Add(pbBorder);
+                    //i++;
+
+                };
+                panelContent.Height = y < 1 ? 590 : 304 * (y + 1) + 30 * (y + 2);
+                //panelContent.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelContent.Width, panelContent.Height, 25, 25));
+            }
+            else
+            {
+                labelEmptyGanres.Visible = true;
+                labelEmptyGanres.Location = new Point((panelContent.Width - labelEmptyGanres.Width) / 2, 
+                    (panelContent.Height - labelEmptyGanres.Height) / 2);
+            }
         }
 
         private Panel AddNewPanel(PictureBox parent)
@@ -103,7 +114,14 @@ namespace DP_music.Pages
             PictureBox pbBorder = new PictureBox();
             pbBorder.Size = new Size(325, 304);
             pbBorder.Location = new Point(78 * (x + 1) + 325 * x, 304 * y + 30 * (y + 1));
-            pbBorder.ImageLocation = "http://164.90.166.133/" + path;
+
+            //using (WebClient wClient = new WebClient())
+            //using (Stream imageUrl = wClient.OpenRead(url + path))
+            //{
+            //    var image = new Bitmap(imageUrl);
+            //    pbBorder.Image = image;
+            //}
+            pbBorder.ImageLocation = url + path;
             //panelGenre.BackColor = Color.White;
             pbBorder.SizeMode = PictureBoxSizeMode.StretchImage;
             //panelGenre.BackColor = Color.FromArgb(41, 52, 117);

@@ -41,8 +41,6 @@ namespace DP_music
             this.panelNav = new System.Windows.Forms.Panel();
             this.buttonClose = new System.Windows.Forms.Button();
             this.labelProjectName = new System.Windows.Forms.Label();
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.buttonSearch = new System.Windows.Forms.Button();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.pictureBoxMenu = new System.Windows.Forms.PictureBox();
@@ -93,7 +91,7 @@ namespace DP_music
             this.buttonAccountName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonAccountName.Size = new System.Drawing.Size(197, 48);
             this.buttonAccountName.TabIndex = 4;
-            this.buttonAccountName.Text = "Account";
+            this.buttonAccountName.Text = "АКАУНТ";
             this.buttonAccountName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAccountName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonAccountName.UseVisualStyleBackColor = true;
@@ -111,7 +109,7 @@ namespace DP_music
             this.buttonRecordName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonRecordName.Size = new System.Drawing.Size(197, 48);
             this.buttonRecordName.TabIndex = 4;
-            this.buttonRecordName.Text = "Record";
+            this.buttonRecordName.Text = "ЗАПИСИ";
             this.buttonRecordName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRecordName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonRecordName.UseVisualStyleBackColor = true;
@@ -129,7 +127,7 @@ namespace DP_music
             this.buttonCompositionName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonCompositionName.Size = new System.Drawing.Size(197, 48);
             this.buttonCompositionName.TabIndex = 1;
-            this.buttonCompositionName.Text = "Composition";
+            this.buttonCompositionName.Text = "АЛЬБОМИ";
             this.buttonCompositionName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonCompositionName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonCompositionName.UseVisualStyleBackColor = true;
@@ -147,7 +145,7 @@ namespace DP_music
             this.buttonGenresName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonGenresName.Size = new System.Drawing.Size(197, 48);
             this.buttonGenresName.TabIndex = 1;
-            this.buttonGenresName.Text = "Genres";
+            this.buttonGenresName.Text = "ЖАНРИ";
             this.buttonGenresName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGenresName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonGenresName.UseVisualStyleBackColor = true;
@@ -166,7 +164,7 @@ namespace DP_music
             this.buttonGroupsName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonGroupsName.Size = new System.Drawing.Size(197, 48);
             this.buttonGroupsName.TabIndex = 1;
-            this.buttonGroupsName.Text = "Groups";
+            this.buttonGroupsName.Text = "ГУРТИ";
             this.buttonGroupsName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGroupsName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonGroupsName.UseVisualStyleBackColor = false;
@@ -184,7 +182,7 @@ namespace DP_music
             this.buttonHomeName.Padding = new System.Windows.Forms.Padding(10, 0, 5, 0);
             this.buttonHomeName.Size = new System.Drawing.Size(197, 48);
             this.buttonHomeName.TabIndex = 1;
-            this.buttonHomeName.Text = "Home";
+            this.buttonHomeName.Text = "ГОЛОВНА";
             this.buttonHomeName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonHomeName.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonHomeName.UseVisualStyleBackColor = true;
@@ -205,6 +203,7 @@ namespace DP_music
             this.buttonClose.FlatAppearance.BorderSize = 0;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.buttonClose.ForeColor = System.Drawing.Color.White;
             this.buttonClose.Location = new System.Drawing.Point(930, 0);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(40, 40);
@@ -224,31 +223,6 @@ namespace DP_music
             this.labelProjectName.TabIndex = 2;
             this.labelProjectName.Text = "DP MUSIC";
             // 
-            // textBoxSearch
-            // 
-            this.textBoxSearch.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSearch.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.textBoxSearch.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBoxSearch.Location = new System.Drawing.Point(602, 27);
-            this.textBoxSearch.Multiline = true;
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(224, 31);
-            this.textBoxSearch.TabIndex = 3;
-            this.textBoxSearch.Text = "  Search...";
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonSearch.FlatAppearance.BorderSize = 0;
-            this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSearch.Image = ((System.Drawing.Image)(resources.GetObject("buttonSearch.Image")));
-            this.buttonSearch.Location = new System.Drawing.Point(832, 27);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(46, 31);
-            this.buttonSearch.TabIndex = 4;
-            this.buttonSearch.UseVisualStyleBackColor = false;
-            // 
             // panelChildForm
             // 
             this.panelChildForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -264,8 +238,6 @@ namespace DP_music
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.panelHeader.Controls.Add(this.pictureBoxMenu);
             this.panelHeader.Controls.Add(this.buttonClose);
-            this.panelHeader.Controls.Add(this.textBoxSearch);
-            this.panelHeader.Controls.Add(this.buttonSearch);
             this.panelHeader.Controls.Add(this.labelProjectName);
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
@@ -441,8 +413,6 @@ namespace DP_music
         private System.Windows.Forms.Button buttonClose;
         public System.Windows.Forms.Button buttonRecordName;
         private System.Windows.Forms.Label labelProjectName;
-        private System.Windows.Forms.TextBox textBoxSearch;
-        private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Panel panelChildForm;
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Panel panelBarMini;

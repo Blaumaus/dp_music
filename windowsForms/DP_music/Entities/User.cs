@@ -15,7 +15,7 @@ namespace DP_music.Entities
 
         public User() 
         {
-            this.login = "Guest";
+            this.login = "ГІСТЬ";
         }
 
         public User(string id, string login, string role)

@@ -30,10 +30,12 @@ namespace DP_music.Pages
         private void InitializeComponent()
         {
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.buttonBack = new System.Windows.Forms.Button();
             this.labelBands = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.buttonBack = new System.Windows.Forms.Button();
+            this.labelEmptyBands = new System.Windows.Forms.Label();
             this.panelHeader.SuspendLayout();
+            this.panelContent.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -46,25 +48,6 @@ namespace DP_music.Pages
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(885, 70);
             this.panelHeader.TabIndex = 0;
-            // 
-            // labelBands
-            // 
-            this.labelBands.AutoSize = true;
-            this.labelBands.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelBands.ForeColor = System.Drawing.Color.White;
-            this.labelBands.Location = new System.Drawing.Point(137, 21);
-            this.labelBands.Name = "labelBands";
-            this.labelBands.Size = new System.Drawing.Size(633, 40);
-            this.labelBands.TabIndex = 0;
-            this.labelBands.Text = "ГУРТИ, ЯКІ ВІДНОСЯТЬСЯ ДО ЖАНРУ ";
-            // 
-            // panelContent
-            // 
-            this.panelContent.AutoScroll = true;
-            this.panelContent.Location = new System.Drawing.Point(0, 70);
-            this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(885, 440);
-            this.panelContent.TabIndex = 1;
             // 
             // buttonBack
             // 
@@ -80,6 +63,38 @@ namespace DP_music.Pages
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
+            // labelBands
+            // 
+            this.labelBands.AutoSize = true;
+            this.labelBands.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelBands.ForeColor = System.Drawing.Color.White;
+            this.labelBands.Location = new System.Drawing.Point(137, 21);
+            this.labelBands.Name = "labelBands";
+            this.labelBands.Size = new System.Drawing.Size(633, 40);
+            this.labelBands.TabIndex = 0;
+            this.labelBands.Text = "ГУРТИ, ЯКІ ВІДНОСЯТЬСЯ ДО ЖАНРУ ";
+            // 
+            // panelContent
+            // 
+            this.panelContent.AutoScroll = true;
+            this.panelContent.Controls.Add(this.labelEmptyBands);
+            this.panelContent.Location = new System.Drawing.Point(0, 70);
+            this.panelContent.Name = "panelContent";
+            this.panelContent.Size = new System.Drawing.Size(885, 440);
+            this.panelContent.TabIndex = 1;
+            // 
+            // labelEmptyBands
+            // 
+            this.labelEmptyBands.AutoSize = true;
+            this.labelEmptyBands.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelEmptyBands.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.labelEmptyBands.Location = new System.Drawing.Point(43, 160);
+            this.labelEmptyBands.Name = "labelEmptyBands";
+            this.labelEmptyBands.Size = new System.Drawing.Size(809, 37);
+            this.labelEmptyBands.TabIndex = 0;
+            this.labelEmptyBands.Text = "НА ЖАЛЬ, В ЦЮ КАТЕГОРІЮ ЩЕ НІЧОГО НЕ ДОДАНО:(";
+            this.labelEmptyBands.Visible = false;
+            // 
             // Bands
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -94,6 +109,8 @@ namespace DP_music.Pages
             this.Load += new System.EventHandler(this.Bands_Load);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
+            this.panelContent.ResumeLayout(false);
+            this.panelContent.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,5 +122,6 @@ namespace DP_music.Pages
         private System.Windows.Forms.Label labelBands;
         private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.Label labelEmptyBands;
     }
 }

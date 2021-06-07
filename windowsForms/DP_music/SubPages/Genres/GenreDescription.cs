@@ -16,6 +16,7 @@ namespace DP_music.SubPages.Genres
     {
         public Genre genre;
         private mainForm parent;
+        private string url = "http://164.90.166.133:7402/";
 
         public GenreDescription(Genre genre, mainForm parent)
         {
@@ -33,7 +34,7 @@ namespace DP_music.SubPages.Genres
         {
             labelGenreName.Text = genre.name.ToUpper();
             labelGenreName.Location = new Point((panelName.Width - labelGenreName.Width) / 2, (panelName.Height - labelGenreName.Height) / 2);
-            pictureBoxImage.ImageLocation = "http://164.90.166.133/" + genre.image;
+            pictureBoxImage.ImageLocation = url + genre.image;
             textBoxDescription.Text = genre.description;
         }
 

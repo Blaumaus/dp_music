@@ -13,7 +13,7 @@ namespace DP_music.helpers
 {
     public static class apiHelpers
     {
-        private readonly static string basedURL = "http://164.90.166.133//api/";
+        private readonly static string basedURL = "http://164.90.166.133:7402/api/";
         private readonly static string localURL = "https://localhost:44304/api/";
 
         public static async Task<string> GetAllGenres()
@@ -34,6 +34,25 @@ namespace DP_music.helpers
             }
             return string.Empty;
         }
+
+        public static async Task<Genre> GetGenre(string id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Genre/" + id))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            return JsonConvert.DeserializeObject<Genre>(data);
+                        }
+                    }
+                }
+            }
+            return new Genre();
+        }
         public static async Task<postLogin> IsLogin(string userLogin)
         {
             HttpContent userInfo = new StringContent(userLogin, Encoding.UTF8, "application/json");
@@ -41,7 +60,7 @@ namespace DP_music.helpers
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    using (HttpResponseMessage res = await client.PostAsync(localURL + "Account/Login", userInfo))
+                    using (HttpResponseMessage res = await client.PostAsync(basedURL + "Account/Login", userInfo))
                     {
                         using (HttpContent content = res.Content)
                         {
@@ -77,7 +96,7 @@ namespace DP_music.helpers
         {
             using (HttpClient client = new HttpClient())
             {
-                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, localURL + "User");
+                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, basedURL + "User");
                 httpRequestMessage.Headers.Add("Cookie", token);
 
                 //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
@@ -110,7 +129,7 @@ namespace DP_music.helpers
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.GetAsync(localURL + "UserValidation/ValidateUserName/" + userName))
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "UserValidation/ValidateUserName/" + userName))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -129,7 +148,7 @@ namespace DP_music.helpers
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.GetAsync(localURL + "UserValidation/ValidateEmail/" + email))
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "UserValidation/ValidateEmail/" + email))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -149,7 +168,7 @@ namespace DP_music.helpers
             HttpContent userInfo = new StringContent(user, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.PostAsync(localURL + "Account/Register", userInfo))
+                using (HttpResponseMessage res = await client.PostAsync(basedURL + "Account/Register", userInfo))
                 {
                     using (HttpContent content = res.Content)
                     {
@@ -168,7 +187,7 @@ namespace DP_music.helpers
         {
             using (HttpClient client = new HttpClient())
             {
-                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, localURL + "Account/Logout");
+                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, basedURL + "Account/Logout");
                 httpRequestMessage.Headers.Add("Cookie", token);
 
                 //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
@@ -187,7 +206,7 @@ namespace DP_music.helpers
         {
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Band/id?id=" + genreId))
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Band?genreId=" + genreId))
                 {
                     using (HttpContent content = res.Content)
                     {

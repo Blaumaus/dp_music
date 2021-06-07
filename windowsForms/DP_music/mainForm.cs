@@ -33,7 +33,7 @@ namespace DP_music
             set => buttonAccountName.Text = value.ToString();
         }
 
-        private Form activeForm = null;
+        public Form activeForm = null;
         private Button activeButton = null;
         private Button subActiveButton = null;
 
@@ -42,8 +42,6 @@ namespace DP_music
             DoubleBuffered = true;
             InitializeComponent();
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 25, 25));
-            buttonSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonSearch.Width, buttonSearch.Height, 8, 8));
-            textBoxSearch.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, textBoxSearch.Width, textBoxSearch.Height, 10, 10));
             openChildForm(new Home(), buttonHome, buttonHomeName);
             panelHeader.BringToFront();
             panelBar.Size = new Size(0, panelBar.Height);
@@ -163,7 +161,7 @@ namespace DP_music
 
         public void buttonAccount_Click(object sender, EventArgs e)
         {
-            if( user.login == "Guest")
+            if( user.login == "ГІСТЬ")
             {
                 openChildForm(new AccountMain(this), buttonAccount, buttonAccountName);
             }

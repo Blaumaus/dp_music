@@ -44,6 +44,7 @@ namespace DP_music.Pages
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelEmptyGanres = new System.Windows.Forms.Label();
             this.panelContent.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -71,6 +72,7 @@ namespace DP_music.Pages
             // panelContent
             // 
             this.panelContent.BackColor = System.Drawing.Color.White;
+            this.panelContent.Controls.Add(this.labelEmptyGanres);
             this.panelContent.Controls.Add(this.panel3);
             this.panelContent.Controls.Add(this.panel2);
             this.panelContent.Controls.Add(this.panel1);
@@ -208,6 +210,18 @@ namespace DP_music.Pages
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // labelEmptyGanres
+            // 
+            this.labelEmptyGanres.AutoSize = true;
+            this.labelEmptyGanres.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelEmptyGanres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
+            this.labelEmptyGanres.Location = new System.Drawing.Point(43, 0);
+            this.labelEmptyGanres.Name = "labelEmptyGanres";
+            this.labelEmptyGanres.Size = new System.Drawing.Size(809, 37);
+            this.labelEmptyGanres.TabIndex = 5;
+            this.labelEmptyGanres.Text = "НА ЖАЛЬ, В ЦЮ КАТЕГОРІЮ ЩЕ НІЧОГО НЕ ДОДАНО:(";
+            this.labelEmptyGanres.Visible = false;
+            // 
             // Genres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -223,6 +237,7 @@ namespace DP_music.Pages
             this.Text = "Genres";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Genres_Paint);
             this.panelContent.ResumeLayout(false);
+            this.panelContent.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
@@ -255,5 +270,6 @@ namespace DP_music.Pages
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelEmptyGanres;
     }
 }

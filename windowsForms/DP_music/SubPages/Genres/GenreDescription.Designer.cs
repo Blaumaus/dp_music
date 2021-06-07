@@ -45,7 +45,7 @@ namespace DP_music.SubPages.Genres
             this.pictureBoxImage.Location = new System.Drawing.Point(30, 108);
             this.pictureBoxImage.Name = "pictureBoxImage";
             this.pictureBoxImage.Size = new System.Drawing.Size(322, 260);
-            this.pictureBoxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxImage.TabIndex = 3;
             this.pictureBoxImage.TabStop = false;
             // 

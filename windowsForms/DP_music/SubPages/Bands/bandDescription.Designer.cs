@@ -159,9 +159,10 @@ namespace DP_music.SubPages.Bands
             // 
             // pictureBoxFlag
             // 
-            this.pictureBoxFlag.Location = new System.Drawing.Point(714, 106);
+            this.pictureBoxFlag.Location = new System.Drawing.Point(714, 110);
             this.pictureBoxFlag.Name = "pictureBoxFlag";
             this.pictureBoxFlag.Size = new System.Drawing.Size(45, 39);
+            this.pictureBoxFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxFlag.TabIndex = 14;
             this.pictureBoxFlag.TabStop = false;
             // 
