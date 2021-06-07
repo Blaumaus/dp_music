@@ -23,6 +23,7 @@ namespace DAL
         public int Year { get; set; }
         public string Lyrics { get; set; }
         public string Description { get; set; }
+        public string FilePath { get; set; }
 
         public virtual Album Album { get; set; }
         public virtual Band Band { get; set; }

@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import Typography from '@material-ui/core/Typography';
+import React from "react";
 import useStyles from "../EntityPageComponents.styles"
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Formik, Form, ErrorMessage } from 'formik'
@@ -25,6 +23,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import moment from 'moment';
 
 const Band = props => {
 
@@ -32,8 +31,8 @@ const Band = props => {
 
     const { handleUpload, onChange, handleClickCreate,
         handleClickEdit, handleClickDelete, handleSubmit,
-        bands, file, disableField, isAdmin, selectedBand,
-        handleButtonBackClick, handleBandItemClick, buttonsback, genres } = props
+        bands, disableField, selectedBand,
+        handleButtonBackClick, handleBandItemClick, buttonsback, genres, ImagefileToView, user } = props
 
     const today = new Date(Date.now());
     const validationSchema = yup.object({
@@ -41,7 +40,7 @@ const Band = props => {
             .required("Введіть Назву"),
         description: yup.string(),
         countryCode: yup.string().matches(/^[a-zA-Z]*$/, "Не вірний формат").length(2, "Не вірний формат"),
-        foundationDate: yup.date().max(today, 'Не може бути раніше сьогоднішньої'),
+        foundationDate: yup.date(),
         genreId: yup.string().required("Виберіть жанр"),
     });
 
@@ -62,13 +61,13 @@ const Band = props => {
             <div className={classes.buttonsBackContainer}>
                 <Breadcrumbs separator={<ArrowForwardIosIcon fontSize="small" />}>
                     {buttonsback.map(button => {
-                        return <Button component={Link} to={button.link}>
+                        return <Button  key={button.name} component={Link} to={button.link}>
                             {button.name}
                         </Button>
                     })}
                 </Breadcrumbs>
             </div>
-            {isAdmin ? (<div>{selectedBand ?
+            {user.role === 'Admin' ? (<div>{selectedBand ?
                 (<div className={classes.paperForm}>
 
                     <Formik className={classes.form}
@@ -81,7 +80,7 @@ const Band = props => {
                             <Form onSubmit={handleSubmit}>
 
                                 <div className={classes.upload}>
-                                    <img src={file} className={classes.avatar} />
+                                    <img src={ImagefileToView} className={classes.avatar} />
                                     <input
                                         accept="image/*"
                                         className={classes.input}
@@ -101,7 +100,7 @@ const Band = props => {
 
                                 </div>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                         <TextField
                                             onChange={handleFieldChange}
                                             name="name"
@@ -115,13 +114,11 @@ const Band = props => {
 
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 disableToolbar
                                                 variant="inline"
-                                                format="MM/dd/yyyy"
-                                                margin="normal"
                                                 id="date-picker-inline"
                                                 name="foundationDate"
                                                 inputVariant="outlined"
@@ -129,7 +126,7 @@ const Band = props => {
                                                 disabled={disableField}
                                                 label="Дата заснування"
                                                 format="dd/MM/yyyy"
-                                                value={values.foundationDate}
+                                                value={moment(values.foundationDate).isValid() ? moment(values.foundationDate) : new Date()}
                                                 InputAdornmentProps={{ position: "start" }}
                                                 onChange={handleDateChange}
                                                 error={touched.foundationDate && Boolean(errors.foundationDate)}
@@ -137,7 +134,7 @@ const Band = props => {
                                             />
                                         </MuiPickersUtilsProvider>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                         <TextField
                                             onChange={handleFieldChange}
                                             name="countryCode"
@@ -151,26 +148,9 @@ const Band = props => {
 
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            onChange={handleFieldChange}
-                                            name="description"
-                                            label="Опис"
-                                            value={values.description}
-                                            placeholder="Description"
-                                            variant="outlined"
-                                            multiline
-                                            disabled={disableField}
-                                            fullWidth
-                                            rows={3}
-                                            rowsMax={10}
-                                            error={touched.description && Boolean(errors.description)}
-                                            helperText={touched.description && errors.description}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
-                                            <InputLabel style={{ marginTop: '-1em' }} htmlFor="genreId">Жанр</InputLabel>
+                                    <Grid item xs={12} sm={6}>
+                                        <FormControl variant="outlined" fullWidth>
+                                            <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="genreId">Жанр</InputLabel>
                                             <Select
                                                 native
                                                 id="genreId"
@@ -186,6 +166,24 @@ const Band = props => {
                                             </Select>
                                         </FormControl>
                                     </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            onChange={handleFieldChange}
+                                            name="description"
+                                            label="Опис"
+                                            value={values.description}
+                                            placeholder="Опис"
+                                            variant="outlined"
+                                            multiline
+                                            disabled={disableField}
+                                            fullWidth
+                                            rows={3}
+                                            rowsMax={10}
+                                            error={touched.description && Boolean(errors.description)}
+                                            helperText={touched.description && errors.description}
+                                        />
+                                    </Grid>
+
                                 </Grid>
                                 <div className={classes.buttonsFormContainer}>
                                     <div className={classes.buttonSubmitContainer}>
@@ -228,6 +226,7 @@ const Band = props => {
                             name={band.name}
                             image={band.image}
                             foundationDate={band.foundationDate}
+                            countryCode={band.countryCode}
                             description={band.description}
                             onClick={() => handleBandItemClick(band)}
                             id={band.id}

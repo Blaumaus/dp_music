@@ -17,8 +17,8 @@ namespace BLL.Services
             var options = new CookieOptions
             {
                 HttpOnly = true,
-                SameSite = SameSiteMode.None,
-                Secure = true,
+                SameSite = SameSiteMode.Lax,
+                Secure = false,
                 Expires = DateTime.Now.AddHours(expirationTime)
             };
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, options);
@@ -29,8 +29,8 @@ namespace BLL.Services
             var options = new CookieOptions
             {
                 HttpOnly = true,
-                SameSite = SameSiteMode.None,
-                Secure = true
+                SameSite = SameSiteMode.Lax,
+                Secure = false
             };
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(key, options);
         }

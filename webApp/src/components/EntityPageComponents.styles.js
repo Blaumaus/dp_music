@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         left: '49%',
         transform: 'translate(-50%, 0)',
-        width: 'auto',
-        height: '12em',
+        width: '20em',
+        height: '15em',
         'border-radius': '5%',
     },
     upload: {
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         paddingBottom: theme.spacing(5),
+        padding: '1em'
     },
     form: {
         width: '100%',
@@ -58,23 +59,31 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '1em',
         display: 'flex',
         width: '100%',
-        gap:'1em'
+        gap: '1em'
     },
     buttonBackContainer: {
-        width:'25%'
+        width: '25%'
     },
     buttonSubmitContainer: {
-        width:'75%'
+        width: '75%'
     },
     input: {
         display: 'none',
     },
     audioPlayer: {
-        margin: theme.spacing(8),
+        marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(8),
+        marginLeft: '1em',
+        marginRight: '1em',
+        alignContent:'center',
+        alignItems:'center'
+    },
+    compositionName: {
+        padding: '0.5em'
     },
     audioPlayerCompositionName: {
-        margin: theme.spacing(3),
-        width: 'auto',
+        padding: '1em',
+        'text-align': 'center'
     },
     arrayEmpty: {
         marginLeft: '10%',
@@ -97,14 +106,15 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         borderColor: "#0275d8",
         '&:hover': {
-            background: "#3f50b5",
-            color: "white",
+            backgroundColor: "#3f50b5",
+            color: "blue",
         },
     },
     compositionIcons: {
         display: 'grid',
         'justify-items': 'center',
-        'align-items': 'center'
+        'align-items': 'center',
+        'cursor': 'pointer'
     },
     addCompositionButton: {
         marginTop: theme.spacing(1),
@@ -113,6 +123,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translate(-50%, 0)',
         margin: theme.spacing(0.5),
         width: '4em',
+        'cursor': 'pointer'
     },
     buttonsBackContainer: {
         display: 'flex',

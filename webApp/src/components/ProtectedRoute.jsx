@@ -11,6 +11,7 @@ class ProtectedRoute extends React.Component {
       isLoading: false
     }
   }
+  
   async componentDidMount() {
     this.setState({ isLoading: true });
 
@@ -20,10 +21,12 @@ class ProtectedRoute extends React.Component {
       this.props.history.push('/SignIn');
       return;
     }
+
     this.setState({
       isAuthenticated: isAuthenticated,
       isLoading: false
-    })
+    });
+  
   }
 
   render() {

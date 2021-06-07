@@ -29,6 +29,12 @@ namespace BLL.Services
 
         public async Task<IEnumerable<BandDto>> GetBand(string id)
         {
+            if (id == null)
+            {
+                var bands = await Task.Run(() => _mapper.Map<IEnumerable<Band>, IEnumerable<BandDto>>(unitOfWork.Band.GetAll()));
+                return bands;
+            }
+
             var bandsgenre = await Task.Run(() => _mapper.Map<IEnumerable<Bandgenre>, IEnumerable<BandgenreDto>>(unitOfWork.Bandgenre.GetAll()).Where(x => x.GenreId == id)); 
             
             if(bandsgenre != null)
@@ -102,6 +108,7 @@ namespace BLL.Services
 
         public async Task<BandDto> GetBandId(string id)
         {
+           
             var band = await Task.Run(() => _mapper.Map<Band, BandDto>(unitOfWork.Band.Get(id)));
             band.GenreId = id;
 
@@ -124,11 +131,9 @@ namespace BLL.Services
             var band = unitOfWork.Band.Get(bandDto.Id);
             if (bandDto.Name != null)
                 band.Name = bandDto.Name;
-            if (bandDto.Description != null)
                 band.Description = bandDto.Description;
             if (bandDto.FoundationDate != null)
                 band.FoundationDate = (DateTime)bandDto.FoundationDate;
-            if (bandDto.CountryCode != null)
                 band.CountryCode = bandDto.CountryCode;
 
 
@@ -141,7 +146,7 @@ namespace BLL.Services
                     if (File.Exists(filePath))
                         File.Delete(filePath);
                 }
-
+                band.Image = band.Id + ".png";
                 using (FileStream fileStream = File.Create(_contentFolder + band.Id + ".png"))
                 {
                     bandDto.File.CopyTo(fileStream);
@@ -153,11 +158,6 @@ namespace BLL.Services
             if(bandDto.GenreId != null)
             {
                 unitOfWork.Bandgenre.Delete(bandDto.Id);
-                //Bandgenre bandgenre1 = new Bandgenre
-                //{
-                //    BandId = band.Id,
-                //    GenreId = bandDto.GenreId
-                //};
                 BandgenreDto bandgenreDto = new BandgenreDto
                 {
                     BandId = band.Id,

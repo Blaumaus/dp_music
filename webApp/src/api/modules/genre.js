@@ -10,7 +10,15 @@ export default class GenreApi {
       headers: { 'Content-Type': 'multipart/form-data'}
     })
   }
-  static getGenres() {
+  static async update(genre) {
+    await axios({
+      method: 'put',
+      url: `${apiUrl}/Genre`,
+      data: genre,
+      headers: { 'Content-Type': 'multipart/form-data'}
+    })
+  }
+  static async getGenres() {
     return ApiClient.get('/Genre');
   }
   static async delete(id) {

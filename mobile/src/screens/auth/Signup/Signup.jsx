@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import { useTranslation } from 'react-i18next'
 import _isEmpty from 'lodash/isEmpty'
 import _toString from 'lodash/toString'
@@ -17,9 +16,10 @@ import {
 } from 'react-native-ui-lib'
 
 import { validateUsername, validateEmail } from '../../../api'
-import styles from '../styles'
+import getStyles from '../styles'
 
-export default function ({ navigation, register: _register, authorised }) {
+export default function ({ navigation, register: _register, authorised, theme }) {
+  const styles = getStyles(theme)
   const { t } = useTranslation('common')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -35,8 +35,7 @@ export default function ({ navigation, register: _register, authorised }) {
     const data = {
       userName: username,
       password,
-      email,
-      // userId: 0 // What the fuck?!
+      email
     }
 
     _register(data, err => {
@@ -47,13 +46,12 @@ export default function ({ navigation, register: _register, authorised }) {
         setUsername('')
         setEmailVerified(false)
         setUsernameVerified(false)
-        navigation.navigate('Main')
+        navigation.navigate('Auth.Signin')
       }
     })
   }
 
   const checkUsernameAvailability = () => {
-    setIsValidating(true)
     if (!_isEmpty(username)) {
       validateUsername(username)
         .then(({ data, errorMessage }) => {
@@ -75,7 +73,6 @@ export default function ({ navigation, register: _register, authorised }) {
   }
 
   const checkEmailAvailability = () => {
-    setIsValidating(true)
     if (!_isEmpty(email)) {
       validateEmail(email)
         .then(({ data, errorMessage }) => {
@@ -103,7 +100,6 @@ export default function ({ navigation, register: _register, authorised }) {
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={styles.keyboardView}>
-      <StatusBar style="auto" translucent backgroundColor="#f7f7f7" />
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.imageContainer}>
           <Image
@@ -113,7 +109,7 @@ export default function ({ navigation, register: _register, authorised }) {
           />
         </View>
         <View style={styles.form}>
-          <Text style={styles.formHeader} uppercase>
+          <Text style={{ ...styles.formHeader, ...styles.text }} uppercase>
             {t('auth.signup')}
 					</Text>
           <TextField
@@ -126,7 +122,10 @@ export default function ({ navigation, register: _register, authorised }) {
             autoCompleteType="off"
             autoCorrect={false}
             keyboardType="email-address"
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => {
+              setEmailError('')
+              setEmail(text)
+            }}
             onBlur={checkEmailAvailability}
           />
           <TextField
@@ -139,7 +138,10 @@ export default function ({ navigation, register: _register, authorised }) {
             autoCompleteType="off"
             autoCorrect={false}
             keyboardType="email-address"
-            onChangeText={(text) => setUsername(text)}
+            onChangeText={(text) => {
+              setUsernameError('')
+              setUsername(text)
+            }}
             onBlur={checkUsernameAvailability}
           />
           <TextField
@@ -163,7 +165,7 @@ export default function ({ navigation, register: _register, authorised }) {
           />
 
           <View style={styles.secondaryContainer}>
-            <Text>{t('auth.haveAnAccount')}</Text>
+            <Text style={styles.text}>{t('auth.haveAnAccount')}</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Auth.Signin')}>
               <Text style={{...styles.bottomText, ...styles.link}}>
                 {t('auth.loginHere')}

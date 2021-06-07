@@ -1,5 +1,6 @@
+import CompositionApi from 'api/modules/composition';
+import BuildUrl from 'helpers/BuildUrl'
 
-import { v4 as uuidv4 } from 'uuid';
 
 const CREATE_COMPOSITION = 'CREATE_COMPOSITION';
 const UPDATE_COMPOSITION = 'UPDATE_COMPOSITION';
@@ -15,7 +16,7 @@ let initialState = {
 };
 const CompositionReducer = (state = initialState, action) => {
     switch (action.type) {
-       
+
         case SET_COMPOSITIONS: {
             return {
                 ...state,
@@ -76,78 +77,36 @@ export const SortCompositionsSuccess = () => ({
     type: SORT_COMPOSITIONS
 })
 
-//TODO: Get WITH GenreId Param
-export const getCompositions = () => {
+export const getCompositions = (albumId, bandId) => {
     return (dispatch) => {
-        //TODO: Get FROM API
-        dispatch(SetCompositionsSuccess([
-            {
-                id: 1,
-                name: 'DJ Turn it Up',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/272_yellow-claw-dj-.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-            {
-                id: 2,
-                name: 'Another Music',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/271_Slipknot-Eyeles.mp3',
-                description: 'This is Rock Composition'
-            },
-            {
-                id: 3,
-                name: 'ANOTHE',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/262_LIL_PEEP-ANOTHE.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-            {
-                id: 4,
-                name: 'DJ Turn it Up',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/272_yellow-claw-dj-.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-            {
-                id: 5,
-                name: 'DJ Turn it Up',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/272_yellow-claw-dj-.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-            {
-                id: 6,
-                name: 'ANOTHE',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/262_LIL_PEEP-ANOTHE.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-            {
-                id: 7,
-                name: 'DJ Turn it Up',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/272_yellow-claw-dj-.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-            {
-                id: 8,
-                name: 'DJ Turn it Up',
-                compositionFile: 'https://xoctik.ucoz.ru/_ld/2/272_yellow-claw-dj-.mp3',
-                description: 'This is DJ Turn it Up'
-            },
-        ]));
+        return CompositionApi.getCompositions(albumId, bandId).then(data => {
+            const compositions = Object.values(data.data);
+            compositions.forEach(composition => {
+                composition.filePath = BuildUrl.getUrl(composition.filePath)
+            })
+            dispatch(SetCompositionsSuccess(compositions))
+        });
     }
 }
 export const Create = (composition) => {
     return (dispatch) => {
-        //TODO: POST REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(CreateSuccess(composition))
+        return CompositionApi.create(composition).then(
+            dispatch(CreateSuccess(composition))
+        );
     }
 }
 export const Update = (composition) => {
     return (dispatch) => {
-        //TODO: PUT REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(UpdateSuccess(composition))
+        return CompositionApi.update(composition).then(
+            dispatch(UpdateSuccess(composition))
+        );
     }
 }
 export const Delete = (composition) => {
     return (dispatch) => {
-        //TODO: DELETE REQUEST TO SERVER IF OK THEN dispatch
-        dispatch(DeleteSuccess(composition))
+        return CompositionApi.delete(composition.id).then(
+            dispatch(DeleteSuccess(composition))
+        );
     }
 }
 export const SortCompositions = () => {

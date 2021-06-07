@@ -3,7 +3,11 @@
     "home": "Home",
     "settings": "Settings",
     "logout": "Sign out",
-    "login": "Sign in"
+    "login": "Sign in",
+    "bands": "Bands",
+    "albums": "Albums",
+    "songs": "Songs",
+    "detailedInfo": "Detailed info"
   },
   "languages": {
     "selectLanguage": "Select language",
@@ -12,6 +16,9 @@
     "en": "English",
     "ru": "Russian",
     "uk": "Ukrainian"
+  },
+  "settings": {
+    "darkTheme": "Dark theme"
   },
   "auth": {
     "signin": "Sign in",
@@ -34,7 +41,7 @@
   },
   "home": {
     "noGenres": "There are currently no genres available.. :(",
-    "noBands":  "There are no bands available for the genre {{ genre }}.. :(",
+    "noBands": "There are no bands for genre {{ genre }} yet.. :(",
     "availableGenres": "Available genres",
     "availableBands": "Bands of genre {{ genre }}",
     "holdForInfo": "Hold for detailed information",
@@ -42,12 +49,72 @@
     "name": "Name",
     "description": "Description",
     "foundationDate": "Foundation date",
-    "countryCode": "Country"
+    "year": "Release year",
+    "countryCode": "Country",
+    "lyrics": "Lyrics",
+    "absent": "[Absent]"
+  },
+  "albums": {
+    "noAlbums": "There are no albums of band {{ band }} yet.. :(",
+    "availableAlbums": "Albums of {{ band }}",
+    "goToTracks": "Show all songs"
+  },
+  "songs": {
+    "noSongs": "There are no songs of album {{ album }} yet.. :(",
+    "noSongsBand": "There are no songs of band {{ band }} yet.. :(",
+    "availableSongs": "Songs of album {{ album }}",
+    "availableSongsBand": "Songs of band {{ band }}"
   },
   "countries": {
+    "AM": "Armenia",
+    "AU": "Australia",
+    "AT": "Austria",
+    "AZ": "Azerbaijan",
+    "BY": "Belarus",
+    "BE": "Belgium",
+    "BA": "Bosnia and Herzegovina",
+    "BR": "Brazil",
+    "BG": "Bulgaria",
+    "CA": "Canada",
+    "CN": "China",
+    "HR": "Croatia",
+    "CY": "Cyprus",
+    "CZ": "Czechia",
+    "DK": "Denmark",
+    "EE": "Estonia",
+    "FI": "Finland",
+    "FR": "France",
+    "GE": "Georgia",
+    "DE": "Germany",
+    "GR": "Greece",
+    "HK": "Hong Kong",
+    "HU": "Hungary",
+    "IS": "Iceland",
+    "IN": "India",
+    "IE": "Ireland",
+    "IL": "Israel",
+    "IT": "Italy",
+    "JP": "Japan",
+    "KZ": "Kazakhstan",
+    "KR": "The Republic of Korea",
+    "LV": "Latvia",
+    "LT": "Lithuania",
+    "MX": "Mexico",
+    "MD": "The Republic of Moldova",
+    "NL": "The Netherlands",
+    "NZ": "New Zealand",
+    "PL": "Poland",
+    "RO": "Romania",
+    "RS": "Serbia",
+    "SK": "Slovakia",
+    "SI": "Slovenia",
+    "ZA": "South Africa",
+    "ES": "Spain",
+    "TR": "Turkey",
+    "TH": "Thailand",
     "US": "The United States of America",
     "RU": "The Russian Federation",
     "UA": "Ukraine",
-    "UK": "The United Kingdom"
+    "GB": "The United Kingdom"
   }
 }

@@ -1,12 +1,28 @@
 {
   "name": "mobile",
-  "displayName": "mobile",
+  "displayName": "DP Music",
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
-    "version": "1.0.0",
+    "name": "DP Music",
+    "slug": "dp-music",
+    "version": "1.0.1",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.blaumaus.dpmusic",
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/record.png"
+      },
+      "icon": "./src/assets/record.png"
+    },
+    "ios": {
+      "bundleIdentifier": "com.blaumaus.dpmusic",
+      "buildNumber": "1.0.1"
+    },
+    "icon": "./src/assets/record.png",
+    "privacy": "hidden",
+    "githubUrl": "https://github.com/Blaumaus/dp_music",
+    "orientation": "portrait"
   }
 }

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import * as Localisation from 'expo-localization'
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { SafeAreaView } from 'react-native'
 import i18next from 'i18next'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
@@ -57,27 +57,39 @@ const languageDetector = {
 i18next
   .use(languageDetector)
   .use(initReactI18next)
-	.init({
-		interpolation: {
-			escapeValue: false,
-		},
-		whitelist,
-		resources: {
-			en: { common: en },
-			ru: { common: ru },
-			uk: { common: uk },
-		},
+  .init({
+    interpolation: {
+      escapeValue: false,
+    },
+    whitelist,
+    resources: {
+      en: { common: en },
+      ru: { common: ru },
+      uk: { common: uk },
+    },
     react: {
       useSuspense: false,
     }
-	})
+  })
+
+const EStatusBar = () => {
+  const theme = useSelector(state => state.themeReducer?.theme)
+
+  return (
+    <StatusBar
+      backgroundColor={theme === 'dark' ? constants.BACKGROUND_DARK : constants.BACKGROUND_LIGHT}
+      style={theme === 'dark' ? 'light' : 'dark'}
+      translucent
+    />
+  )
+}
 
 export default () => (
   <Provider store={store}>
     <I18nextProvider i18n={i18next}>
       <SplashInitialisation>
         <SafeAreaView style={{ flex: 1 }}>
-          <StatusBar style="auto" translucent />
+          <EStatusBar />
           <AppNavigator />
           <Toast />
         </SafeAreaView>

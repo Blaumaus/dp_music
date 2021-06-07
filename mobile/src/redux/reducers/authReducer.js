@@ -10,7 +10,6 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
 	switch (type) {
-		case types.SIGNUP_UP_SUCCESSFUL:
 		case types.LOGIN_SUCCESSFUL:
 			return {
 				...state,
@@ -18,6 +17,9 @@ export default (state = initialState, { type, payload }) => {
 				isAuthenticated: true,
 				token: payload.token,
 			}
+
+		case types.SIGNUP_UP_SUCCESSFUL:
+			return state
 
 		case types.UPDATE_USER_PROFILE_SUCCESS:
 			return {

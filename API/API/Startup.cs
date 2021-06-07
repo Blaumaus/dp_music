@@ -17,6 +17,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.CookiePolicy;
 
 namespace API
 {
@@ -58,7 +59,13 @@ namespace API
             services.AddTransient<IUserValidationService, UserValidationService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBandService, BandService>();
+            services.AddTransient<IAlbumService, AlbumService>();
+            services.AddTransient<ICompositionService, CompositionService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.ConfigureApplicationCookie(options => {
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                         .AddJwtBearer(options =>
                         {
@@ -95,6 +102,10 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                Secure = CookieSecurePolicy.None,
+            });
 
             app.UseSwaggerUI(c =>
             {
