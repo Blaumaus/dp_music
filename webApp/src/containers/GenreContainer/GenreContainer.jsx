@@ -49,12 +49,12 @@ class GenreContainer extends React.Component {
     hideLoader = () => this.setState({ isLoading: false });
 
     handleUpload = event => {
-        if (event.target.files[0]) {
-            this.setState({
-                ImagefileToView: URL.createObjectURL(event.target.files[0]),
-                ImagefileToSend: event.target.files[0]
-            })
-        }
+        debugger;
+        this.setState({
+            ImagefileToView: URL.createObjectURL(event.target.files[0]),
+            ImagefileToSend: event.target.files[0]
+        })
+
     };
 
     onChange = (field, value) => {
@@ -85,6 +85,7 @@ class GenreContainer extends React.Component {
     };
 
     handleClickEdit = (genre) => {
+        debugger;
         this.setState({
             selectedGenre: genre,
             action: 'update',

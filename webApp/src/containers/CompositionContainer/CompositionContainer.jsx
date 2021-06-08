@@ -91,7 +91,10 @@ class CompositionContainer extends React.Component {
         this.setState({
             selectedComposition: { ...this.state.selectedComposition, [field]: value },
         })
-        await this.props.getAlbums(this.props.bands[0].id);
+        if (this.props.bands.length != 0) {
+            await this.props.getAlbums(this.props.bands[0].id);
+        }
+
     };
 
     onChangeBandSelector = async (field, value) => {
@@ -184,7 +187,7 @@ class CompositionContainer extends React.Component {
         return (
             <CssBaseline>
                 {
-                    !isLoading &&  <Composition
+                    !isLoading && <Composition
                         handleUpload={this.handleUpload}
                         onChange={this.onChange}
                         handleClickCreate={this.handleClickCreate}

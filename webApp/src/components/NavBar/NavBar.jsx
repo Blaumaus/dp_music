@@ -90,13 +90,13 @@ const NavBar = props => {
                                     {auth ? (
                                         <div>
                                             <MenuItem >{user && user.login}</MenuItem>
-                                            <MenuItem onClick={handleSignOutClick}>Sign Out</MenuItem>
+                                            <MenuItem onClick={handleSignOutClick}>Вихідt</MenuItem>
 
                                         </div>
                                     ) : (
                                         <div>
-                                            <MenuItem component={Link} to="/SignIn">Sign In</MenuItem>
-                                            <MenuItem component={Link} to="/SignUp" >Sign Up</MenuItem>
+                                            <MenuItem component={Link} to="/SignIn">Увійти</MenuItem>
+                                            <MenuItem component={Link} to="/SignUp" >Реєстрація</MenuItem>
                                         </div>
                                     )}
 
@@ -119,7 +119,7 @@ const NavBar = props => {
                                             endIcon={<ExitToAppIcon />}
                                             onClick={handleSignOutClick}
                                         >
-                                            Sign Out
+                                            Вихід
                                      </Button>
 
 
@@ -131,14 +131,14 @@ const NavBar = props => {
                                             variant="text"
                                             className={classes.menuButton}
                                         >
-                                            Sign In
+                                            Увійти
                                      </Button>
                                         <Button
                                             component={Link} to="/SignUp"
                                             variant="text"
                                             className={classes.menuButton}
                                         >
-                                            Sign Up
+                                            Реєстрація
                                      </Button>
 
                                     </div>

@@ -33,6 +33,7 @@ const Genre = props => {
     });
 
     const onFieldChange = (event) => {
+        
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
         onChange(fieldName, fieldValue);

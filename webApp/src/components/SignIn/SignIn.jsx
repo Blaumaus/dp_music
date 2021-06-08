@@ -43,7 +43,7 @@ const SignIn = (props) => {
     return <div className={isMobile ? classes.paperMobile : classes.paperDesktop} align='center'>
       <div>
         <Title level={3}>
-          Sign in
+          Вхід
       </Title>
       </div>
       <Row className={classes.signUpFieldsContainer}>
@@ -88,7 +88,7 @@ const SignIn = (props) => {
       <Row className={classes.alreadyHaveAccountGridItem}>
         <Col xs={24} sm={24}>
           <Text level={5} >
-            <Link to="/SignUp">Don't have an account?</Link>
+            <Link to="/SignUp">Ще не маєте аккаунту?</Link>
           </Text>
         </Col>
       </Row>
