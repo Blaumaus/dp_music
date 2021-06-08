@@ -61,7 +61,6 @@ const Composition = props => {
         year: yup.number().required('Введіть рік виходу')
             .min(1900, 'Рік повинен бути не менше 1900').max(today.getFullYear(), 'Рік повинен не більший ніж поточний'),
         description: yup.string(),
-
     });
 
     const handleFieldChange = (event) => {
@@ -174,6 +173,7 @@ const Composition = props => {
                                                     value={values.genreId ? values.genreId : genres[0].id}
                                                     onChange={handleGenreSelectorValueChange}
                                                     fullWidth
+                                                    required
                                                     disabled={disableField}
                                                 >
                                                     {genres.map(genre => {
@@ -183,37 +183,42 @@ const Composition = props => {
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={12} sm={4}>
-                                            <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
-                                                <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="bandId">Група</InputLabel>
+                                            <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }} >
+                                                <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="bandId" >Група</InputLabel >
                                                 <Select
                                                     native
                                                     id="bandId"
                                                     name="bandId"
                                                     value={values.bandId ? values.bandId : bands[0].id}
                                                     onChange={handleBandSelectorValueChange}
+                                                    required
                                                     fullWidth
-                                                    disabled={disableField}
+                                                    disabled={disableField}                                          
                                                 >
                                                     {bands.map(band => {
                                                         return <option key={band.name} value={band.id}>{band.name}</option>
                                                     })}
                                                 </Select>
+                                                
                                             </FormControl>
                                         </Grid>
                                         <Grid item xs={12} sm={4}>
                                             <FormControl variant="outlined" fullWidth style={{ marginTop: '1em' }}>
-                                                <InputLabel style={{ marginTop: '-0.5em' }} htmlFor="albumId">Альбом</InputLabel>
+                                                <InputLabel  shrink style={{ marginTop: '-0.5em' }} htmlFor="albumId">Альбом</InputLabel>
                                                 <Select
                                                     native
                                                     id="albumId"
                                                     name="albumId"
+                                                    required
                                                     value={values.albumId ? values.albumId : albums[0].id}
                                                     onChange={handleFieldChange}
                                                     fullWidth
                                                     disabled={disableField}
                                                 >
                                                     {albums.map(album => {
-                                                        return <option key={album.name} value={album.id}>{album.name}</option>
+                                                        if (bands.length != 0)  {
+                                                            return <option key={album.name} value={album.id}>{album.name}</option>
+                                                        }
                                                     })}
                                                 </Select>
                                             </FormControl>
@@ -312,13 +317,13 @@ const Composition = props => {
                             </div>
                         }
 
-                        {!isLoading && compositionToPlay !== undefined ? ( <Grid container item xs={12} sm={9} className={classes.compositonsActionsContainer}>
-                                <SortByAlphaIcon onClick={handleSortAlphabetically} color="secondary" className={classes.compositonsActions} />
-                                <SortIcon color="secondary" className={classes.compositonsActions} />
-                            </Grid>): (
+                        {!isLoading && compositionToPlay !== undefined ? (<Grid container item xs={12} sm={9} className={classes.compositonsActionsContainer}>
+                            <SortByAlphaIcon onClick={handleSortAlphabetically} color="secondary" className={classes.compositonsActions} />
+                            <SortIcon color="secondary" className={classes.compositonsActions} />
+                        </Grid>) : (
                             <div style={arrayEmpty}>Композицій ще не додано</div>
-                           )
-                           
+                        )
+
                         }
 
                         {compositions.map(composition => {

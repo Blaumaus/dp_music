@@ -36,10 +36,10 @@ const SignUp = props => {
   const validationSchema = yup.object({
     userName: yup
       .string()
-      .required('Username required')
+      .required(`Нікнейм є обов'язковим`)
       .test({
         name: 'userName',
-        message: 'This User Name is already exist',
+        message: 'Такий Нікнейм уже існує',
         exclusive: true,
         test: (isValid) => {
           if (user.userName !== '' && isValidatedUserName === false) {
@@ -52,12 +52,12 @@ const SignUp = props => {
       }),
     email: yup
       .string()
-      .required('Email required')
-      .email('Incorrect email')
+      .required(`Адреса є обов'язковою`)
+      .email('Невірна адреса')
       .test({
         name: 'email',
         exclusive: true,
-        message: 'This Email is already exist',
+        message: 'Така адреса уже існує',
         test: (isValid) => {
           if (user.email !== '' && isValidatedEmail === false && emailRegExp.test(user.email)) {
             isValid = validateEmail();
@@ -68,11 +68,11 @@ const SignUp = props => {
       }),
     password: yup
       .string()
-      .required('Password required'),
+      .required(`Пароль є обов'язковим`),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('password'), null], "Passwords don't match!")
-      .required('Confirm password required')
+      .required(`Підтвердження паролю є обов'язковим`)
   });
   const onFieldChange = (event) => {
     const fieldName = event.target.name;
@@ -114,7 +114,7 @@ const SignUp = props => {
 
     return <div className={isMobile ? classes.paperMobileStepFirst : classes.paperDesktopStepFirst} align='center'>
       <Title level={3} className={classes.textLabel}>
-        Sign up
+        Реєстрація
           </Title>
       <Row className={classes.signUpFieldsContainer}>
         <Col xs={24} sm={12}>
@@ -190,7 +190,7 @@ const SignUp = props => {
       <Row className={classes.alreadyHaveAccountGridItem}>
         <Col xs={24} sm={24}>
           <Text level={5} >
-            <Link to="/SignIn">Already have an account? Sign in!</Link>
+            <Link to="/SignIn">Уже є аккаунт? Увійти!</Link>
           </Text>
         </Col>
       </Row>
