@@ -14,7 +14,8 @@ class SignUpContainer extends Component {
         },
         errorMessageTime: 1,
         successMessageTime: 1,
-        successMessageContent: 'You have successfully logged in'
+        successMessageContent: 'Ви успішно авторизувались',
+        errorMessageContent: 'Невірний логін або пароль'
     };
 
     onChange = (field, value) => {
@@ -39,10 +40,10 @@ class SignUpContainer extends Component {
     };
 
     handleSubmit = async () => {
-        const { user, successMessageContent } = this.state;
+        const { user, successMessageContent, errorMessageContent } = this.state;
         const authenticationError = await AuthenticationService.authenticate(user);
         if (authenticationError) {
-            this.error(authenticationError);
+            this.error(errorMessageContent);
         }
         else {
             this.success(successMessageContent);
