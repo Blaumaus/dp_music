@@ -152,7 +152,7 @@ namespace DP_music
 
         public void buttonRecord_Click(object sender, EventArgs e)
         {
-            openChildForm(new Record(), buttonRecord, buttonRecordName);
+            openChildForm(new Records(this), buttonRecord, buttonRecordName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;

@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using DP_music.Entities;
 using DP_music.SubPages.Bands;
 using DP_music.helpers;
+using DP_music.SubPages.Albums;
 
 namespace DP_music.Pages
 {
@@ -123,10 +124,7 @@ namespace DP_music.Pages
         {
             PictureBox album = (PictureBox)sender;
             Album currentAlbum = albums.FirstOrDefault(e => e.id == album.AccessibleName);
-            //if (band != null)
-                //parent.openChildForm(new bandDescription(parent, currentAlbum, band), parent.buttonGroups, parent.buttonGroupsName);
-            //else
-                //parent.openChildForm(new bandDescription(parent, currentBand), parent.buttonGroups, parent.buttonGroupsName);
+            parent.openChildForm(new AlbumDescription(parent, currentAlbum, band, genre), parent.buttonAlbums, parent.buttonAlbumsName);
         }
 
         private PictureBox addPictureBoxAlbum(string path, string albumId)

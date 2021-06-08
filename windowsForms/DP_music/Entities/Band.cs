@@ -28,5 +28,7 @@ namespace DP_music.Entities
             this.description = description;
             this.file = file;
         }
+
+        public Band() { }
     }
 }

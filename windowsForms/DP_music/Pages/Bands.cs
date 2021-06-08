@@ -52,10 +52,10 @@ namespace DP_music.Pages
         {
             labelBands.Location = new Point((panelHeader.Width - labelBands.Width) / 2, (panelHeader.Height - labelBands.Height) / 2);
             if (genre != null)
-                bands = await apiHelpers.getBand(genre.id);
+                bands = await apiHelpers.getBands(genre.id);
             else
                 //Повертає всі групи, але без айді жанрів
-                bands = await apiHelpers.getBand("8158cc6f-aebb-418d-9b0a-e0acc3f443a3");
+                bands = await apiHelpers.getBands("8158cc6f-aebb-418d-9b0a-e0acc3f443a3");
             if (bands != null)
             {
                 int i = 0;

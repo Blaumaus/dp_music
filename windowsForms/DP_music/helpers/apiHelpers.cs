@@ -202,7 +202,7 @@ namespace DP_music.helpers
             return false;
         }
 
-        public static async Task<List<Band>> getBand(string genreId="")
+        public static async Task<List<Band>> getBands(string genreId="")
         {
             using (HttpClient client = new HttpClient())
             {
@@ -219,6 +219,25 @@ namespace DP_music.helpers
                 }
             }
             return new List<Band>();
+        }
+
+        public static async Task<Band> getBand(string genreId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Band?genreId=" + genreId))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            return JsonConvert.DeserializeObject<Band>(data);
+                        }
+                    }
+                }
+            }
+            return new Band();
         }
 
         public static async Task<List<Album>> getAlbums(string bandId="")
@@ -238,6 +257,44 @@ namespace DP_music.helpers
                 }
             }
             return new List<Album>();
+        }
+
+        public static async Task<List<Record>> getRecords()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Composition/All"))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            return JsonConvert.DeserializeObject<List<Record>>(data);
+                        }
+                    }
+                }
+            }
+            return new List<Record>();
+        }
+
+        public static async Task<List<Record>> getRecords(string albumId, string bandId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Composition?albumId=" + albumId + "&bandId=" + bandId))
+                {
+                    using (HttpContent content = res.Content)
+                    {
+                        var data = await content.ReadAsStringAsync();
+                        if (data != null)
+                        {
+                            return JsonConvert.DeserializeObject<List<Record>>(data);
+                        }
+                    }
+                }
+            }
+            return new List<Record>();
         }
     }
 }
