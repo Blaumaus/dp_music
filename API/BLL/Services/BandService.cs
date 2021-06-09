@@ -31,8 +31,26 @@ namespace BLL.Services
         {
             if (id == null)
             {
-                var bands = await Task.Run(() => _mapper.Map<IEnumerable<Band>, IEnumerable<BandDto>>(unitOfWork.Band.GetAll()));
-                return bands;
+                var bandsgenreAll = await Task.Run(() => _mapper.Map<IEnumerable<Bandgenre>, IEnumerable<BandgenreDto>>(unitOfWork.Bandgenre.GetAll()));
+                if (bandsgenreAll != null)
+                {
+                    IEnumerable<BandDto> bands = new BandDto[] { };
+                    foreach (var bandgenre in bandsgenreAll)
+                    {
+                        BandDto band = await Task.Run(() => _mapper.Map<Band, BandDto>(unitOfWork.Band.Get(bandgenre.BandId)));
+                        band.GenreId = bandgenre.GenreId;
+
+                        //Image
+                        if (band.Image != null)
+                            band.Image = _contentFolder + band.Image;
+                        else
+                            band.Image = _contentFolder + "default.png";
+
+                        bands = bands.Append(band);
+                    }
+
+                    return bands;
+                }
             }
 
             var bandsgenre = await Task.Run(() => _mapper.Map<IEnumerable<Bandgenre>, IEnumerable<BandgenreDto>>(unitOfWork.Bandgenre.GetAll()).Where(x => x.GenreId == id)); 
