@@ -46,11 +46,10 @@ namespace DP_music.Pages
 
         private async void Genres_Paint(object sender, PaintEventArgs e)
         {
-            var responce = await genreAPI.GetAllGenres();
-            if (responce != null)
+            genres = await genreAPI.GetAllGenres();
+
+            if (genres != null)
             {
-                genres = JsonConvert.DeserializeObject<List<Genre>>(responce);
-            
                 int x = 0;
                 int y = 0;
                 for(int i = 0; i < genres.Count; i++)

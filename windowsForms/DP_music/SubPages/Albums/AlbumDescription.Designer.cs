@@ -77,6 +77,7 @@ namespace DP_music.SubPages.Albums
             this.buttonBack.TabIndex = 12;
             this.buttonBack.Text = "←";
             this.buttonBack.UseVisualStyleBackColor = false;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // buttonRecord
             // 
@@ -91,6 +92,7 @@ namespace DP_music.SubPages.Albums
             this.buttonRecord.TabIndex = 13;
             this.buttonRecord.Text = "АУДІОЗАПИСИ";
             this.buttonRecord.UseVisualStyleBackColor = false;
+            this.buttonRecord.Click += new System.EventHandler(this.buttonRecord_Click);
             // 
             // pictureBoxImage
             // 

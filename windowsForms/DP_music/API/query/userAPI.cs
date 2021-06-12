@@ -56,25 +56,32 @@ namespace DP_music.API.query
 
         public static async Task<User> GetUser(string token)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, basedURL + "User");
-                httpRequestMessage.Headers.Add("Cookie", token);
-
-                //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
-                using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, basedURL + "User");
+                    httpRequestMessage.Headers.Add("Cookie", token);
+
+                    //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
+                    using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage))
                     {
-                        var user = await content.ReadAsStringAsync();
-                        if (user != null)
+                        using (HttpContent content = res.Content)
                         {
-                            return convertToUser(user);
+                            var user = await content.ReadAsStringAsync();
+                            if (user != null)
+                            {
+                                return convertToUser(user);
+                            }
                         }
                     }
                 }
+                return new User();
             }
-            return new User();
+            catch
+            {
+                return new User();
+            }
         }
 
         private static User convertToUser(string user)
@@ -89,79 +96,107 @@ namespace DP_music.API.query
 
         public static async Task<postLogin> ValidateUserName(string userName)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.GetAsync(basedURL + "UserValidation/ValidateUserName/" + userName))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "UserValidation/ValidateUserName/" + userName))
                     {
-                        var valid = await content.ReadAsStringAsync();
-                        if (valid != null)
+                        using (HttpContent content = res.Content)
                         {
-                            return JsonConvert.DeserializeObject<postLogin>(valid);
+                            var valid = await content.ReadAsStringAsync();
+                            if (valid != null)
+                            {
+                                return JsonConvert.DeserializeObject<postLogin>(valid);
+                            }
                         }
                     }
                 }
+                return new postLogin();
             }
-            return new postLogin();
+            catch
+            {
+                return new postLogin();
+            }
         }
 
         public static async Task<postLogin> ValidateEmail(string email)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.GetAsync(basedURL + "UserValidation/ValidateEmail/" + email))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "UserValidation/ValidateEmail/" + email))
                     {
-                        var valid = await content.ReadAsStringAsync();
-                        if (valid != null)
+                        using (HttpContent content = res.Content)
                         {
-                            return JsonConvert.DeserializeObject<postLogin>(valid);
+                            var valid = await content.ReadAsStringAsync();
+                            if (valid != null)
+                            {
+                                return JsonConvert.DeserializeObject<postLogin>(valid);
+                            }
                         }
                     }
                 }
+                return new postLogin();
             }
-            return new postLogin();
+            catch
+            {
+                return new postLogin();
+            }
         }
 
         public static async Task<bool> Registration(string user)
         {
-            HttpContent userInfo = new StringContent(user, Encoding.UTF8, "application/json");
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.PostAsync(basedURL + "Account/Register", userInfo))
+                HttpContent userInfo = new StringContent(user, Encoding.UTF8, "application/json");
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.PostAsync(basedURL + "Account/Register", userInfo))
                     {
-                        var data = await content.ReadAsStringAsync();
-                        if (data == null || data == "")
+                        using (HttpContent content = res.Content)
+                        {
+                            var data = await content.ReadAsStringAsync();
+                            if (data == null || data == "")
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static async Task<bool> deleteAccount(string token)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, basedURL + "Account/Logout");
+                    httpRequestMessage.Headers.Add("Cookie", token);
+
+                    //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
+                    using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage))
+                    {
+                        if (res.StatusCode == HttpStatusCode.OK)
                         {
                             return true;
                         }
                     }
                 }
+                return false;
             }
-            return false;
-        }
-
-        public static async Task<bool> deleteAccount(string token)
-        {
-            using (HttpClient client = new HttpClient())
+            catch
             {
-                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Delete, basedURL + "Account/Logout");
-                httpRequestMessage.Headers.Add("Cookie", token);
-
-                //using (HttpResponseMessage res = await client.GetAsync(localURL + "User"))
-                using (HttpResponseMessage res = await client.SendAsync(httpRequestMessage))
-                {
-                    if (res.StatusCode == HttpStatusCode.OK)
-                    {
-                        return true;
-                    }
-                }
+                return false;
             }
-            return false;
         }
     }
 }

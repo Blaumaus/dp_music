@@ -34,6 +34,7 @@ namespace DP_music.Pages
             this.buttonBack = new System.Windows.Forms.Button();
             this.labelRecord = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
@@ -59,7 +60,6 @@ namespace DP_music.Pages
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelEmptyRecords = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelHeader.SuspendLayout();
             this.panelContent.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -105,15 +105,16 @@ namespace DP_music.Pages
             this.buttonBack.TabIndex = 3;
             this.buttonBack.Text = "←";
             this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // labelRecord
             // 
             this.labelRecord.AutoSize = true;
-            this.labelRecord.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelRecord.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelRecord.ForeColor = System.Drawing.Color.White;
             this.labelRecord.Location = new System.Drawing.Point(120, 19);
             this.labelRecord.Name = "labelRecord";
-            this.labelRecord.Size = new System.Drawing.Size(699, 40);
+            this.labelRecord.Size = new System.Drawing.Size(412, 23);
             this.labelRecord.TabIndex = 0;
             this.labelRecord.Text = "АУДІО, ЯКІ ВІДНОСЯТЬСЯ ДО АЛЬБОМУ ";
             // 
@@ -131,6 +132,15 @@ namespace DP_music.Pages
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(905, 440);
             this.panelContent.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(421, 302);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(8, 8);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -417,15 +427,6 @@ namespace DP_music.Pages
             this.labelEmptyRecords.TabIndex = 0;
             this.labelEmptyRecords.Text = "НА ЖАЛЬ, В ЦЮ КАТЕГОРІЮ ЩЕ НІЧОГО НЕ ДОДАНО:(";
             this.labelEmptyRecords.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(421, 302);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(8, 8);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // Records
             // 

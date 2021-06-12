@@ -16,40 +16,54 @@ namespace DP_music.API.query
 
         public static async Task<List<Record>> getRecords()
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Composition/All"))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "Composition/All"))
                     {
-                        var data = await content.ReadAsStringAsync();
-                        if (data != null)
+                        using (HttpContent content = res.Content)
                         {
-                            return JsonConvert.DeserializeObject<List<Record>>(data);
+                            var data = await content.ReadAsStringAsync();
+                            if (data != null)
+                            {
+                                return JsonConvert.DeserializeObject<List<Record>>(data);
+                            }
                         }
                     }
                 }
+                return new List<Record>();
             }
-            return new List<Record>();
+            catch
+            {
+                return new List<Record>();
+            }
         }
 
         public static async Task<List<Record>> getRecords(string albumId, string bandId)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Composition?albumId=" + albumId + "&bandId=" + bandId))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "Composition?albumId=" + albumId + "&bandId=" + bandId))
                     {
-                        var data = await content.ReadAsStringAsync();
-                        if (data != null)
+                        using (HttpContent content = res.Content)
                         {
-                            return JsonConvert.DeserializeObject<List<Record>>(data);
+                            var data = await content.ReadAsStringAsync();
+                            if (data != null)
+                            {
+                                return JsonConvert.DeserializeObject<List<Record>>(data);
+                            }
                         }
                     }
                 }
+                return new List<Record>();
             }
-            return new List<Record>();
+            catch
+            {
+                return new List<Record>();
+            }
         }
     }
 }

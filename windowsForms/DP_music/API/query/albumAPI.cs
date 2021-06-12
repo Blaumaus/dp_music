@@ -16,40 +16,54 @@ namespace DP_music.API.query
 
         public static async Task<List<Album>> getAlbums(string bandId = "")
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
-                using (HttpResponseMessage res = await client.GetAsync(basedURL + "Album?bandId=" + bandId))
+                using (HttpClient client = new HttpClient())
                 {
-                    using (HttpContent content = res.Content)
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "Album?bandId=" + bandId))
                     {
-                        var data = await content.ReadAsStringAsync();
-                        if (data != null)
+                        using (HttpContent content = res.Content)
                         {
-                            return JsonConvert.DeserializeObject<List<Album>>(data);
+                            var data = await content.ReadAsStringAsync();
+                            if (data != null)
+                            {
+                                return JsonConvert.DeserializeObject<List<Album>>(data);
+                            }
                         }
                     }
                 }
+                return new List<Album>();
             }
-            return new List<Album>();
+            catch
+            {
+                return new List<Album>();
+            }
         }
 
-        //public static async Task<Album> getAlbum(string bandId = "")
-        //{
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        using (HttpResponseMessage res = await client.GetAsync(basedURL + "Album?bandId=" + bandId))
-        //        {
-        //            using (HttpContent content = res.Content)
-        //            {
-        //                var data = await content.ReadAsStringAsync();
-        //                if (data != null)
-        //                {
-        //                    return JsonConvert.DeserializeObject<List<Album>>(data);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return new List<Album>();
-        //}
+        public static async Task<Album> getAlbum(string albumId = "")
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "Album?bandId=" + albumId))
+                    {
+                        using (HttpContent content = res.Content)
+                        {
+                            var data = await content.ReadAsStringAsync();
+                            if (data != null)
+                            {
+                                return JsonConvert.DeserializeObject<Album>(data);
+                            }
+                        }
+                    }
+                }
+                return new Album();
+            }
+            catch
+            {
+                return new Album();
+            }
+        }
     }
 }
