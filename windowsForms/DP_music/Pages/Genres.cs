@@ -89,11 +89,7 @@ namespace DP_music.Pages
             panelGenre.Size = new Size(325, 304);
             panelGenre.Parent = parent;
             panelGenre.Location = new Point(0, 0);
-            //panelGenre.Location = new Point(78 * (x+1) + 325 * x, 304 * y + 30 * (y+1));
-            //panelGenre.BackColor = Color.White;
             panelGenre.BackColor = Color.FromArgb(150, 41, 52, 117);
-            //panelGenre.BackColor = Color.FromArgb(41, 52, 117);
-            //panelGenre.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelGenre.Width, panelGenre.Height, 10, 10));
 
             return panelGenre;
         }
@@ -103,17 +99,8 @@ namespace DP_music.Pages
             PictureBox pbBorder = new PictureBox();
             pbBorder.Size = new Size(325, 304);
             pbBorder.Location = new Point(78 * (x + 1) + 325 * x, 304 * y + 30 * (y + 1));
-
-            //using (WebClient wClient = new WebClient())
-            //using (Stream imageUrl = wClient.OpenRead(url + path))
-            //{
-            //    var image = new Bitmap(imageUrl);
-            //    pbBorder.Image = image;
-            //}
             pbBorder.ImageLocation = url + path;
-            //panelGenre.BackColor = Color.White;
             pbBorder.SizeMode = PictureBoxSizeMode.StretchImage;
-            //panelGenre.BackColor = Color.FromArgb(41, 52, 117);
             pbBorder.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pbBorder.Width, pbBorder.Height, 10, 10));
 
             return pbBorder;
@@ -129,7 +116,6 @@ namespace DP_music.Pages
             pictureBoxImg.BackColor = Color.Transparent;
             pictureBoxImg.Cursor = Cursors.Hand;
             pictureBoxImg.Click += pictureBoxImg_Click;
-            //pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;
         }
 
@@ -139,7 +125,6 @@ namespace DP_music.Pages
             labelName.Location = new Point(40,250);
             labelName.Font = new Font(new FontFamily("Century Gothic"), 16, FontStyle.Bold);
             labelName.ForeColor = Color.White;
-            //labelName.ForeColor = Color.FromArgb(41, 52, 117);
             labelName.Size = new Size(200, 27);
             return labelName;
         }
