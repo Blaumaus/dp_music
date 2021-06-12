@@ -83,6 +83,22 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AlbumDto>> GetId([FromRoute] string id)
+        {
+            try
+            {
+                AlbumDto album = await _albumService.GetAlbumId(id);
+                if (album == null)
+                    return NotFound();
+                return new ObjectResult(album);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPut]
         public async Task<ActionResult> Put(IFormCollection data)
         {

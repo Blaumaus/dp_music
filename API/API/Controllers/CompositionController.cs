@@ -105,6 +105,22 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CompositionDto>> GetId([FromRoute] string id)
+        {
+            try
+            {
+                CompositionDto composition = await _compositionService.GetCompositionId(id);
+                if (composition == null)
+                    return NotFound();
+                return new ObjectResult(composition);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPut]
         public async Task<ActionResult> Put(IFormCollection data)
         {
