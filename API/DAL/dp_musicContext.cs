@@ -57,7 +57,6 @@ namespace DAL
                 entity.ToTable("band");
                 entity.Property(e => e.Id).HasMaxLength(36);
                 entity.Property(e => e.CountryCode)
-                    .IsRequired()
                     .HasMaxLength(2);
 
                 entity.Property(e => e.Description).HasMaxLength(1000);
