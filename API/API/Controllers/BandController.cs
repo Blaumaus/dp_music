@@ -63,6 +63,22 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BandDto>> GetId([FromRoute] string id)
+        {
+            try
+            {
+                BandDto band = await _bandService.GetBandId(id);
+                if (band == null)
+                    return NotFound();
+                return new ObjectResult(band);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPut]
         public ActionResult Put(IFormCollection data)
         {
