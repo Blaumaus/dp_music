@@ -13,6 +13,7 @@ using DP_music.helpers;
 using DP_music.API;
 using Newtonsoft.Json;
 using DP_music.Entities;
+using DP_music.API.query;
 
 namespace DP_music.Account.Registration
 {
@@ -55,22 +56,22 @@ namespace DP_music.Account.Registration
                 return;
             if (password == passwordSubmit)
             {
-                var validName = await apiHelpers.ValidateUserName(name);
-                var validEmail = await apiHelpers.ValidateEmail(customTextBoxEmail.Text);
+                var validName = await userAPI.ValidateUserName(name);
+                var validEmail = await userAPI.ValidateEmail(customTextBoxEmail.Text);
                 if (Regex.IsMatch(email, regEmail))
                 {
                     if (validName.data == "true")
                     {
                         if (validEmail.data == "true")
                         {
-                            bool isRegistred = await apiHelpers.Registration(ConvertToRegistration(name, email, password));
+                            bool isRegistred = await userAPI.Registration(ConvertToRegistration(name, email, password));
                             if (isRegistred)
                             {
                                 var userInfo = convertToJSON(name, password);
-                                var loginStatus = await apiHelpers.IsLogin(userInfo);
+                                var loginStatus = await userAPI.IsLogin(userInfo);
                                 if (loginStatus.data != "false")
                                 {
-                                    parent.user = await apiHelpers.GetUser(loginStatus.token);
+                                    parent.user = await userAPI.GetUser(loginStatus.token);
                                     parent.user.token = loginStatus.token;
                                     parent.userName.Text = parent.user.login;
                                     parent.activeForm = new Home();

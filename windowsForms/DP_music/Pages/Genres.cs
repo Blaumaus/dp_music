@@ -17,6 +17,7 @@ using DP_music.staticData;
 using DP_music.SubPages.Genres;
 using System.Reflection;
 using System.Net;
+using DP_music.API.query;
 
 namespace DP_music.Pages
 {
@@ -45,7 +46,7 @@ namespace DP_music.Pages
 
         private async void Genres_Paint(object sender, PaintEventArgs e)
         {
-            var responce = await apiHelpers.GetAllGenres();
+            var responce = await genreAPI.GetAllGenres();
             if (responce != null)
             {
                 genres = JsonConvert.DeserializeObject<List<Genre>>(responce);

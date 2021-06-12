@@ -12,6 +12,7 @@ using DP_music.Entities;
 using DP_music.SubPages.Bands;
 using DP_music.helpers;
 using DP_music.SubPages.Albums;
+using DP_music.API.query;
 
 namespace DP_music.Pages
 {
@@ -68,9 +69,9 @@ namespace DP_music.Pages
         {
             labelAlbums.Location = new Point((panelHeader.Width - labelAlbums.Width) / 2, (panelHeader.Height - labelAlbums.Height) / 2);
             if(band != null)
-                albums = await apiHelpers.getAlbums(band.id);
+                albums = await albumAPI.getAlbums(band.id);
             else
-                albums = await apiHelpers.getAlbums();
+                albums = await albumAPI.getAlbums();
             if (albums != null)
             {
                 int i = 0;

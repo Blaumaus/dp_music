@@ -13,6 +13,7 @@ using DP_music.helpers;
 using Newtonsoft.Json;
 using DP_music.API;
 using DP_music.Entities;
+using DP_music.API.query;
 
 namespace DP_music.Account.Login
 {
@@ -62,10 +63,10 @@ namespace DP_music.Account.Login
                 {
 
                     var userInfo = convertToJSON(userLogin, userPass);
-                    var loginStatus = await apiHelpers.IsLogin(userInfo);
+                    var loginStatus = await userAPI.IsLogin(userInfo);
                     if (loginStatus.data != "false")
                     {
-                        user = await apiHelpers.GetUser(loginStatus.token);
+                        user = await userAPI.GetUser(loginStatus.token);
                         user.token = loginStatus.token;
                         parent.userName.Text = user.login;
                         parent.user = user;

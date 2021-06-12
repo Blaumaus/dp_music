@@ -1,4 +1,5 @@
-﻿using DP_music.Entities;
+﻿using DP_music.API.query;
+using DP_music.Entities;
 using DP_music.helpers;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace DP_music.SubPages.Bands
             labelBandCountry.Text = band.countryCode.ToUpper();
             labelBandDate.Text = band.foundationData.ToString().Substring(0,10).ToUpper();
             pictureBoxFlag.ImageLocation = "https://www.countryflags.io/" + band.countryCode + "/shiny/64.png";
-            var genre = await apiHelpers.GetGenre(band.genreId);
+            var genre = await genreAPI.GetGenre(band.genreId);
             labelBandGenre.Text = genre.name.ToUpper();
             textBoxDescription.Text = band.description;
             labelBandName.Location = new Point((panelName.Width - labelBandName.Width) / 2,

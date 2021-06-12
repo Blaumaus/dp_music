@@ -12,6 +12,7 @@ using DP_music.Entities;
 using DP_music.helpers;
 using DP_music.SubPages.Genres;
 using DP_music.SubPages.Bands;
+using DP_music.API.query;
 
 namespace DP_music.Pages
 {
@@ -52,10 +53,10 @@ namespace DP_music.Pages
         {
             labelBands.Location = new Point((panelHeader.Width - labelBands.Width) / 2, (panelHeader.Height - labelBands.Height) / 2);
             if (genre != null)
-                bands = await apiHelpers.getBands(genre.id);
+                bands = await bandAPI.getBands(genre.id);
             else
                 //Повертає всі групи, але без айді жанрів
-                bands = await apiHelpers.getBands("8158cc6f-aebb-418d-9b0a-e0acc3f443a3");
+                bands = await bandAPI.getBands("8158cc6f-aebb-418d-9b0a-e0acc3f443a3");
             if (bands != null)
             {
                 int i = 0;

@@ -1,4 +1,5 @@
-﻿using DP_music.Entities;
+﻿using DP_music.API.query;
+using DP_music.Entities;
 using DP_music.helpers;
 using DP_music.SubPages.Albums;
 using System;
@@ -68,9 +69,9 @@ namespace DP_music.Pages
         {
             labelRecord.Location = new Point((panelHeader.Width - labelRecord.Width) / 2, (panelHeader.Height - labelRecord.Height) / 2);
             if (album != null && band !=null)
-                records = await apiHelpers.getRecords(album.id, band.id);
+                records = await recordAPI.getRecords(album.id, band.id);
             else
-                records = await apiHelpers.getRecords();
+                records = await recordAPI.getRecords();
             if (records != null)
             {
                 int i = 0;

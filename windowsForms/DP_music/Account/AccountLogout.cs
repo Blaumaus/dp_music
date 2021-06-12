@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DP_music.Entities;
 using DP_music.helpers;
+using DP_music.API.query;
 
 namespace DP_music.Account
 {
@@ -37,7 +38,7 @@ namespace DP_music.Account
 
         private async void buttonLogOut_Click(object sender, EventArgs e)
         {
-            if(await apiHelpers.deleteAccount(parent.user.token))
+            if(await userAPI.deleteAccount(parent.user.token))
             {
                 parent.user = new User();
                 parent.userName.Text = parent.user.login;

@@ -1,4 +1,5 @@
-﻿using DP_music.Entities;
+﻿using DP_music.API.query;
+using DP_music.Entities;
 using DP_music.helpers;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace DP_music.SubPages.Albums
             //pictureBoxImage.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + band.image;
             labelAlbumName.Text = album.name.ToUpper();
             labelAlbumYear.Text = album.year.ToString().ToUpper();
-            var band_ = await apiHelpers.getBand(album.bandId);
+            var band_ = await bandAPI.getBand(album.bandId);
             labelAlbumBand.Text = band_.name.ToUpper();
             textBoxDescription.Text = album.description;
             labelAlbumName.Location = new Point((panelName.Width - labelAlbumName.Width) / 2,
