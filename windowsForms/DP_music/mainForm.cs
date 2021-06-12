@@ -27,10 +27,10 @@ namespace DP_music
             int nHeightElipse
         );
         public User user { get; set; }
-        public Button userName
+        public TextBox userName
         {
-            get => buttonAccountName;
-            set => buttonAccountName.Text = value.ToString();
+            get => textBoxUserName;
+            set => textBoxUserName.Text = value.ToString();
         }
 
         public Form activeForm = null;
@@ -47,7 +47,7 @@ namespace DP_music
             panelBar.Size = new Size(0, panelBar.Height);
             panelChildForm.Size = panelContent.Size;
             user = new User();
-            buttonAccountName.Text = user.login;
+            userName.Text = user.login == "guest"? "Гість": user.login;
             buttonHome_Click(this, new EventArgs());
         }
 
@@ -161,7 +161,7 @@ namespace DP_music
 
         public void buttonAccount_Click(object sender, EventArgs e)
         {
-            if( user.login == "ГІСТЬ")
+            if( user.login == "guest")
             {
                 openChildForm(new AccountMain(this), buttonAccount, buttonAccountName);
             }

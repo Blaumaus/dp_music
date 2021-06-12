@@ -66,9 +66,21 @@ namespace DP_music.Account.Registration
                             bool isRegistred = await apiHelpers.Registration(ConvertToRegistration(name, email, password));
                             if (isRegistred)
                             {
-                                parent.userName.Text = name;
-                                parent.user.login = name;
-                                parent.user.role = "User";
+                                var userInfo = convertToJSON(name, password);
+                                var loginStatus = await apiHelpers.IsLogin(userInfo);
+                                if (loginStatus.data != "false")
+                                {
+                                    parent.user = await apiHelpers.GetUser(loginStatus.token);
+                                    parent.user.token = loginStatus.token;
+                                    parent.userName.Text = parent.user.login;
+                                    parent.activeForm = new Home();
+                                    parent.openChildForm(new Home(), parent.buttonHome, parent.buttonHomeName);
+                                    this.Close();
+                                }
+                                else
+                                    //MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    new Message(parent, loginStatus.errorMessage, true, false);
+
                                 parent.openChildForm(new Home(), parent.buttonHome, parent.buttonHomeName);
                                 this.Close();
                             }
@@ -96,6 +108,16 @@ namespace DP_music.Account.Registration
             {
                 new Message(parent, "Паролі не збігаються!", true, false);
             }
+        }
+
+        private string convertToJSON(string userLogin, string userPass)
+        {
+            var content = new Dictionary<string, string>()
+            {
+                {"login", userLogin },
+                {"password", userPass }
+            };
+            return JsonConvert.SerializeObject(content);
         }
 
         private string ConvertToRegistration(string name, string email, string password)

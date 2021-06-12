@@ -259,6 +259,25 @@ namespace DP_music.helpers
             return new List<Album>();
         }
 
+        //public static async Task<Album> getAlbum(string bandId = "")
+        //{
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        using (HttpResponseMessage res = await client.GetAsync(basedURL + "Album?bandId=" + bandId))
+        //        {
+        //            using (HttpContent content = res.Content)
+        //            {
+        //                var data = await content.ReadAsStringAsync();
+        //                if (data != null)
+        //                {
+        //                    return JsonConvert.DeserializeObject<List<Album>>(data);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return new List<Album>();
+        //}
+
         public static async Task<List<Record>> getRecords()
         {
             using (HttpClient client = new HttpClient())

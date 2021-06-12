@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -76,7 +78,7 @@ namespace DP_music.Pages
                 records.ForEach((record) =>
                 {
                     PictureBox pictureBoxRecord = addPictureBoxRecord(i, record.name);
-                    PictureBox pictureBoxPlay = addPictureBoxPlay(pictureBoxRecord.Width + 35, i, record.name);
+                    PictureBox pictureBoxPlay = addPictureBoxPlay(pictureBoxRecord.Width + 35, i, record.filePath);
                     Label labelNameRecord = addLabelNameRecord(pictureBoxRecord.Width + 35, i, record.name);
 
                     panelContent.Controls.Add(pictureBoxRecord);
@@ -139,8 +141,19 @@ namespace DP_music.Pages
             pictureBoxPlay.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxPlay.BackColor = Color.Transparent;
             pictureBoxPlay.AccessibleName = url;
+            pictureBoxPlay.Click += pictureBoxPlay_Click;
 
             return pictureBoxPlay;
+        }
+
+        public void pictureBoxPlay_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+
+            WebClient Client = new WebClient();
+            Client.DownloadFile(url + pb.AccessibleName, Directory.GetCurrentDirectory());
+
+            return;
         }
     }
 }

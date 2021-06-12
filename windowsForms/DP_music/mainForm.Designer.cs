@@ -43,6 +43,7 @@ namespace DP_music
             this.labelProjectName = new System.Windows.Forms.Label();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.textBoxUserName = new System.Windows.Forms.TextBox();
             this.pictureBoxMenu = new System.Windows.Forms.PictureBox();
             this.panelBarMini = new System.Windows.Forms.Panel();
             this.buttonAccount = new System.Windows.Forms.Button();
@@ -236,6 +237,7 @@ namespace DP_music
             // panelHeader
             // 
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.panelHeader.Controls.Add(this.textBoxUserName);
             this.panelHeader.Controls.Add(this.pictureBoxMenu);
             this.panelHeader.Controls.Add(this.buttonClose);
             this.panelHeader.Controls.Add(this.labelProjectName);
@@ -243,6 +245,20 @@ namespace DP_music
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(970, 71);
             this.panelHeader.TabIndex = 10;
+            // 
+            // textBoxUserName
+            // 
+            this.textBoxUserName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.textBoxUserName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUserName.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxUserName.ForeColor = System.Drawing.Color.White;
+            this.textBoxUserName.Location = new System.Drawing.Point(363, 18);
+            this.textBoxUserName.Multiline = true;
+            this.textBoxUserName.Name = "textBoxUserName";
+            this.textBoxUserName.ReadOnly = true;
+            this.textBoxUserName.Size = new System.Drawing.Size(561, 40);
+            this.textBoxUserName.TabIndex = 6;
+            this.textBoxUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // pictureBoxMenu
             // 
@@ -428,6 +444,7 @@ namespace DP_music
         private System.Windows.Forms.Panel panelContent;
         public System.Windows.Forms.Button buttonAccount;
         public System.Windows.Forms.Button buttonAccountName;
+        private System.Windows.Forms.TextBox textBoxUserName;
     }
 }
 

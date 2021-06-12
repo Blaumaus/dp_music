@@ -51,7 +51,6 @@ namespace DP_music.Pages
 
         public Albums(mainForm parent, Band band, Genre genre) : this(parent, band)
         {
-            this.band = band;
             this.genre = genre;
             labelAlbums.Text = "АЛЬБОМИ, ЩО ВІДНОСЯТЬСЯ ДО " + band.name.ToUpper();
             buttonBack.Visible = true;

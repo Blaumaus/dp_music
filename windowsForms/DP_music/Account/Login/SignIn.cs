@@ -58,7 +58,7 @@ namespace DP_music.Account.Login
 
             if (checkTextBox(userLogin, userPass))
             {
-                if (user.login == "ГІСТЬ")
+                if (user.login == "guest")
                 {
 
                     var userInfo = convertToJSON(userLogin, userPass);

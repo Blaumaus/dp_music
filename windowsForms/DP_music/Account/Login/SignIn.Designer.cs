@@ -35,6 +35,8 @@ namespace DP_music.Account.Login
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelMainBorder = new System.Windows.Forms.Panel();
             this.panelChild = new System.Windows.Forms.Panel();
+            this.labelPasswordValid = new System.Windows.Forms.Label();
+            this.labelLoginValid = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.buttonExit = new System.Windows.Forms.Button();
             this.customTextBoxPassword = new DP_music.CustomItems.CustomTextBox();
@@ -43,8 +45,6 @@ namespace DP_music.Account.Login
             this.panelInside = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.customTextBoxLogin = new DP_music.CustomItems.CustomTextBox();
-            this.labelLoginValid = new System.Windows.Forms.Label();
-            this.labelPasswordValid = new System.Windows.Forms.Label();
             this.panelBackColor.SuspendLayout();
             this.panelContent.SuspendLayout();
             this.panelMainBorder.SuspendLayout();
@@ -115,6 +115,30 @@ namespace DP_music.Account.Login
             this.panelChild.Size = new System.Drawing.Size(825, 457);
             this.panelChild.TabIndex = 4;
             // 
+            // labelPasswordValid
+            // 
+            this.labelPasswordValid.AutoSize = true;
+            this.labelPasswordValid.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelPasswordValid.ForeColor = System.Drawing.Color.Red;
+            this.labelPasswordValid.Location = new System.Drawing.Point(461, 345);
+            this.labelPasswordValid.Name = "labelPasswordValid";
+            this.labelPasswordValid.Size = new System.Drawing.Size(106, 17);
+            this.labelPasswordValid.TabIndex = 5;
+            this.labelPasswordValid.Text = "Введіть пароль!";
+            this.labelPasswordValid.Visible = false;
+            // 
+            // labelLoginValid
+            // 
+            this.labelLoginValid.AutoSize = true;
+            this.labelLoginValid.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelLoginValid.ForeColor = System.Drawing.Color.Red;
+            this.labelLoginValid.Location = new System.Drawing.Point(461, 249);
+            this.labelLoginValid.Name = "labelLoginValid";
+            this.labelLoginValid.Size = new System.Drawing.Size(90, 17);
+            this.labelLoginValid.TabIndex = 5;
+            this.labelLoginValid.Text = "Введіть логін!";
+            this.labelLoginValid.Visible = false;
+            // 
             // pictureBox
             // 
             this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
@@ -151,7 +175,7 @@ namespace DP_music.Account.Login
             this.customTextBoxPassword.Size = new System.Drawing.Size(339, 68);
             this.customTextBoxPassword.TabIndex = 2;
             this.customTextBoxPassword.TextInput = "";
-            this.customTextBoxPassword.TextPreview = "ENTER PASSWORD";
+            this.customTextBoxPassword.TextPreview = "ВВЕДІТЬ ПАРОЛЬ";
             // 
             // buttonSignIn
             // 
@@ -164,7 +188,7 @@ namespace DP_music.Account.Login
             this.buttonSignIn.Name = "buttonSignIn";
             this.buttonSignIn.Size = new System.Drawing.Size(339, 54);
             this.buttonSignIn.TabIndex = 1;
-            this.buttonSignIn.Text = "SIGN IN";
+            this.buttonSignIn.Text = "УВІЙТИ";
             this.buttonSignIn.UseVisualStyleBackColor = true;
             this.buttonSignIn.Click += new System.EventHandler(this.buttonSignIn_Click);
             // 
@@ -193,9 +217,9 @@ namespace DP_music.Account.Login
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
             this.label1.Location = new System.Drawing.Point(97, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(209, 59);
+            this.label1.Size = new System.Drawing.Size(189, 59);
             this.label1.TabIndex = 0;
-            this.label1.Text = "SIGN IN";
+            this.label1.Text = "УВІЙТИ";
             // 
             // customTextBoxLogin
             // 
@@ -211,31 +235,7 @@ namespace DP_music.Account.Login
             this.customTextBoxLogin.Size = new System.Drawing.Size(339, 68);
             this.customTextBoxLogin.TabIndex = 2;
             this.customTextBoxLogin.TextInput = "";
-            this.customTextBoxLogin.TextPreview = "ENTER LOGIN";
-            // 
-            // labelLoginValid
-            // 
-            this.labelLoginValid.AutoSize = true;
-            this.labelLoginValid.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelLoginValid.ForeColor = System.Drawing.Color.Red;
-            this.labelLoginValid.Location = new System.Drawing.Point(461, 249);
-            this.labelLoginValid.Name = "labelLoginValid";
-            this.labelLoginValid.Size = new System.Drawing.Size(90, 17);
-            this.labelLoginValid.TabIndex = 5;
-            this.labelLoginValid.Text = "Введіть логін!";
-            this.labelLoginValid.Visible = false;
-            // 
-            // labelPasswordValid
-            // 
-            this.labelPasswordValid.AutoSize = true;
-            this.labelPasswordValid.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelPasswordValid.ForeColor = System.Drawing.Color.Red;
-            this.labelPasswordValid.Location = new System.Drawing.Point(461, 345);
-            this.labelPasswordValid.Name = "labelPasswordValid";
-            this.labelPasswordValid.Size = new System.Drawing.Size(106, 17);
-            this.labelPasswordValid.TabIndex = 5;
-            this.labelPasswordValid.Text = "Введіть пароль!";
-            this.labelPasswordValid.Visible = false;
+            this.customTextBoxLogin.TextPreview = "ВВЕДІТЬ ЛОГІН";
             // 
             // SignIn
             // 
