@@ -34,7 +34,6 @@ namespace DP_music.Pages
             this.buttonBack = new System.Windows.Forms.Button();
             this.labelRecord = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
@@ -51,9 +50,6 @@ namespace DP_music.Pages
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelVolume = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPlay = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -75,8 +71,6 @@ namespace DP_music.Pages
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -112,7 +106,7 @@ namespace DP_music.Pages
             this.labelRecord.AutoSize = true;
             this.labelRecord.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelRecord.ForeColor = System.Drawing.Color.White;
-            this.labelRecord.Location = new System.Drawing.Point(120, 19);
+            this.labelRecord.Location = new System.Drawing.Point(264, 26);
             this.labelRecord.Name = "labelRecord";
             this.labelRecord.Size = new System.Drawing.Size(412, 23);
             this.labelRecord.TabIndex = 0;
@@ -121,7 +115,6 @@ namespace DP_music.Pages
             // panelContent
             // 
             this.panelContent.AutoScroll = true;
-            this.panelContent.Controls.Add(this.button1);
             this.panelContent.Controls.Add(this.panel4);
             this.panelContent.Controls.Add(this.panel3);
             this.panelContent.Controls.Add(this.panel2);
@@ -132,15 +125,6 @@ namespace DP_music.Pages
             this.panelContent.Name = "panelContent";
             this.panelContent.Size = new System.Drawing.Size(905, 440);
             this.panelContent.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(421, 302);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(8, 8);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -315,9 +299,6 @@ namespace DP_music.Pages
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.labelVolume);
-            this.panel1.Controls.Add(this.pictureBox5);
-            this.panel1.Controls.Add(this.pictureBox4);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.pictureBoxPlay);
             this.panel1.Controls.Add(this.pictureBox3);
@@ -327,37 +308,6 @@ namespace DP_music.Pages
             this.panel1.Size = new System.Drawing.Size(407, 103);
             this.panel1.TabIndex = 4;
             this.panel1.Visible = false;
-            // 
-            // labelVolume
-            // 
-            this.labelVolume.AutoSize = true;
-            this.labelVolume.Location = new System.Drawing.Point(276, 76);
-            this.labelVolume.Name = "labelVolume";
-            this.labelVolume.Size = new System.Drawing.Size(33, 20);
-            this.labelVolume.TabIndex = 6;
-            this.labelVolume.Text = "100";
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(332, 54);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(49, 49);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 5;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Visible = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(215, 52);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(49, 49);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Visible = false;
             // 
             // pictureBox1
             // 
@@ -461,8 +411,6 @@ namespace DP_music.Pages
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -499,9 +447,5 @@ namespace DP_music.Pages
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelVolume;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Button button1;
     }
 }

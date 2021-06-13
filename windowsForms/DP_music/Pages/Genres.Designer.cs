@@ -29,6 +29,7 @@ namespace DP_music.Pages
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Genres));
             this.labelGenres = new System.Windows.Forms.Label();
             this.panelContent = new System.Windows.Forms.Panel();
@@ -46,6 +47,7 @@ namespace DP_music.Pages
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelContent.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -235,6 +237,12 @@ namespace DP_music.Pages
             this.panelHeader.Size = new System.Drawing.Size(905, 70);
             this.panelHeader.TabIndex = 2;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Genres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -247,7 +255,7 @@ namespace DP_music.Pages
             this.Name = "Genres";
             this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
             this.Text = "Genres";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Genres_Paint);
+            this.Load += new System.EventHandler(this.Genres_Load);
             this.panelContent.ResumeLayout(false);
             this.panelContent.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -286,5 +294,6 @@ namespace DP_music.Pages
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelEmptyGanres;
         private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

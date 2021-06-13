@@ -37,7 +37,6 @@ namespace DP_music.SubPages.Bands
         private async void initialize()
         {
             pictureBoxImage.ImageLocation = url + band.image;
-            //pictureBoxImage.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + band.image;
             labelBandName.Text = band.name.ToUpper();
             labelBandCountry.Text = band.countryCode.ToUpper();
             labelBandDate.Text = band.foundationData.ToString().Substring(0,10).ToUpper();

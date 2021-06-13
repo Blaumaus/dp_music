@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using DP_music.Pages;
 using DP_music.Account;
 using DP_music.Entities;
+using DP_music.API.query;
 
 namespace DP_music
 {
@@ -133,9 +134,11 @@ namespace DP_music
                 timerClosePanelBar.Enabled = true;
             }
         }
-        public void buttonGenres_Click(object sender, EventArgs e)
+        public async void buttonGenres_Click(object sender, EventArgs e)
         {
-            openChildForm(new Genres(this), buttonGenres, buttonGenresName);
+            var genres = await genreAPI.GetAllGenres();
+
+            openChildForm(new Genres(this) { genres = genres}, buttonGenres, buttonGenresName);
             if (panelBar.Width > 0)
             {
                 timerClosePanelBar.Enabled = true;

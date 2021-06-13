@@ -56,7 +56,7 @@ namespace DP_music.Pages
                 bands = await bandAPI.getBands(genre.id);
             else
                 bands = await bandAPI.getBands();
-            if (bands != null)
+            if (bands != null && bands.Count != 0)
             {
                 int i = 0;
                 int x = 0;
@@ -96,7 +96,6 @@ namespace DP_music.Pages
             PictureBox pbBorder = new PictureBox();
             pbBorder.Size = new Size(240, 240);
             pbBorder.Location = new Point(41 * (x + 1) + 240 * x, 240 * y + 30 * (y + 1));
-            //pbBorder.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
             pbBorder.ImageLocation = url + path;
             pbBorder.SizeMode = PictureBoxSizeMode.StretchImage;
             pbBorder.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pbBorder.Width, pbBorder.Height, 15, 15));
@@ -122,11 +121,10 @@ namespace DP_music.Pages
             pictureBoxImg.Size = new Size(200, 200);
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.BackColor = Color.Transparent;
-            //pictureBoxImg.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
             pictureBoxImg.Cursor = Cursors.Hand;
             pictureBoxImg.ImageLocation = url + path;
 
-            //pictureBoxImg.BackColor = Color.White;
+
             return pictureBoxImg;
         }
 

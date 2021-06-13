@@ -94,13 +94,13 @@ namespace DP_music.Account.Registration
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(52)))), ((int)(((byte)(117)))));
-            this.label1.Location = new System.Drawing.Point(91, 102);
+            this.label1.Location = new System.Drawing.Point(13, 102);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 59);
+            this.label1.Size = new System.Drawing.Size(364, 44);
             this.label1.TabIndex = 2;
-            this.label1.Text = "SIGN UP";
+            this.label1.Text = "ЗАРЕЄСТРУВАТИСЬ";
             // 
             // labelPasswordRepeatValid
             // 
@@ -167,7 +167,7 @@ namespace DP_music.Account.Registration
             this.buttonSignUp.Name = "buttonSignUp";
             this.buttonSignUp.Size = new System.Drawing.Size(389, 54);
             this.buttonSignUp.TabIndex = 2;
-            this.buttonSignUp.Text = "SIGN UP";
+            this.buttonSignUp.Text = "ЗАРЕЄСТРУВАТИСЬ";
             this.buttonSignUp.UseVisualStyleBackColor = true;
             this.buttonSignUp.Click += new System.EventHandler(this.buttonSignUp_Click);
             // 
@@ -184,7 +184,7 @@ namespace DP_music.Account.Registration
             this.customTextBoxEmail.Size = new System.Drawing.Size(389, 73);
             this.customTextBoxEmail.TabIndex = 0;
             this.customTextBoxEmail.TextInput = "";
-            this.customTextBoxEmail.TextPreview = "EMAIL";
+            this.customTextBoxEmail.TextPreview = "ЕЛЕКТРОННА АДРЕСА";
             // 
             // customTextBoxPasswordSubmit
             // 
@@ -199,7 +199,7 @@ namespace DP_music.Account.Registration
             this.customTextBoxPasswordSubmit.Size = new System.Drawing.Size(389, 73);
             this.customTextBoxPasswordSubmit.TabIndex = 0;
             this.customTextBoxPasswordSubmit.TextInput = "";
-            this.customTextBoxPasswordSubmit.TextPreview = "REPEAT PASSWORD";
+            this.customTextBoxPasswordSubmit.TextPreview = "ПОВТОРІТЬ ПАРОЛЬ";
             // 
             // customTextBoxPassword
             // 
@@ -214,7 +214,7 @@ namespace DP_music.Account.Registration
             this.customTextBoxPassword.Size = new System.Drawing.Size(389, 73);
             this.customTextBoxPassword.TabIndex = 0;
             this.customTextBoxPassword.TextInput = "";
-            this.customTextBoxPassword.TextPreview = "PASSWORD";
+            this.customTextBoxPassword.TextPreview = "ПАРОЛЬ";
             // 
             // customTextBoxName
             // 
@@ -229,7 +229,7 @@ namespace DP_music.Account.Registration
             this.customTextBoxName.Size = new System.Drawing.Size(389, 73);
             this.customTextBoxName.TabIndex = 0;
             this.customTextBoxName.TextInput = "";
-            this.customTextBoxName.TextPreview = "YOUR NAME";
+            this.customTextBoxName.TextPreview = "ЛОГІН";
             // 
             // SignUp
             // 

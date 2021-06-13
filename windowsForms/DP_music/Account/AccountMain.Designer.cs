@@ -74,7 +74,7 @@ namespace DP_music.Account
             this.buttonSignUp.Name = "buttonSignUp";
             this.buttonSignUp.Size = new System.Drawing.Size(310, 49);
             this.buttonSignUp.TabIndex = 1;
-            this.buttonSignUp.Text = "SIGN UP";
+            this.buttonSignUp.Text = "ЗАРЕЄСТРУВАТИСЬ";
             this.buttonSignUp.UseVisualStyleBackColor = false;
             this.buttonSignUp.Click += new System.EventHandler(this.buttonLogIn_Click);
             // 
@@ -90,7 +90,7 @@ namespace DP_music.Account
             this.buttonSignIn.Name = "buttonSignIn";
             this.buttonSignIn.Size = new System.Drawing.Size(310, 49);
             this.buttonSignIn.TabIndex = 1;
-            this.buttonSignIn.Text = "SIGN IN";
+            this.buttonSignIn.Text = "УВІЙТИ";
             this.buttonSignIn.UseVisualStyleBackColor = false;
             this.buttonSignIn.Click += new System.EventHandler(this.buttonSignIn_Click);
             // 

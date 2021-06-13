@@ -79,7 +79,6 @@ namespace DP_music.Account.Registration
                                     this.Close();
                                 }
                                 else
-                                    //MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     new Message(parent, loginStatus.errorMessage, true, false);
 
                                 parent.openChildForm(new Home(), parent.buttonHome, parent.buttonHomeName);
@@ -87,16 +86,10 @@ namespace DP_music.Account.Registration
                             }
                         }
                         else
-                        {
                             new Message(parent, "Така пошта вже зареєстрована!", true, false);
-                        }
-                        //MessageBox.Show("Таке ім'я вже зареєстрована!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
-                    //MessageBox.Show("Таке ім'я вже зареєстрован!е", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    {
                         new Message(parent, "Користувач з таким іменем вже зареєстрований!", true, false);
-                    }
                 }
                 else
                 // MessageBox.Show("Не валідна пошта!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -48,6 +48,7 @@ namespace DP_music.Account
                 var message = new Message(parent, "Упс.. Спробуйте вийти ще раз!", true, false);
             }
             AccountMain account = new AccountMain(parent);
+            parent.userName.Text = "Гість";
             parent.openChildForm(account, parent.buttonAccount, parent.buttonAccountName);
 
 

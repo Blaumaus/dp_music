@@ -26,6 +26,7 @@ namespace DP_music.Pages
         public Album album = null;
         public Record record = null;
         public List<Record> records = null;
+        public static Panel currentRecord = null;
 
         private string url = "http://164.90.166.133:7402/";
 
@@ -39,7 +40,7 @@ namespace DP_music.Pages
             int nWidthElipse,
             int nHeightElipse
         );
-
+        #region constructors
         public Records(mainForm parent)
         {
             this.parent = parent;
@@ -54,43 +55,44 @@ namespace DP_music.Pages
             this.album = album;
             labelRecord.Text = "АУДІО, ЯКІ ВІДНОСЯТЬСЯ ДО АЛЬБОМУ " + album.name.ToUpper();
             labelRecord.Font = new Font(new FontFamily("Century Gothic"), 14, FontStyle.Bold);
+            labelRecord.Location = new Point((panelHeader.Width - labelRecord.Width) / 2,
+                (panelHeader.Height - labelRecord.Height) / 2);
             buttonBack.Visible = true;
         }
 
         public Records(mainForm parent, Album album, Band band) : this(parent, album)
         {
             this.band = band;
-            buttonBack.Visible = true;
         }
         public Records(mainForm parent, Album album, Band band, Genre genre) : this(parent, album, band)
         {
             this.genre = genre;
-            buttonBack.Visible = true;
         }
+        #endregion
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
             if (genre != null && band != null && album != null)
-                parent.openChildForm(new AlbumDescription(parent, album, band, genre), parent.buttonGenres, parent.buttonGenresName);
+                parent.openChildForm(new AlbumDescription(parent, album, band, genre), parent.buttonAlbums, parent.buttonAlbumsName);
             else if (band != null && album != null)
-                parent.openChildForm(new AlbumDescription(parent, album, band), parent.buttonGenres, parent.buttonGenresName);
+                parent.openChildForm(new AlbumDescription(parent, album, band), parent.buttonAlbums, parent.buttonAlbumsName);
             else
-                parent.openChildForm(new AlbumDescription(parent, album), parent.buttonGenres, parent.buttonGenresName);
+                parent.openChildForm(new AlbumDescription(parent, album), parent.buttonAlbums, parent.buttonAlbumsName);
         }
 
         private async void Records_Load(object sender, EventArgs e)
         {
-            labelRecord.Location = new Point((panelHeader.Width - labelRecord.Width) / 2, (panelHeader.Height - labelRecord.Height) / 2);
-            if (album != null && band !=null)
-                records = await recordAPI.getRecords(album.id, band.id);
+            labelRecord.Location = new Point((panelHeader.Width - labelRecord.Width) / 2, 
+                (panelHeader.Height - labelRecord.Height) / 2);
+            if (album != null)
+                records = await recordAPI.getRecords(album.id);
             else
                 records = await recordAPI.getRecords();
-            if (records != null)
+            if (records != null && records.Count != 0)
             {
                 int i = 0;
                 int y = 0;
                 int x = 0;
-                panelContent.Width = records.Count * 103 + 30 * (records.Count + 1);
 
                 records.ForEach((record) =>
                 {
@@ -100,6 +102,12 @@ namespace DP_music.Pages
                     PictureBox pictureBoxPause = addPictureBoxPause(record.filePath);
                     Label labelNameRecord = addLabelNameRecord(record.name);
 
+                    if (currentRecord != null  && panelRecord.AccessibleName == currentRecord.AccessibleName)
+                    {
+                        panelRecord.BackColor = Color.FromArgb(50, 41, 52, 117);
+                        currentRecord = panelRecord;
+                    }
+
                     panelRecord.Controls.Add(pictureBoxRecord);
                     panelRecord.Controls.Add(buttonPlay);
                     panelRecord.Controls.Add(pictureBoxPause);
@@ -107,24 +115,25 @@ namespace DP_music.Pages
                     panelContent.Controls.Add(panelRecord);
 
                     pictureBoxRecord.Click += pictureBoxRecord_Click;
-                    if (currentRecord != null && currentRecord == buttonPlay.AccessibleName)
-                        buttonPlay_Click(buttonPlay, new EventArgs());
 
                     i++;
                     x = i % 2;
                     y = i / 2;
+                    
                 });
             }
             else
             {
                 labelEmptyRecords.Visible = true;
-                labelEmptyRecords.Location = new Point((panelContent.Width - labelEmptyRecords.Width) / 2, (panelContent.Height - labelEmptyRecords.Height) / 2);
+                labelEmptyRecords.Location = new Point((panelContent.Width - labelEmptyRecords.Width) / 2, 
+                    (panelContent.Height - labelEmptyRecords.Height) / 2);
             }
         }
 
         private Panel addPanel(int x, int y, Panel parent, string record)
         {
             Panel panelRecord = new Panel();
+            panelRecord.AccessibleName = record;
             panelRecord.Size = new Size(407, 103);
             panelRecord.Parent = parent;
             panelRecord.Location = new Point(30 * (x + 1) + 407 * x, 103 * y + 30 * (y + 1));
@@ -139,7 +148,6 @@ namespace DP_music.Pages
         {
             PictureBox record = (PictureBox)sender;
             Record currentRecord = records.FirstOrDefault(e => e.id == record.AccessibleName);
-            //parent.openChildForm(new AlbumDescription(parent, currentRecord, band, genre), parent.buttonAlbums, parent.buttonAlbumsName);
         }
 
         private PictureBox addPictureBoxRecord(string recordName)
@@ -151,10 +159,9 @@ namespace DP_music.Pages
 
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.BackColor = Color.Transparent;
-            pictureBoxImg.ImageLocation = Path.GetFullPath(@"..\..\..\pictures\record_blue.png");
+            pictureBoxImg.ImageLocation = Path.GetFullPath(@"..\..\..\pictures\record_icon(orig).png");
             pictureBoxImg.Cursor = Cursors.Hand;
 
-            //pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;
         }
 
@@ -182,7 +189,6 @@ namespace DP_music.Pages
             buttonPlay.BackColor = Color.Transparent;
             buttonPlay.AccessibleName = urlRecord;
             buttonPlay.Click += buttonPlay_Click;
-            buttonPlay.Leave += buttonPlay_MouseLeave;
 
             return buttonPlay;
         }
@@ -204,7 +210,6 @@ namespace DP_music.Pages
 
         private static MediaFoundationReader recordUrl;
         private static WaveOut output;
-        private static string currentRecord;
 
         public void buttonPlay_Click(object sender, EventArgs e)
         {
@@ -212,36 +217,27 @@ namespace DP_music.Pages
 
             if(output != null)
             {
-                if (currentRecord != button.AccessibleName)
+                if (currentRecord.AccessibleName != button.AccessibleName)
                 {
                     output.Stop();
-                    PlayMp3FromUrl(button.AccessibleName);
-                    button.Parent.BackColor = Color.FromArgb(50, 41, 52, 117);
+                    currentRecord.BackColor = Color.Transparent;
+                    PlayMp3FromUrl((Panel)button.Parent);
                 }
-                else if (output.PlaybackState == NAudio.Wave.PlaybackState.Paused)
+                else if (output.PlaybackState == PlaybackState.Paused)
                 {
                     output.Play();
                 }
-                else
-                    button.Parent.BackColor = Color.FromArgb(50, 41, 52, 117);
             }
             else
             {
-                PlayMp3FromUrl(button.AccessibleName);
-                button.Parent.BackColor = Color.FromArgb(50, 41, 52, 117);
+                PlayMp3FromUrl((Panel)button.Parent);
             }
-        }
-
-        public void buttonPlay_MouseLeave(object sender, EventArgs e)
-        {
-            Button pb = (Button)sender;
-            pb.Parent.BackColor = Color.Transparent;
         }
 
         public void pictureBoxPause_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
-            if(pb.AccessibleName == currentRecord)
+            if(pb.AccessibleName == currentRecord.AccessibleName)
             {
                 if (output.PlaybackState == NAudio.Wave.PlaybackState.Playing)
                 {
@@ -250,10 +246,11 @@ namespace DP_music.Pages
             }
         }
 
-        public static void PlayMp3FromUrl(string audioName)
+        public static void PlayMp3FromUrl(Panel currentPanel)
         {
-            recordUrl = new MediaFoundationReader("http://164.90.166.133:7402/" + audioName);
-            currentRecord = audioName;
+            recordUrl = new MediaFoundationReader("http://164.90.166.133:7402/" + currentPanel.AccessibleName);
+            currentRecord = currentPanel;
+            currentRecord.BackColor = Color.FromArgb(50, 41, 52, 117);
 
             output = new WaveOut();
             output.Init(recordUrl);

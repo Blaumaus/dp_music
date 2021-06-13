@@ -58,9 +58,9 @@ namespace DP_music.Pages
         private void buttonBack_Click(object sender, EventArgs e)
         {
             if(genre != null)
-                parent.openChildForm(new bandDescription(parent, band, genre), parent.buttonGenres, parent.buttonGenresName);
+                parent.openChildForm(new bandDescription(parent, band, genre), parent.buttonGroups, parent.buttonGroupsName);
             else
-                parent.openChildForm(new bandDescription(parent, band), parent.buttonGenres, parent.buttonGenresName);
+                parent.openChildForm(new bandDescription(parent, band), parent.buttonGroups, parent.buttonGroupsName);
         }
 
         private async void Albums_Load(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace DP_music.Pages
                 albums = await albumAPI.getAlbums(band.id);
             else
                 albums = await albumAPI.getAlbums();
-            if (albums != null)
+            if (albums != null && albums.Count != 0)
             {
                 int i = 0;
                 int x = 0;
@@ -110,7 +110,6 @@ namespace DP_music.Pages
             PictureBox pbBorder = new PictureBox();
             pbBorder.Size = new Size(240, 240);
             pbBorder.Location = new Point(41 * (x + 1) + 240 * x, 240 * y + 40 * (y + 1));
-            //pbBorder.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
             pbBorder.ImageLocation = url + path;
             pbBorder.SizeMode = PictureBoxSizeMode.StretchImage;
             pbBorder.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pbBorder.Width, pbBorder.Height, pbBorder.Width, pbBorder.Width));
@@ -133,13 +132,11 @@ namespace DP_music.Pages
             pictureBoxImg.Size = new Size(150, 150);
             pictureBoxImg.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxImg.BackColor = Color.Transparent;
-            //pictureBoxImg.ImageLocation = @"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\API\API\" + path;
             pictureBoxImg.Cursor = Cursors.Hand;
             pictureBoxImg.ImageLocation = url + path;
             pictureBoxImg.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, pictureBoxImg.Width, pictureBoxImg.Height, 
                 pictureBoxImg.Width, pictureBoxImg.Width));
 
-            //pictureBoxImg.BackColor = Color.White;
             return pictureBoxImg;
         }
 

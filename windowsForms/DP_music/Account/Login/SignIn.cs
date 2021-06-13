@@ -38,7 +38,6 @@ namespace DP_music.Account.Login
             this.parent = parent;
             InitializeComponent();
             panelChild.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, panelChild.Width, panelChild.Height, 25, 25));
-            //this.user = userMain;
             user = new User();
         }
 
@@ -75,7 +74,6 @@ namespace DP_music.Account.Login
                         this.Close();
                     }
                     else
-                        //MessageBox.Show(loginStatus.errorMessage, "Error login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         new Message(parent, loginStatus.errorMessage, true, false);
                 }
             }

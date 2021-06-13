@@ -40,13 +40,13 @@ namespace DP_music.API.query
             }
         }
 
-        public static async Task<Band> getBand(string genreId)
+        public static async Task<Band> getBand(string bandId)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "Band?genreId=" + genreId))
+                    using (HttpResponseMessage res = await client.GetAsync(basedURL + "Band/" + bandId))
                     {
                         using (HttpContent content = res.Content)
                         {

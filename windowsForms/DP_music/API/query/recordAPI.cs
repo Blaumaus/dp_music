@@ -40,7 +40,7 @@ namespace DP_music.API.query
             }
         }
 
-        public static async Task<List<Record>> getRecords(string albumId, string bandId)
+        public static async Task<List<Record>> getRecords(string albumId, string bandId="")
         {
             try
             {

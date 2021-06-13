@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using DP_music.Entities;
+using DP_music.API.query;
 
 namespace DP_music
 {

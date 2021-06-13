@@ -34,7 +34,7 @@ namespace DP_music.Pages
             int nHeightElipse
         );
 
-        private List<Genre> genres;
+        public List<Genre> genres;
         private mainForm parent;
         private string url = "http://164.90.166.133:7402/";
 
@@ -44,15 +44,14 @@ namespace DP_music.Pages
             InitializeComponent();
         }
 
-        private async void Genres_Paint(object sender, PaintEventArgs e)
+        private void Genres_Load(object sender, EventArgs e)
         {
-            genres = await genreAPI.GetAllGenres();
-
+            //genres = await genreAPI.GetAllGenres();
             if (genres != null)
             {
                 int x = 0;
                 int y = 0;
-                for(int i = 0; i < genres.Count; i++)
+                for (int i = 0; i < genres.Count; i++)
                 {
                     x = i % 2;
                     y = i / 2;
@@ -67,6 +66,7 @@ namespace DP_music.Pages
                     labelName.BackColor = Color.Transparent;
 
                     pictureBoxGenre.ImageLocation = url + genres[i].image;
+
                     panelGenre.Controls.Add(pictureBoxDescription);
                     panelGenre.Controls.Add(pictureBoxGenre);
                     panelGenre.Controls.Add(labelName);
@@ -77,7 +77,7 @@ namespace DP_music.Pages
             else
             {
                 labelEmptyGanres.Visible = true;
-                labelEmptyGanres.Location = new Point((panelContent.Width - labelEmptyGanres.Width) / 2, 
+                labelEmptyGanres.Location = new Point((panelContent.Width - labelEmptyGanres.Width) / 2,
                     (panelContent.Height - labelEmptyGanres.Height) / 2);
             }
         }
@@ -138,7 +138,7 @@ namespace DP_music.Pages
             pictureBoxImg.Parent = parent;
             pictureBoxImg.BackColor = Color.Transparent;
             pictureBoxImg.Cursor = Cursors.Hand;
-            pictureBoxImg.ImageLocation = Path.GetFullPath(@"D:\ВТК\4 курс\#Диплом\Проекти\DP_music\windowsForms\DP_music\pictures\description3.png");
+            pictureBoxImg.ImageLocation = Path.GetFullPath(@"..\..\..\pictures\description3.png");
             pictureBoxImg.Click += pictureBoxImg_Click;
 
             return pictureBoxImg;
