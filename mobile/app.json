@@ -4,13 +4,13 @@
   "expo": {
     "name": "DP Music",
     "slug": "dp-music",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
       "package": "com.blaumaus.dpmusic",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/record.png"
       },
@@ -18,7 +18,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.blaumaus.dpmusic",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.2"
     },
     "icon": "./src/assets/record.png",
     "privacy": "hidden",

@@ -49,9 +49,9 @@
     "refresh": "Обновить",
     "name": "Название",
     "description": "Описание",
-    "foundationDate": "Foundation date",
+    "foundationDate": "Дата основания",
     "year": "Год выпуска",
-    "countryCode": "Country",
+    "countryCode": "Страна",
     "lyrics": "Текст песни",
     "absent": "[Отсутствует]"
   },

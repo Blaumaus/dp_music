@@ -66,7 +66,7 @@ const Songs = ({ route, navigation, theme }) => {
   const styles = getStyles(theme)
   const { t } = useTranslation('common')
   const [songs, setSongs] = useState([])
-  const [activeSong, setActiveSong] = useState([])
+  const [activeSong, setActiveSong] = useState({})
   const [loading, setLoading] = useState(true)
   const [sound, setSound] = useState()
   const [playbackStatus, setPlaybackStatus] = useState({})
@@ -108,7 +108,9 @@ const Songs = ({ route, navigation, theme }) => {
   }
 
   const stopSound = async () => {
-    await sound.stopAsync()
+    if (!_isEmpty(sound)) {
+      await sound.stopAsync()
+    }
   }
 
   const onTogglePlay = async () => {
@@ -156,6 +158,15 @@ const Songs = ({ route, navigation, theme }) => {
       loadSound(CDN_URL + filePath)
     }
   }, [activeSong])
+
+  useEffect(() => {
+    const blur = navigation.addListener('blur', async () => {
+      setActiveSong({})
+      setSound()
+    })
+
+    return blur
+  }, [navigation])
 
   const loadSongs = async () => {
     setLoading(true)

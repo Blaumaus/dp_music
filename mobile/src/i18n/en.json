@@ -22,6 +22,7 @@
   },
   "auth": {
     "signin": "Sign in",
+    "signup": "Sign up",
     "forgotPassword": "Forgot password",
     "login": "Username",
     "email": "Email",

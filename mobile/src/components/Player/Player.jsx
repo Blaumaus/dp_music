@@ -32,6 +32,9 @@ const getStyles = theme => StyleSheet.create({
     left: 20,
     width: Dimensions.get('window').width - 80,
   },
+  progressBar2: {
+    opacity: 0.45,
+  },
   songTitle: {
     textAlign: 'center',
     fontSize: 18,
@@ -71,7 +74,7 @@ const getStyles = theme => StyleSheet.create({
 // todo: add mute functionality
 const Player = ({
   theme, name, bandName, isPlaying, positionMillis, durationMillis, onTogglePlay, onToggleLoop,
-  onToggleNext, onToggleStop, onTogglePrev, isLoaded, isBuffering, isLooping, // isMuted,
+  onToggleNext, onToggleStop, onTogglePrev, isLoaded, isBuffering, isLooping, playableDurationMillis, // isMuted,
 }) => {
   const styles = getStyles(theme)
 
@@ -92,6 +95,14 @@ const Player = ({
         <View style={styles.progressBar}>
           <ProgressBar
             progress={(positionMillis / durationMillis) * 100}
+            height={6}
+            backgroundColor='#3366ff'
+            progressBackgroundColor={Colors.blue70}
+          />
+        </View>
+        <View style={[styles.progressBar, styles.progressBar2]}>
+          <ProgressBar
+            progress={(playableDurationMillis / durationMillis) * 100}
             height={6}
             backgroundColor='#3366ff'
             progressBackgroundColor={Colors.blue70}
@@ -132,6 +143,7 @@ Player.propTypes = {
   isPlaying: PropTypes.bool,
   positionMillis: PropTypes.number,
   durationMillis: PropTypes.number,
+  playableDurationMillis: PropTypes.number,
   isBuffering: PropTypes.bool,
   name: PropTypes.string,
   bandName: PropTypes.string,
@@ -152,6 +164,7 @@ Player.defaultProps = {
   onToggleStop: () => { },
   positionMillis: 0,
   durationMillis: 100,
+  playableDurationMillis: 0,
   isPlaying: true,
   isLooping: false,
   isBuffering: true,
